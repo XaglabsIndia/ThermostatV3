@@ -81,7 +81,7 @@ uint8_t LoraSingleRXLength =20;
 
 char HUBKeyMain[10] = "HUBID";
 char DEVKeyMain[10] = "DEVID";
-char THKeyMain[10] = "THID";
+char TempKeyMain[10] = "TempC";
 char RelayKeyMain[10] = "RELAYID";
 float set_temperature = 20.0f; // Default temperature, now a float
 // char OTAC[10] = "OTAC";
@@ -90,7 +90,7 @@ char mqttTopic[20];
 int InitValueMain =0;
 uint32_t notification;
 static char CurrentMessage[255];
-int StoredDevID, StoredHubID;
+int StoredDevID, StoredHubID,StroredTempCheck;
 float Globaltemperature = 0.0;
 int TaskResetDecision = 0;
 static char g_message_id[3] = {0};
@@ -989,36 +989,28 @@ void InitalizeProgram(){
         printf("*******************************\n");
     printf("*******Temp Button check Start********\n");
     printf("*******************************\n");
-       InitTempButton();
+    // esp_err_t TempKeyStatus = CheckStoredKeyStatus(TempKeyMain, &ValueMain);
+    // if(TempKeyStatus == 4354 )
+    // {
+    //   esp_err_t TempKeyValue = save_int_to_nvs(TempKeyMain,1);
+    //   if (TempKeyValue == ESP_OK)
+    //   {
+    //     esp_err_t err = read_int_from_nvs(TempKeyMain, &StroredTempCheck);
+    // if (err != ESP_OK) {
+    //     ESP_LOGE("StoreID", "Failed to read DevID from NVS");
+    // }
+    // ESP_LOGI(TAG, "StroredTempCheck written: %d", StroredTempCheck);
+    // if (StroredTempCheck == 1) {
+    //    InitTempButton();
+    // }
+    //   }  
+    // }
+
+   
     printf("*******************************\n");
     printf("*******Temp Button check Stop********\n");
     printf("*******************************\n");
 
-    // Check wake-up reason
-    esp_sleep_wakeup_cause_t wakeup_reason = esp_sleep_get_wakeup_cause();
-    print_wakeup_reason();
-
-    switch (wakeup_reason) {
-        case ESP_SLEEP_WAKEUP_EXT0:
-        case ESP_SLEEP_WAKEUP_EXT1:
-            // Handle button wake-up
-            //InitTempButton();
-            printf("Button press");
-            break;
-        case ESP_SLEEP_WAKEUP_ULP:
-            // Handle ULP wake-up
-            // Add your ULP handling code here
-             printf("ULP");
-            break;
-        default:
-            // First boot or unexpected wake-up
-            // Initialize everything
-           // InitTempButton();
-            printf(" default Button press");
-           
-            // Add any other initialization needed
-            break;
-    }
     printf("*******************************\n");
     printf("**Transmit Queue Starts***\n");
     printf("*******************************\n");
@@ -1030,7 +1022,7 @@ void InitalizeProgram(){
         /////////////////Initlize LiitleFS//////////////////////
     // Initialize LittleFS
    init_littlefs();
-   send_lora_message(201, 100, "AT",30);
+    InitTempButton();
     ///////////////////////////END////////////////////
   ///////////////////////////////////END///////////////////////////
   //Temperaturedata();

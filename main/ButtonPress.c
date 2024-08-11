@@ -13,6 +13,7 @@
 #include "xag_nvs_component.h"
 #include "MultiButtonHeader.h"
 #include "Config.h"
+#include <string.h>
 
 // #define CONFIGCONFIG_BUTTON_INC_GPIO 25
 // #define CONFIG_BUTTON_DEC_GPIO 27
@@ -30,8 +31,40 @@ typedef struct {
     uint32_t gpio_num;
     int64_t time;
 } gpio_event_t;
+////////////////////RTC/////////////////////
+#define RTC_DATA_ATTR __attribute__((section(".rtc_data")))
 
+static const char *TAG = "RTC_MESSAGE_HANDLER";
+
+// RTC data to store the message
+RTC_DATA_ATTR char rtc_message[32] = {0};
+////////////////END////////////////////
 int64_t last_button_press[2] = {0, 0}; // Array to store last press time for each button
+
+void RTCMessageCheck(void){
+       if (strlen(rtc_message) > 0) {
+        ESP_LOGI(TAG, "Message found in RTC memory: %s", rtc_message);
+
+        // Check if the message is a temperature setting
+        float temperature;
+        if (sscanf(rtc_message, "%f", &temperature) == 1) {
+            ESP_LOGI(TAG, "Temperature setting: %.2f", temperature);
+        }
+        // Check if the message is "W"
+        else if (strcmp(rtc_message, "W") == 0) {
+            ESP_LOGI(TAG, "W command received");
+        }
+        else {
+            ESP_LOGI(TAG, "Unknown message format");
+        }
+
+        // Clear the message after processing
+        memset(rtc_message, 0, sizeof(rtc_message));
+    }
+    else {
+        ESP_LOGI(TAG, "No message in RTC memory");
+    }
+}
 
 void print_wakeup_reason() {
     esp_sleep_wakeup_cause_t wakeup_reason = esp_sleep_get_wakeup_cause();

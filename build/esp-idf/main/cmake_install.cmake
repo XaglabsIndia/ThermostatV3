@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Lijith/OneDrive/Desktop/ThermostatV3/main
+# Install script for directory: C:/Users/Lijith/OneDrive/Desktop/ThermostatV3/ThermostatV3/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Lijith/OneDrive/Desktop/ThermostatV3/components/MultiButton
+# Install script for directory: C:/Users/Lijith/OneDrive/Desktop/ThermostatV3/ThermostatV3/components/MultiButton
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

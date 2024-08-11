@@ -1,0 +1,9 @@
+menu "OTA Configuration"
+
+    config FIRMWARE_UPGRADE_URL
+        string "Firmware Upgrade URL"
+        default "https://home.nudgeenergy.co.uk/ftpuser/NEMS/HUB_LORA/advanced_https_ota.bin"
+        help
+            URL of server which hosts the firmware image.
+
+endmenu

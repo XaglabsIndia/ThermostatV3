@@ -1,0 +1,23 @@
+menu "MQTT Configuration"
+
+
+    config USER_NAME
+        string "MQTT User Name"
+        default "esquare"
+        help
+            User name of the broker to connect to
+
+    config PASSWORD
+        string "MQTT Password"
+        default "Abcd1234"
+        help
+            Password of the broker to connect to
+
+                    
+    config BROKER_URL
+        string "Broker URL"
+        default "mqtt://esquare:Abcd1234@195.35.29.48:1883"
+        help
+            URL of the broker to connect to
+
+endmenu

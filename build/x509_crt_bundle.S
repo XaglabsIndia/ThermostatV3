@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/Lijith/OneDrive/Desktop/ThermostatV3/ThermostatV3/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

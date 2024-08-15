@@ -19,14 +19,14 @@
 // #define CONFIG_BUTTON_DEC_GPIO 27
 #define DEBOUNCE_TIME 100 // ms
 #define MIN_TEMPERATURE 1.0f  // Minimum temperature limit
-#define MAX_TEMPERATURE 30.0f  // Maximum temperature limit
+#define MAX_TEMPERATURE 50.0f  // Maximum temperature limit
 #define NVS_KEY "set_temp_f"
 #define BUTTON_TASK_TIMEOUT 5000 // 5 seconds in ms
 #define TEMPERATURE_STEP 0.5f // Temperature change step
  const char* ButtonTag = "Button Press";
 extern float set_temperature;
 QueueHandle_t gpio_evt_queue = NULL;
-
+void load_set_temperature(void);
 typedef struct {
     uint32_t gpio_num;
     int64_t time;
@@ -40,7 +40,15 @@ static const char *TAG = "RTC_MESSAGE_HANDLER";
 RTC_DATA_ATTR char rtc_message[32] = {0};
 ////////////////END////////////////////
 int64_t last_button_press[2] = {0, 0}; // Array to store last press time for each button
-
+ void IRAM_ATTR gpio_isr_handler(void* arg)
+{
+    uint32_t gpio_num = (uint32_t) arg;
+    gpio_event_t event = {
+        .gpio_num = gpio_num,
+        .time = esp_timer_get_time()
+    };
+    xQueueSendFromISR(gpio_evt_queue, &event, NULL);
+}
 void RTCMessageCheck(void){
        if (strlen(rtc_message) > 0) {
         ESP_LOGI(TAG, "Message found in RTC memory: %s", rtc_message);
@@ -49,6 +57,16 @@ void RTCMessageCheck(void){
         float temperature;
         if (sscanf(rtc_message, "%f", &temperature) == 1) {
             ESP_LOGI(TAG, "Temperature setting: %.2f", temperature);
+            gpio_isr_handler_remove(CONFIG_BUTTON_INC_GPIO);
+            gpio_isr_handler_remove(CONFIG_BUTTON_DEC_GPIO);
+            esp_err_t RetDevValue = save_float_to_nvs(NVS_KEY, set_temperature);
+            if (RetDevValue == ESP_OK)
+            {
+                 ESP_LOGI(TAG, "NVS Temperature setting: %.2f", set_temperature);
+            }  
+            load_set_temperature();
+            gpio_isr_handler_add(CONFIG_BUTTON_INC_GPIO, gpio_isr_handler, (void*) CONFIG_BUTTON_INC_GPIO);
+            gpio_isr_handler_add(CONFIG_BUTTON_DEC_GPIO, gpio_isr_handler, (void*) CONFIG_BUTTON_DEC_GPIO);
         }
         // Check if the message is "W"
         else if (strcmp(rtc_message, "W") == 0) {
@@ -145,15 +163,7 @@ void enter_sleep_mode(void) {
     ESP_LOGI(ButtonTag, "Entering deep sleep mode");
     esp_deep_sleep_start();
 }
- void IRAM_ATTR gpio_isr_handler(void* arg)
-{
-    uint32_t gpio_num = (uint32_t) arg;
-    gpio_event_t event = {
-        .gpio_num = gpio_num,
-        .time = esp_timer_get_time()
-    };
-    xQueueSendFromISR(gpio_evt_queue, &event, NULL);
-}
+
 
 void save_temperature(void)
 {

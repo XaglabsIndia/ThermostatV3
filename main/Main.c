@@ -69,12 +69,16 @@ bool ParseMessage(const char* input);
 
 
 char* TAG = "Main";
-int ConfigDevID = 201;
+int ConfigDevID = 203;
 int OTACN = 0;
 char NEMS_ID[20] = "NEMS";
 /////////Lora RX Continious Mode//////////////// 
 int TimeIntervalRX = 5;
-uint8_t LoraContiRXLength[] = {25,220,27,9};
+const int OTARXMessageHub = 31;
+const int OTAWifiAckTXMessageHub = 30;
+const int WIFRXMessageLength =220;
+const int ThermostatRXACK = 27;
+uint8_t LoraContiRXLength[] = {ThermostatRXACK,WIFRXMessageLength,OTARXMessageHub};
 char txBuffer[255];
 ////////Lora RX Single Mode//////////////// 
 uint8_t LoraSingleRXLength =20;
@@ -305,14 +309,6 @@ cleanup:
 }
 
 
-void SetHeaterState(bool on) {
-    gpio_set_level(CONFIG_BLUE_LED_GPIO, 0);
-    gpio_set_level(CONFIG_RED_LED_GPIO, !on);
-    gpio_set_level(CONFIG_GREEN_LED_GPIO, on);
-    gpio_set_level(CONFIG_RELAY_GPIO, on);
-    save_int_to_nvs(RelayKeyMain, on ? 1 : 0);
-    printf(" *************   Heater %s   *************\n", on ? "On" : "Off");
-}
 void HandleAckMessage(const char* ack_message) {
     ESP_LOGI(TAG, "Received ACK message: %s", ack_message);
 
@@ -364,7 +360,7 @@ void HandleOTAMessage( const char* message_id,int DevID,int HubID){
             char ack_message[20];
             snprintf(ack_message, sizeof(ack_message), "%s|ACK", message_id);
             
-            char* lora_message = CreateLoraMessage(DevID, HubID, ack_message, 30);
+            char* lora_message = CreateLoraMessage(DevID, HubID, ack_message, OTAWifiAckTXMessageHub);
             if (lora_message != NULL) {
                 esp_err_t send_result;
                 int retry_count = 0;
@@ -396,106 +392,13 @@ void HandleOTAMessage( const char* message_id,int DevID,int HubID){
                 }
 }
 
-void HandleThIdMessage(const char* numStart, const char* message_id, int DevID, int HubID) {
-    char numStr[10] = {0};
-    int i = 0;
-    while (isdigit((unsigned char)*numStart) && i < 9) {
-        numStr[i++] = *numStart++;
-    }
-    if (i > 0) {
-        int thidValue = atoi(numStr);
-        esp_err_t err = save_int_to_nvs("THID", thidValue);
-        if (err != ESP_OK) {
-            ESP_LOGE(TAG, "Failed to save ThID to NVS: %s", esp_err_to_name(err));
-        } else {
-            ESP_LOGI(TAG, "Saved ThID %d to NVS", thidValue);
-            
-            // Create and send ACK message
-            char ack_message[20];
-            snprintf(ack_message, sizeof(ack_message), "%s|ACK", message_id);
-            
-            char* lora_message = CreateLoraMessage(DevID, HubID, ack_message, 30);
-            if (lora_message != NULL) {
-                esp_err_t send_result;
-                int retry_count = 0;
-                do {
-                    send_result = SendMessageWithCAD(lora_message);
-                    if (send_result != ESP_OK) {
-                        ESP_LOGW(TAG, "Failed to send ACK, retrying... (attempt %d)", retry_count + 1);
-                        vTaskDelay(pdMS_TO_TICKS(ACK_RETRY_DELAY_MS));
-                    }
-                    retry_count++;
-                } while (send_result != ESP_OK && retry_count < ACK_RETRY_COUNT);
-
-                if (send_result == ESP_OK) {
-                    ESP_LOGI(TAG, "ACK sent successfully");
-                } else {
-                    ESP_LOGE(TAG, "Failed to send ACK after %d attempts", ACK_RETRY_COUNT);
-                }
-                
-                free(lora_message);
-            } else {
-                ESP_LOGE(TAG, "Failed to create LoRa message for ACK");
-            }
-        }
-    } else {
-        ESP_LOGE(TAG, "Invalid ThID format");
-    }
-}
-
-void HandleStatusMessage() {
-    int retry = 0;
-    vTaskSuspend(LoraRXContiniousTaskHandle);
-    int valueMain;
-    esp_err_t checkRelStatus = CheckStoredKeyStatus(RelayKeyMain, &valueMain);
-    if (checkRelStatus != ESP_OK) {
-        ESP_LOGE("HandleStatusMessage", "Failed to check relay status");
-        goto cleanup;
-    }
-
-    char* relayStatus = IntStrCoverter(valueMain, 2);
-    if (relayStatus == NULL) {
-        ESP_LOGE("HandleStatusMessage", "Failed to convert relay status to string");
-        goto cleanup;
-    }
-
-    char* statusMessage = CreateLoraMessage(ConfigDevID, StoredHubID, relayStatus, 30);
-    if (statusMessage == NULL) {
-        ESP_LOGE("HandleStatusMessage", "Failed to create status message");
-        free(relayStatus);
-        goto cleanup;
-    }
-
-    esp_err_t sendResult;
-    do {
-        sendResult = SendMessageWithCAD(statusMessage);
-        if (sendResult != ESP_OK) {
-            ESP_LOGW("SendStatus", "Send attempt %d failed. Retrying...", ++retry);
-            vTaskDelay(pdMS_TO_TICKS(1000));
-        }
-    } while (sendResult != ESP_OK && retry < 3);
-
-    if (sendResult == ESP_OK) {
-        ESP_LOGI("SendStatus", "Message sent successfully after %d attempt(s)", retry + 1);
-    } else {
-        ESP_LOGE("SendStatus", "Failed to send message after %d attempts", retry);
-    }
-
-    free(relayStatus);
-    free(statusMessage);
-
-cleanup:
-    vTaskResume(LoraRXContiniousTaskHandle);
-    RecivedLoraContiniousModeInit();
-}
-
 void HandleWiFiChangeMessage(const char* ssid, const char* password, const char* message_id, int DevID, int HubID) {
     ESP_LOGI(TAG, "Handling WiFi change message. SSID: %s, Password: %s", ssid, password);
     StoreHardcodeWiFiData(ssid,password);
     char ack_message[20];
     snprintf(ack_message, sizeof(ack_message), "%s|ACK", message_id);
     
-    char* lora_message = CreateLoraMessage(DevID, HubID, ack_message, 30);
+    char* lora_message = CreateLoraMessage(DevID, HubID, ack_message, OTAWifiAckTXMessageHub);
     if (lora_message != NULL) {
         esp_err_t send_result;
         int retry_count = 0;
@@ -805,18 +708,18 @@ static void init_littlefs()
 //////////////////////Temperature data message formation //////////////////
 void Temperaturedata(void) {
     // Convert integer temperature to float (assuming 2 decimal places precision)
-    float temperatureF = (float)HDC1080_temp_data() / 100.0f;
-    float humidityF = (float)HDC1080_humid_data() / 100.0f;
+    float temperatureF = HDC1080_temp_data();
+    int humidityF = HDC1080_humid_data();
     
-    printf("Temperature: %.2f, Humidity: %.2f\n", temperatureF, humidityF);
+    printf("Temperature: %.2f, Humidity: %d\n", temperatureF, humidityF);
 
     char Temperaturechar[MAX_FLOAT_STR_LEN];
-    char Humidity[MAX_FLOAT_STR_LEN];
+    //char Humidity[MAX_FLOAT_STR_LEN];
     char settemperature[MAX_FLOAT_STR_LEN];
     const char* Battery = "30";  // Kept as const char*
 
     floatToString(temperatureF, Temperaturechar, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
-    floatToString(humidityF, Humidity, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
+    char* Humidity = IntStrCoverter(humidityF,3);
     floatToString(set_temperature, settemperature, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
 
     size_t message_len = strlen(Temperaturechar) + strlen(Humidity) + 
@@ -844,6 +747,7 @@ void Temperaturedata(void) {
     }
 
     free(GenMessageTemp);
+    free(Humidity);
 }
 ///////////////////////END////////////////////////////////////////////////
 
@@ -919,7 +823,7 @@ void app_main()
     printf("*****************************\n"); 
 ///////////////////////////////////END///////////////////////////
   /////////////////////////Provision Check//////////////////////////////////////
-
+save_int_to_nvs(HUBKeyMain,100);
     xTaskCreate(AutoProvisionTask, "AutoProvisionTask", 10096, NULL, 0, &AutoProvision);
     esp_err_t CheckStatus = CheckStoredKeyStatus(HUBKeyMain, &ValueMain);
     if(CheckStatus == 4354){
@@ -1022,7 +926,7 @@ void InitalizeProgram(){
         /////////////////Initlize LiitleFS//////////////////////
     // Initialize LittleFS
    init_littlefs();
-    InitTempButton();
+   InitTempButton();
     ///////////////////////////END////////////////////
   ///////////////////////////////////END///////////////////////////
   //Temperaturedata();

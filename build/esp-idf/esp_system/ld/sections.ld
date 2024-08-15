@@ -1,6 +1,6 @@
 /* Automatically generated file; DO NOT EDIT */
 /* Espressif IoT Development Framework Linker Script */
-/* Generated from: C:\Users\Lijith\OneDrive\Desktop\ThermostatV3\ThermostatV3\build\esp-idf\esp_system\ld\sections.ld.in */
+/* Generated from: C:\Users\Tester\Documents\Lijith\CurrentImplemntation\Thermosata\ThermostatV3\build\esp-idf\esp_system\ld\sections.ld.in */
 
 /*
 

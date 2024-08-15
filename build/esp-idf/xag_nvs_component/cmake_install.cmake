@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Lijith/OneDrive/Desktop/ThermostatV3/ThermostatV3/components/xag_nvs_component
+# Install script for directory: C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/components/xag_nvs_component
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

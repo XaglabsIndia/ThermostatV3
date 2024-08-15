@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/Lijith/OneDrive/Desktop/ThermostatV3/ThermostatV3/components/xag_ota_component/server_certs/ca_cert.pem
+/* * Data converted from C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/components/xag_ota_component/server_certs/ca_cert.pem
  */
 .data
 .section .rodata.embedded

@@ -17,3 +17,18 @@ cJSON* load_ack_json(void);
 void save_ack_json(cJSON* json);
 void create_or_update_ack(const char* message_id, const char* status);
 const char* check_ack_status(const char* message_id);
+void ulp_component(int ulp_timer_wakeup_time_in_min);
+void configure_gpio();
+void print_wakeup_reason();
+void configure_wakeup();
+void process_and_send_hdc1080_data(void);
+/////ULP
+// This is the ponter which stores the address of the incoming LoRa message
+extern uint32_t *address_tx;
+// This is the ponter which stores the address of the incoming LoRa message
+extern uint32_t *address;
+// This is the ponter which stores the address of the incoming hdc1080 sensor temperature buffer
+extern uint32_t *address_t;
+// This is the ponter which stores the address of the incoming hdc1080 sensor humidity buffer
+extern uint32_t *address_h;
+////////////

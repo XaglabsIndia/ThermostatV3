@@ -168,8 +168,9 @@ void lora_queue_task(void *pvParameters) {
                     ESP_LOGI(LoraCommTag, "Message sent successfully: %s", message);
                 } else {
                     ESP_LOGW(LoraCommTag, "Failed to send message, retrying: %s", esp_err_to_name(result));
-                    vTaskDelay(pdMS_TO_TICKS(1000)); // Wait for 1 second before retrying
+                     // Wait for 1 second before retrying
                 }
+                vTaskDelay(pdMS_TO_TICKS(1000));
 
             } while (result != ESP_OK);
         }
@@ -178,7 +179,7 @@ void lora_queue_task(void *pvParameters) {
 
 // Function to start the LoRa queue task
 void start_lora_queue_task(void) {
-    xTaskCreatePinnedToCore(lora_queue_task, "lora_queue_task", 4192, NULL, 5, NULL,1);
+    xTaskCreatePinnedToCore(lora_queue_task, "lora_queue_task", 8192, NULL,2, NULL,1);
 }
 
 

@@ -5,18 +5,18 @@ cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
   "C:/Espressif/frameworks/esp-idf-v5.2.2/components/bootloader/subproject"
-  "C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/build/bootloader"
-  "C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/build/bootloader-prefix"
-  "C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/build/bootloader-prefix/tmp"
-  "C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/build/bootloader-prefix/src/bootloader-stamp"
-  "C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/build/bootloader-prefix/src"
-  "C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/build/bootloader-prefix/src/bootloader-stamp"
+  "C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/bootloader"
+  "C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/bootloader-prefix"
+  "C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/bootloader-prefix/tmp"
+  "C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/bootloader-prefix/src/bootloader-stamp"
+  "C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/bootloader-prefix/src"
+  "C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

@@ -1,0 +1,134 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x0000000000000000 0x0000000000001ff0 rw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+
+.text           0x0000000000000000     0x1b00 load address 0x000000000000000c
+ *(.text)
+ .text          0x0000000000000000       0x88 CMakeFiles/ulp_main.dir/main.ulp.S.obj
+                0x0000000000000000                entry
+                0x0000000000000050                waitMs
+                0x000000000000006c                exit
+                0x0000000000000070                wake_up
+ .text          0x0000000000000088      0x42c CMakeFiles/ulp_main.dir/hdc1080.ulp.S.obj
+                0x0000000000000088                Read_HDC1080
+                0x00000000000001ec                Cmd_Write_HDC1080
+                0x0000000000000248                popfail
+                0x0000000000000260                data_Write_HDC1080
+                0x00000000000002ec                Start_HDC1080
+                0x00000000000003b4                Task_HDC1080
+                0x00000000000003f0                comparison_buffer_manager
+                0x0000000000000490                retloop
+                0x00000000000004a8                retloop2
+ .text          0x00000000000004b4      0x8c0 CMakeFiles/ulp_main.dir/LoRa.ulp.S.obj
+                0x00000000000004b4                rx_entry
+                0x00000000000004f8                rx_lora_init
+                0x000000000000093c                lora_parse
+                0x0000000000000ab8                receive_lora
+                0x0000000000000b64                lora_read_PL_len
+                0x0000000000000cac                read_loop
+ .text          0x0000000000000d74      0x9c4 CMakeFiles/ulp_main.dir/lora_tx.ulp.S.obj
+                0x0000000000000d74                tx_entry
+                0x0000000000000d94                tx_lora_init
+                0x00000000000011d8                lora_begin
+ .text          0x0000000000001738       0x88 CMakeFiles/ulp_main.dir/spi.ulp.S.obj
+                0x0000000000001738                SPI_Write_Byte
+                0x0000000000001780                SPI_Read_Byte
+ .text          0x00000000000017c0      0x1a0 CMakeFiles/ulp_main.dir/i2c.ulp.S.obj
+                0x00000000000017c0                i2c_start_cond
+                0x0000000000001824                i2c_stop_cond
+                0x0000000000001868                i2c_write_bit
+                0x000000000000189c                i2c_read_bit
+                0x00000000000018c8                i2c_write_byte
+                0x0000000000001908                i2c_read_byte
+ .text          0x0000000000001960        0x0 CMakeFiles/ulp_main.dir/stack.ulp.S.obj
+ .text          0x0000000000001960      0x1a0 CMakeFiles/ulp_main.dir/conditions.ulp.S.obj
+                0x0000000000001960                Condition_Check_T
+                0x0000000000001998                Condition_1_T
+                0x0000000000001a64                Condition_2_T
+                0x0000000000001a68                Condition_3_T
+                0x0000000000001a6c                Condition_4_T
+                0x0000000000001a80                Condition_Check_F
+                0x0000000000001a84                AddressMismatch
+                0x0000000000001a88                AddressMatch
+
+.data           0x0000000000001b00        0x0 load address 0x0000000000001b0c
+                0x0000000000001b00                . = ALIGN (0x4)
+ *(.data)
+ .data          0x0000000000001b00        0x0 CMakeFiles/ulp_main.dir/main.ulp.S.obj
+ .data          0x0000000000001b00        0x0 CMakeFiles/ulp_main.dir/hdc1080.ulp.S.obj
+ .data          0x0000000000001b00        0x0 CMakeFiles/ulp_main.dir/LoRa.ulp.S.obj
+ .data          0x0000000000001b00        0x0 CMakeFiles/ulp_main.dir/lora_tx.ulp.S.obj
+ .data          0x0000000000001b00        0x0 CMakeFiles/ulp_main.dir/spi.ulp.S.obj
+ .data          0x0000000000001b00        0x0 CMakeFiles/ulp_main.dir/i2c.ulp.S.obj
+ .data          0x0000000000001b00        0x0 CMakeFiles/ulp_main.dir/stack.ulp.S.obj
+ .data          0x0000000000001b00        0x0 CMakeFiles/ulp_main.dir/conditions.ulp.S.obj
+
+.bss            0x0000000000001b00      0x46c load address 0x0000000000001b0c
+                0x0000000000001b00                . = ALIGN (0x4)
+ *(.bss)
+ .bss           0x0000000000001b00       0x98 CMakeFiles/ulp_main.dir/main.ulp.S.obj
+                0x0000000000001b00                stack
+                0x0000000000001b8c                stackEnd
+                0x0000000000001b90                temperature
+                0x0000000000001b94                humidity
+ .bss           0x0000000000001b98      0x180 CMakeFiles/ulp_main.dir/hdc1080.ulp.S.obj
+                0x0000000000001b98                HDC1080_dummy
+                0x0000000000001ba0                HDC1080_dummy1
+                0x0000000000001ba8                HDC1080_buffer
+                0x0000000000001c5c                HDC1080_humidbuffer
+                0x0000000000001d10                init
+                0x0000000000001d14                sensor_count_value
+ .bss           0x0000000000001d18       0x74 CMakeFiles/ulp_main.dir/LoRa.ulp.S.obj
+                0x0000000000001d18                rx_count
+                0x0000000000001d1c                rx_fifo
+                0x0000000000001d6c                rx_fifo1
+                0x0000000000001d70                reg_addr
+                0x0000000000001d74                pay_len
+                0x0000000000001d78                pay_lend
+                0x0000000000001d7c                temp
+                0x0000000000001d80                temp1
+                0x0000000000001d84                rx_c
+                0x0000000000001d88                init_rx
+ .bss           0x0000000000001d8c      0x1bc CMakeFiles/ulp_main.dir/lora_tx.ulp.S.obj
+                0x0000000000001d8c                tx_counter
+                0x0000000000001d90                tx_fifo
+                0x0000000000001f34                rx_counter
+                0x0000000000001f38                FIFOEnd
+                0x0000000000001f3c                counter
+                0x0000000000001f40                init_tx
+                0x0000000000001f44                tx_c
+ .bss           0x0000000000001f48        0x4 CMakeFiles/ulp_main.dir/spi.ulp.S.obj
+                0x0000000000001f48                spi_mode
+ .bss           0x0000000000001f4c       0x18 CMakeFiles/ulp_main.dir/i2c.ulp.S.obj
+                0x0000000000001f4c                i2c_started
+                0x0000000000001f50                i2c_didInit
+                0x0000000000001f54                i2c_started1
+                0x0000000000001f58                i2c_didInit1
+                0x0000000000001f5c                i2c_started2
+                0x0000000000001f60                i2c_didInit2
+ .bss           0x0000000000001f64        0x0 CMakeFiles/ulp_main.dir/stack.ulp.S.obj
+ .bss           0x0000000000001f64        0x8 CMakeFiles/ulp_main.dir/conditions.ulp.S.obj
+                0x0000000000001f64                tx_retry_cond_1_counter
+                0x0000000000001f68                AddressMatched
+
+.header         0x0000000000001f6c        0xc load address 0x0000000000000000
+                0x0000000000001f6c        0x4 LONG 0x706c75
+                0x0000000000001f70        0x2 SHORT 0xc LOADADDR (.text)
+                0x0000000000001f72        0x2 SHORT 0x1b00 SIZEOF (.text)
+                0x0000000000001f74        0x2 SHORT 0x0 SIZEOF (.data)
+                0x0000000000001f76        0x2 SHORT 0x46c SIZEOF (.bss)
+LOAD CMakeFiles/ulp_main.dir/main.ulp.S.obj
+LOAD CMakeFiles/ulp_main.dir/hdc1080.ulp.S.obj
+LOAD CMakeFiles/ulp_main.dir/LoRa.ulp.S.obj
+LOAD CMakeFiles/ulp_main.dir/lora_tx.ulp.S.obj
+LOAD CMakeFiles/ulp_main.dir/spi.ulp.S.obj
+LOAD CMakeFiles/ulp_main.dir/i2c.ulp.S.obj
+LOAD CMakeFiles/ulp_main.dir/stack.ulp.S.obj
+LOAD CMakeFiles/ulp_main.dir/conditions.ulp.S.obj
+OUTPUT(ulp_main.elf elf32-esp32ulp)

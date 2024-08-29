@@ -14,6 +14,7 @@ if("${CONFIG}" STREQUAL "" OR "${CONFIG}" STREQUAL "")
   "ldgen_libraries.in"
   "littlefs_py_venv"
   "project_elf_src_esp32.c"
+  "ulp_main.bin.S"
   "x509_crt_bundle.S"
   )
 endif()

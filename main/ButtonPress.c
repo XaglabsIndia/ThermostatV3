@@ -31,16 +31,9 @@ typedef struct {
     uint32_t gpio_num;
     int64_t time;
 } gpio_event_t;
-////////////////////RTC/////////////////////
-#define RTC_DATA_ATTR __attribute__((section(".rtc_data")))
 
-static const char *TAG = "RTC_MESSAGE_HANDLER";
-
-// RTC data to store the message
-RTC_DATA_ATTR char rtc_message[32] = {0};
-////////////////END////////////////////
 int64_t last_button_press[2] = {0, 0}; // Array to store last press time for each button
- void IRAM_ATTR gpio_isr_handler(void* arg)
+void IRAM_ATTR gpio_isr_handler(void* arg)
 {
     uint32_t gpio_num = (uint32_t) arg;
     gpio_event_t event = {
@@ -49,66 +42,7 @@ int64_t last_button_press[2] = {0, 0}; // Array to store last press time for eac
     };
     xQueueSendFromISR(gpio_evt_queue, &event, NULL);
 }
-void RTCMessageCheck(void){
-       if (strlen(rtc_message) > 0) {
-        ESP_LOGI(TAG, "Message found in RTC memory: %s", rtc_message);
 
-        // Check if the message is a temperature setting
-        float temperature;
-        if (sscanf(rtc_message, "%f", &temperature) == 1) {
-            ESP_LOGI(TAG, "Temperature setting: %.2f", temperature);
-            gpio_isr_handler_remove(CONFIG_BUTTON_INC_GPIO);
-            gpio_isr_handler_remove(CONFIG_BUTTON_DEC_GPIO);
-            esp_err_t RetDevValue = save_float_to_nvs(NVS_KEY, set_temperature);
-            if (RetDevValue == ESP_OK)
-            {
-                 ESP_LOGI(TAG, "NVS Temperature setting: %.2f", set_temperature);
-            }  
-            load_set_temperature();
-            gpio_isr_handler_add(CONFIG_BUTTON_INC_GPIO, gpio_isr_handler, (void*) CONFIG_BUTTON_INC_GPIO);
-            gpio_isr_handler_add(CONFIG_BUTTON_DEC_GPIO, gpio_isr_handler, (void*) CONFIG_BUTTON_DEC_GPIO);
-        }
-        // Check if the message is "W"
-        else if (strcmp(rtc_message, "W") == 0) {
-            ESP_LOGI(TAG, "W command received");
-        }
-        else {
-            ESP_LOGI(TAG, "Unknown message format");
-        }
-
-        // Clear the message after processing
-        memset(rtc_message, 0, sizeof(rtc_message));
-    }
-    else {
-        ESP_LOGI(TAG, "No message in RTC memory");
-    }
-}
-
-void print_wakeup_reason() {
-    esp_sleep_wakeup_cause_t wakeup_reason = esp_sleep_get_wakeup_cause();
-
-    switch(wakeup_reason) {
-        case ESP_SLEEP_WAKEUP_EXT0:
-            ESP_LOGI(ButtonTag, "Wake up caused by button press on GPIO %d", CONFIG_BUTTON_INC_GPIO);
-            break;
-        case ESP_SLEEP_WAKEUP_EXT1:
-            {
-                uint64_t wakeup_pin_mask = esp_sleep_get_ext1_wakeup_status();
-                if (wakeup_pin_mask & (1ULL << CONFIG_BUTTON_DEC_GPIO)) {
-                    ESP_LOGI(ButtonTag, "Wake up caused by button press on GPIO %d", CONFIG_BUTTON_DEC_GPIO);
-                } else {
-                    ESP_LOGI(ButtonTag, "Wake up caused by unexpected EXT1 GPIO");
-                }
-            }
-            break;
-        case ESP_SLEEP_WAKEUP_ULP:
-            ESP_LOGI(ButtonTag, "Wake up caused by ULP program");
-            break;
-        default:
-            ESP_LOGI(ButtonTag, "Wake up was not caused by deep sleep: %d", wakeup_reason);
-            break;
-    }
-}
 
  bool debounce_button(int button_index) {
     int64_t current_time = esp_timer_get_time() / 1000; // Convert to milliseconds
@@ -124,7 +58,30 @@ void print_gpio_status() {
     ESP_LOGI(ButtonTag, "GPIO %d status: %d", CONFIG_BUTTON_INC_GPIO, gpio_get_level(CONFIG_BUTTON_INC_GPIO));
     ESP_LOGI(ButtonTag, "GPIO %d status: %d", CONFIG_BUTTON_DEC_GPIO, gpio_get_level(CONFIG_BUTTON_DEC_GPIO));
 }
+#include "driver/rtc_io.h"
+#include "esp_sleep.h"
+#include "esp_log.h"
 
+void configure_wakeup() {
+    // Configure EXT1 wake-up source for increment button
+    esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_BUTTON_INC_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
+    
+    // // Configure EXT1 wake-up source for decrement button
+    // esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
+    // esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_BUTTON_DEC_GPIO), 1);
+
+    // Configure RTC GPIOs
+    rtc_gpio_init(CONFIG_BUTTON_INC_GPIO);
+    rtc_gpio_init(CONFIG_BUTTON_DEC_GPIO);
+
+    // Set as input with pull-up
+    rtc_gpio_set_direction(CONFIG_BUTTON_INC_GPIO, RTC_GPIO_MODE_INPUT_ONLY);
+    rtc_gpio_set_direction(CONFIG_BUTTON_DEC_GPIO, RTC_GPIO_MODE_INPUT_ONLY);
+    rtc_gpio_pullup_en(CONFIG_BUTTON_INC_GPIO);
+    rtc_gpio_pullup_en(CONFIG_BUTTON_DEC_GPIO);
+
+    ESP_LOGI(ButtonTag, "EXT1 wake-up configuration complete for both buttons");
+}
 void configure_gpio() {
     gpio_config_t io_conf;
     // enable or disable interrupt
@@ -159,9 +116,6 @@ void enter_sleep_mode(void) {
 
     // Delay to allow for serial output
     vTaskDelay(pdMS_TO_TICKS(100));
-
-    ESP_LOGI(ButtonTag, "Entering deep sleep mode");
-    esp_deep_sleep_start();
 }
 
 
@@ -174,9 +128,9 @@ void save_temperature(void)
     }
     ESP_LOGI(ButtonTag, "Temperature written: %.1f", set_temperature);
     Temperaturedata();
-    
-    // Enter sleep mode immediately after saving
-    enter_sleep_mode();
+    vTaskDelay(pdMS_TO_TICKS(100));
+    configure_wakeup();
+    ulp_component(0);
 }
 
 void load_set_temperature(void)
@@ -202,16 +156,24 @@ void load_set_temperature(void)
 }
 
 bool handle_button_presses(int timeout_ms) {
+    ESP_LOGI(ButtonTag, "handle_button_presses started");
     bool set_temperature_changed = false;
     bool button_pressed[2] = {false, false};
-    int64_t last_press_time = 0;
+    int64_t last_activity_time = esp_timer_get_time() / 1000;
     int64_t current_time;
+    int loop_count = 0;
 
     while (1) {
-        current_time = esp_timer_get_time() / 1000; // Current time in milliseconds
+        current_time = esp_timer_get_time() / 1000;
+        loop_count++;
+
+        if (loop_count % 100 == 0) {  // Log every 100 iterations
+            ESP_LOGI(ButtonTag, "handle_button_presses loop iteration %d", loop_count);
+        }
 
         gpio_event_t event;
         if (xQueueReceive(gpio_evt_queue, &event, pdMS_TO_TICKS(100)) == pdTRUE) {
+            ESP_LOGI(ButtonTag, "Button event received: GPIO %ld", event.gpio_num);
             int button_index = (event.gpio_num == CONFIG_BUTTON_INC_GPIO) ? 0 : 1;
             
             if (!button_pressed[button_index] && debounce_button(button_index)) {
@@ -228,8 +190,8 @@ bool handle_button_presses(int timeout_ms) {
                     set_temperature_changed = true;
                     ESP_LOGI(ButtonTag, "Temperature decreased to: %.1f", set_temperature);
                 }
-                last_press_time = current_time;
-                ESP_LOGI(ButtonTag, "Button pressed. Waiting 5 seconds for next press.");
+                last_activity_time = current_time;  // Reset the timer on button press
+                ESP_LOGI(ButtonTag, "Button pressed. Resetting 5-second timer.");
             }
         } else {
             // No event received, check if buttons are released
@@ -241,37 +203,42 @@ bool handle_button_presses(int timeout_ms) {
             }
         }
 
-        // Check if it's been 5 seconds since the last button press
-        if (last_press_time > 0 && (current_time - last_press_time) >= timeout_ms) {
-            ESP_LOGI(ButtonTag, "5 seconds passed since last button press. Exiting.");
+        // Check if it's been timeout_ms milliseconds since the last activity
+        if ((current_time - last_activity_time) >= timeout_ms) {
+            ESP_LOGI(ButtonTag, "No activity for %d ms. Exiting handle_button_presses", timeout_ms);
+
             break;
         }
 
-        vTaskDelay(pdMS_TO_TICKS(10)); // Short delay to prevent tight looping
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 
+    ESP_LOGI(ButtonTag, "handle_button_presses ended. Temperature changed: %d", set_temperature_changed);
     return set_temperature_changed;
 }
 
 void button_handling_task(void *pvParameters) {
+    ESP_LOGI(ButtonTag, "Button handling task started");
     while (1) {
+        ESP_LOGI(ButtonTag, "Button handling task loop starting");
         bool set_temperature_changed = handle_button_presses(BUTTON_TASK_TIMEOUT);
+        ESP_LOGI(ButtonTag, "handle_button_presses returned: %d", set_temperature_changed);
         if (set_temperature_changed) {
+            ESP_LOGI(ButtonTag, "Temperature changed, saving...");
             save_temperature();
         } else {
-            // No button press for 5 seconds, enter sleep mode
-            printf("Okay No issues ");
+            ESP_LOGI(ButtonTag, "No temperature change in last 5 seconds");
+            configure_wakeup();
+            ulp_component(0);
         }
-        vTaskDelay(pdMS_TO_TICKS(100)); // Small delay to prevent tight looping
+        ESP_LOGI(ButtonTag, "Button handling task loop completed");
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
-
 void InitTempButton(void) {
     esp_log_level_set(ButtonTag, ESP_LOG_INFO);
     ESP_LOGI(ButtonTag, "Thermostat starting up");
     
-    print_wakeup_reason();
-
     // Load temperature from NVS
     load_set_temperature();
 
@@ -282,10 +249,9 @@ void InitTempButton(void) {
     gpio_evt_queue = xQueueCreate(10, sizeof(gpio_event_t));
 
     // Install gpio isr service
-    gpio_install_isr_service(0);
+    // gpio_install_isr_service(0);
     gpio_isr_handler_add(CONFIG_BUTTON_INC_GPIO, gpio_isr_handler, (void*) CONFIG_BUTTON_INC_GPIO);
     gpio_isr_handler_add(CONFIG_BUTTON_DEC_GPIO, gpio_isr_handler, (void*) CONFIG_BUTTON_DEC_GPIO);
 
     // Create the button handling task
-    xTaskCreate(button_handling_task, "button_handling_task", 4096, NULL, 5, NULL);
-}
+xTaskCreatePinnedToCore(button_handling_task, "button_handling_task", 8192, NULL, 5, NULL,0);}

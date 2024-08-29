@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Tester/Documents/Lijith/CurrentImplemntation/Thermosata/ThermostatV3/main
+# Install script for directory: C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

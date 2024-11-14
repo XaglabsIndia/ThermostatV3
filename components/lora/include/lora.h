@@ -36,9 +36,11 @@
 #define __ESP_LORA_H__
 
 #include <esp_err.h>
+#include <freertos/FreeRTOS.h>
 #include "lora_reg.h"
+#include <freertos/queue.h>
 #include "esp_task_wdt.h"
-
+#include <freertos/semphr.h>
 #ifndef __INTERRUPT_H__
 #define __INTERRUPT_H__
 void AttachInterrupt(int gpio,void* isr_handler,int interrupt_type);

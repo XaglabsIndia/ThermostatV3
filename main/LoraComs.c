@@ -28,7 +28,7 @@
 #include "cJSON.h"
 
 #define ACK_FILE_PATH "/littlefs/ack_statuses.json"
-#define ACK_RETRY_COUNT 5
+#define ACK_RETRY_COUNT 2
 #define ACK_RETRY_DELAY_MS 1000
 #define ACK_CHECK_DELAY_MS 2000
 #define MAX_QUEUE_SIZE 10
@@ -236,6 +236,7 @@ esp_err_t send_message_with_ack(int DevID, int HubID, const char* message, int L
     // Free the LoRa message as it's now queued
     free(lora_message);
     ESP_LOGI(LoraCommTag, "Message queued for transmission: %s", message_with_id);
+    RecivedLoraContiniousModeInit();
 
     // Wait a short time before first ACK check
     vTaskDelay(pdMS_TO_TICKS(2000));

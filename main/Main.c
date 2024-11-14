@@ -47,7 +47,7 @@
 #define LITTLEFS_BASE_PATH "/littlefs"
 #define MAX_PATH_LENGTH 256
 #define MAX_FILENAME_LENGTH 64
-#define MAX_RETRY_COUNT 3
+#define MAX_RETRY_COUNT 1
 #define RETRY_DELAY_MS 1000
 TaskHandle_t LoraRXContiniousTaskHandle = NULL;
 TaskHandle_t LoraRXContiniousMessageQueueTaskHandle = NULL;
@@ -63,13 +63,13 @@ void IRAM_ATTR MultiButtonISR(void *arg);
 void InitalizeProgram();
 void AutoProvisionTask();
 void processMessage(const char *message);
-void floatToString(float value, char* buffer, int bufferSize, int precision);
 void HandleMatchingMessage(int DevID, int HubID, const char* message);
 bool ParseMessage(const char* input);
 
-
+bool Thermostatdatasent = false;
+bool ResponseStatus = false;
 char* TAG = "Main";
-int ConfigDevID = 203;
+int ConfigDevID = 100;
 int OTACN = 0;
 char NEMS_ID[20] = "NEMS";
 /////////Lora RX Continious Mode//////////////// 
@@ -78,7 +78,7 @@ const int OTARXMessageHub = 31;
 const int OTAWifiAckTXMessageHub = 30;
 const int WIFRXMessageLength =220;
 const int ThermostatRXACK = 27;
-uint8_t LoraContiRXLength[] = {ThermostatRXACK,WIFRXMessageLength,OTARXMessageHub};
+uint8_t LoraContiRXLength[] = {ThermostatRXACK,WIFRXMessageLength,OTARXMessageHub,38,250};
 char txBuffer[255];
 ////////Lora RX Single Mode//////////////// 
 uint8_t LoraSingleRXLength =20;
@@ -98,9 +98,200 @@ int StoredDevID, StoredHubID,StroredTempCheck;
 float Globaltemperature = 0.0;
 int TaskResetDecision = 0;
 static char g_message_id[3] = {0};
-// Declare these globally or in your main header file
-// TaskHandle_t hdc1080_task_handle = NULL;
-// SemaphoreHandle_t hdc1080_semaphore = NULL;
+/////////////////////Temp Task//////////////
+#define MAX_FLOAT_STR_LEN 10
+#define FLOAT_PRECISION 2
+#define STACK_SIZE 4096
+#define TASK_PRIORITY 5
+
+// Event group to signal task control
+static EventGroupHandle_t temp_task_events;
+#define TEMP_TASK_STOP_BIT BIT0
+#define TEMP_TASK_SUSPEND_BIT BIT1
+
+// Task handle for temperature monitoring
+static TaskHandle_t temp_task_handle = NULL;
+
+// Function prototypes
+static void temperature_task(void* pvParameters);
+esp_err_t start_temperature_monitoring(void);
+esp_err_t stop_temperature_monitoring(void);
+esp_err_t suspend_temperature_monitoring(void);
+esp_err_t resume_temperature_monitoring(void);
+esp_err_t floatToString(float value, char* buffer, int bufferSize, int precision) ;
+static esp_err_t send_thermostat_message_with_retry(const char* message);
+// Modified floatToString function with error handling
+esp_err_t floatToString(float value, char* buffer, int bufferSize, int precision) {
+    if (buffer == NULL || bufferSize <= 0) {
+        return ESP_ERR_INVALID_ARG;
+    }
+
+    int intPart = (int)value;
+    float fracPart = fabsf(value - intPart);
+    for (int i = 0; i < precision; i++) {
+        fracPart *= 10;
+    }
+
+    int written = snprintf(buffer, bufferSize, "%d.%0*d", intPart, precision, (int)(fracPart + 0.5f));
+    if (written < 0 || written >= bufferSize) {
+        return ESP_ERR_INVALID_SIZE;
+    }
+
+    return ESP_OK;
+}
+
+// Updated temperature task
+static void temperature_task(void* pvParameters) {
+    while (1) {
+        // Check for stop request
+        EventBits_t bits = xEventGroupGetBits(temp_task_events);
+        if (bits & TEMP_TASK_STOP_BIT) {
+            ESP_LOGI(TAG, "Temperature task stopping");
+            vTaskDelete(NULL);
+            return;
+        }
+
+        // Get sensor data
+        float temperatureF = 50.0; // Replace with HDC1080_temp_data();
+        int humidityF = 50;        // Replace with HDC1080_humid_data();
+        
+        ESP_LOGI(TAG, "Temperature: %.2f, Humidity: %d", temperatureF, humidityF);
+        
+        // Allocate buffers on stack to save heap
+        char Temperaturechar[MAX_FLOAT_STR_LEN];
+        char settemperature[MAX_FLOAT_STR_LEN];
+        char humidity_str[MAX_FLOAT_STR_LEN];
+        const char* Battery = "30";
+        bool conversion_error = false;
+
+        // Convert values to strings with error checking
+        esp_err_t temp_result = floatToString(temperatureF, Temperaturechar, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
+        esp_err_t settemp_result = floatToString(set_temperature, settemperature, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
+        int humid_result = snprintf(humidity_str, MAX_FLOAT_STR_LEN, "%d", humidityF);
+
+        if (temp_result != ESP_OK || settemp_result != ESP_OK || humid_result < 0) {
+            ESP_LOGE(TAG, "String conversion failed");
+            conversion_error = true;
+        }
+
+        if (!conversion_error) {
+            // Calculate required buffer size
+            size_t message_len = strlen(Temperaturechar) + strlen(humidity_str) + 
+                                strlen(settemperature) + strlen(Battery) + 10;
+
+            // Allocate message buffer
+            char* GenMessageTemp = heap_caps_malloc(message_len, MALLOC_CAP_8BIT);
+            if (GenMessageTemp == NULL) {
+                ESP_LOGE(TAG, "Memory allocation failed for GenMessageTemp");
+                continue;
+            }
+
+            // Format message
+            snprintf(GenMessageTemp, message_len, "R%s@%s@%s@%s", 
+                    Temperaturechar, settemperature, humidity_str, Battery);
+            
+            // Send message
+            esp_err_t result = send_thermostat_message_with_retry(GenMessageTemp);
+            if (result == ESP_OK) {
+                ESP_LOGI(TAG, "Successfully sent: %s", GenMessageTemp);
+            } else {
+                ESP_LOGE(TAG, "Failed to send message");
+                // Optionally suspend task on failure
+                xEventGroupSetBits(temp_task_events, TEMP_TASK_SUSPEND_BIT);
+            }
+
+            // Free allocated memory
+            heap_caps_free(GenMessageTemp);
+        }
+
+        // Check for suspend request
+        bits = xEventGroupGetBits(temp_task_events);
+        if (bits & TEMP_TASK_SUSPEND_BIT) {
+            ESP_LOGI(TAG, "Temperature task suspending");
+            vTaskSuspend(NULL);
+        }
+
+        // Task delay
+        vTaskDelay(pdMS_TO_TICKS(1000)); // Adjust delay as needed
+    }
+}
+// Start temperature monitoring task
+esp_err_t start_temperature_monitoring(void) {
+    if (temp_task_handle != NULL) {
+        ESP_LOGE(TAG, "Task already running");
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    // Create event group
+    temp_task_events = xEventGroupCreate();
+    if (temp_task_events == NULL) {
+        ESP_LOGE(TAG, "Failed to create event group");
+        return ESP_ERR_NO_MEM;
+    }
+
+    // Clear all bits
+    xEventGroupClearBits(temp_task_events, TEMP_TASK_STOP_BIT | TEMP_TASK_SUSPEND_BIT);
+
+    // Create task
+    BaseType_t ret = xTaskCreate(
+        temperature_task,
+        "temp_task",
+        STACK_SIZE,
+        NULL,
+        TASK_PRIORITY,
+        &temp_task_handle
+    );
+
+    if (ret != pdPASS) {
+        ESP_LOGE(TAG, "Failed to create task");
+        vEventGroupDelete(temp_task_events);
+        temp_task_events = NULL;
+        return ESP_ERR_NO_MEM;
+    }
+
+    ESP_LOGI(TAG, "Temperature monitoring started");
+    return ESP_OK;
+}
+
+// Stop temperature monitoring task
+esp_err_t stop_temperature_monitoring(void) {
+    if (temp_task_handle == NULL) {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    xEventGroupSetBits(temp_task_events, TEMP_TASK_STOP_BIT);
+    vTaskDelay(pdMS_TO_TICKS(100)); // Give task time to clean up
+
+    vEventGroupDelete(temp_task_events);
+    temp_task_events = NULL;
+    temp_task_handle = NULL;
+
+    return ESP_OK;
+}
+
+// Suspend temperature monitoring task
+esp_err_t suspend_temperature_monitoring(void) {
+    if (temp_task_handle == NULL) {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    xEventGroupSetBits(temp_task_events, TEMP_TASK_SUSPEND_BIT);
+    return ESP_OK;
+}
+
+// Resume temperature monitoring task
+esp_err_t resume_temperature_monitoring(void) {
+    if (temp_task_handle == NULL) {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    xEventGroupClearBits(temp_task_events, TEMP_TASK_SUSPEND_BIT);
+    vTaskResume(temp_task_handle);
+    return ESP_OK;
+}
+
+
+///////END////////////////////////
 
 // Helper function to send message with retry
 static esp_err_t send_thermostat_message_with_retry(const char* message) {
@@ -122,14 +313,6 @@ void handle_mqtt_data(const char *data, size_t len)
     ESP_LOGI(TAG, "Entering handle_mqtt_data");
 }
 //////////////////General Funtions ////////////////////////////
-void floatToString(float value, char* buffer, int bufferSize, int precision) {
-    int intPart = (int)value;
-    float fracPart = fabsf(value - intPart);
-    for (int i = 0; i < precision; i++) {
-        fracPart *= 10;
-    }
-    snprintf(buffer, bufferSize, "%d.%0*d", intPart, precision, (int)(fracPart + 0.5f));
-}
 
 char* IntStrCoverter(int value, int max_length) {
     // Allocate memory for the string
@@ -207,69 +390,69 @@ void free_lora_message(char* message) {
 // 
 static TaskHandle_t hdc1080_task_handle = NULL;
 
-void process_and_send_hdc1080_data_task(void *pvParameters) {
-    while(1) {
-        // Suspend the task at the beginning of each iteration
-        vTaskSuspend(NULL);
+// void process_and_send_hdc1080_data_task(void *pvParameters) {
+//     while(1) {
+//         // Suspend the task at the beginning of each iteration
+//         vTaskSuspend(NULL);
 
-        // Retrieve temperature and humidity data from ULP
-        uint8_t temperature = 0;
-        uint8_t humidity = 0;
+//         // Retrieve temperature and humidity data from ULP
+//         uint8_t temperature = 0;
+//         uint8_t humidity = 0;
         
-        // Assuming we want to use the first non-zero values
-        for (uint8_t i = 0; (*(address_t + i) != 0); i++) {
-            temperature = (uint8_t) * (address_t + i);
-            humidity = (uint8_t) * (address_h + i);
-            break;  // Use the first non-zero values
-        }
+//         // Assuming we want to use the first non-zero values
+//         for (uint8_t i = 0; (*(address_t + i) != 0); i++) {
+//             temperature = (uint8_t) * (address_t + i);
+//             humidity = (uint8_t) * (address_h + i);
+//             break;  // Use the first non-zero values
+//         }
         
-        // Convert uint8_t temperature to float (assuming 2 decimal places precision)
-        float temperatureF = (float)temperature / 100.0;  // Adjust this conversion as needed
-        int humidityF = humidity;  // Humidity is already an integer percentage
+//         // Convert uint8_t temperature to float (assuming 2 decimal places precision)
+//         float temperatureF = (float)temperature / 100.0;  // Adjust this conversion as needed
+//         int humidityF = humidity;  // Humidity is already an integer percentage
         
-        ESP_LOGI(TAG, "Temperature: %.2f, Humidity: %d", temperatureF, humidityF);
+//         ESP_LOGI(TAG, "Temperature: %.2f, Humidity: %d", temperatureF, humidityF);
 
-        char Temperaturechar[MAX_FLOAT_STR_LEN];
-        char settemperature[MAX_FLOAT_STR_LEN];
-        const char* Battery = "30";  // Kept as const char*
+//         char Temperaturechar[MAX_FLOAT_STR_LEN];
+//         char settemperature[MAX_FLOAT_STR_LEN];
+//         const char* Battery = "30";  // Kept as const char*
 
-        floatToString(temperatureF, Temperaturechar, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
-        char* Humidity = IntStrCoverter(humidityF, 3);
-        floatToString(set_temperature, settemperature, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
+//         floatToString(temperatureF, Temperaturechar, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
+//         char* Humidity = IntStrCoverter(humidityF, 3);
+//         floatToString(set_temperature, settemperature, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
 
-        size_t message_len = strlen(Temperaturechar) + strlen(Humidity) + 
-                             strlen(settemperature) + strlen(Battery) + 10;  // Extra space for separators and null terminator
-        char* GenMessageTemp = malloc(message_len);
+//         size_t message_len = strlen(Temperaturechar) + strlen(Humidity) + 
+//                              strlen(settemperature) + strlen(Battery) + 10;  // Extra space for separators and null terminator
+//         char* GenMessageTemp = malloc(message_len);
         
-        if (GenMessageTemp == NULL) {
-            ESP_LOGE(TAG, "Memory allocation failed for GenMessageTemp");
-            free(Humidity);
-            continue;  // Skip to the next iteration
-        }
+//         if (GenMessageTemp == NULL) {
+//             ESP_LOGE(TAG, "Memory allocation failed for GenMessageTemp");
+//             free(Humidity);
+//             continue;  // Skip to the next iteration
+//         }
 
-        snprintf(GenMessageTemp, message_len, "H%s@%s@%s@%s", 
-                 Temperaturechar, settemperature, Humidity, Battery);
+//         snprintf(GenMessageTemp, message_len, "H%s@%s@%s@%s", 
+//                  Temperaturechar, settemperature, Humidity, Battery);
 
-        ESP_LOGI(TAG, "HDC1080 data: %s", GenMessageTemp);
+//         ESP_LOGI(TAG, "HDC1080 data: %s", GenMessageTemp);
         
-            esp_err_t result = send_thermostat_message_with_retry(GenMessageTemp);
+//             esp_err_t result = send_thermostat_message_with_retry(GenMessageTemp);
             
-            if (result == ESP_OK) {
-                ESP_LOGI(TAG, "Successfully sent HDC1080 data via Lora");
-            } else {
-                ESP_LOGE(TAG, "Failed to send HDC1080 data via Lora");
-            }
+//             if (result == ESP_OK) {
+//                 ESP_LOGI(TAG, "Successfully sent HDC1080 data via Lora");
+//             } else {
+//                 ESP_LOGE(TAG, "Failed to send HDC1080 data via Lora");
+//             }
        
-        free(GenMessageTemp);
-        free(Humidity);
-        ulp_component(0);
-    }
-}
+//         free(GenMessageTemp);
+//         free(Humidity);
+//        // ulp_component(0);
+//     }
+// }
 
 // Function to create and start the HDC1080 task
-void start_hdc1080_task() {
-    xTaskCreate(process_and_send_hdc1080_data_task, "HDC1080_Task", 4096, NULL, 5, &hdc1080_task_handle);
-}
+// void start_hdc1080_task() {
+//     xTaskCreate(process_and_send_hdc1080_data_task, "HDC1080_Task", 4096, NULL, 5, &hdc1080_task_handle);
+// }
 
 // Function to resume the HDC1080 task
 void resume_hdc1080_task() {
@@ -292,6 +475,7 @@ void RXContiniousMessageQueue(void *arg)
 
     while (1)
     {
+        
         ESP_ERROR_CHECK(esp_task_wdt_reset());
 
         // Wait for the next cycle
@@ -599,7 +783,270 @@ void HandleFMBMMessage(const char* message_id, int DevID, int HubID, const char*
     } else if (strcmp(message_type, "BM") == 0) {
         ESP_LOGI(TAG, "Backward Message - ID: %s, Dev: %d, Hub: %d, Content: %s", message_id, DevID, HubID, content);
     }
-    ulp_component(0);
+    //ulp_component(0);
+}
+
+
+
+
+// Pre-define common string literals to save flash memory
+static const char RS_MARKER[] = "RS|";
+static const char ACK_MARKER[] = "|ACK|";
+static const char DELIMITER = '|';
+
+inline static char* find_next_delimiter(const char* str) {
+    return strchr(str, DELIMITER);
+}
+
+inline static float fast_atof(const char* str) {
+    float result = 0.0f;
+    float fraction = 0.0f;
+    bool negative = false;
+    
+    // Handle negative numbers
+    if (*str == '-') {
+        negative = true;
+        str++;
+    }
+    
+    // Parse integer part
+    while (*str >= '0' && *str <= '9') {
+        result = result * 10.0f + (*str - '0');
+        str++;
+    }
+    
+    // Parse decimal part
+    if (*str == '.') {
+        str++;
+        float multiplier = 0.1f;
+        while (*str >= '0' && *str <= '9') {
+            result += (*str - '0') * multiplier;
+            multiplier *= 0.1f;
+            str++;
+        }
+    }
+    
+    return negative ? -result : result;
+}
+void save_environmental_data(float room_temp, int humidity, float set_temp, const char* date_str, const char* time_str) {
+    // Save to NVS
+    save_float_to_nvs("room_temp_f", room_temp);
+    save_int_to_nvs("humidity_f", humidity);
+    save_float_to_nvs("set_temp_f", set_temp);
+    save_string_to_nvs("date_str", date_str);
+    save_string_to_nvs("time_str", time_str);
+
+    ESP_LOGD(TAG, "Updated and saved to NVS: %.1f|%d|%.1f|%s|%s",
+             room_temp, humidity, set_temp, date_str, time_str);
+}
+
+// void HandleRSMessage(const char* message) {
+//     if (!message || strlen(message) < 5) {  // Minimum valid length check
+//         ESP_LOGE(TAG, "Invalid message");
+//         return;
+//     }
+//     ResponseStatus = true;
+//     // Quick validation of message ID format (2 digits + delimiter)
+//     if (!isdigit((unsigned char)message[0]) || 
+//         !isdigit((unsigned char)message[1]) || 
+//         message[2] != DELIMITER) {
+//         ESP_LOGE(TAG, "Invalid message ID format");
+//         return;
+//     }
+
+//     // Handle ACK if present (using direct comparison instead of strstr)
+//     if (memcmp(message + 3, ACK_MARKER + 1, 4) == 0) {  // +1 to skip the first '|' in ACK_MARKER
+//         HandleAckMessage(message);
+//     }
+
+//     // Find RS marker (using direct comparison instead of strstr)
+//     const char* rs_start = message;
+//     bool found = false;
+//     while (*rs_start) {
+//         if (memcmp(rs_start, RS_MARKER, 3) == 0) {
+//             found = true;
+//             break;
+//         }
+//         rs_start++;
+//     }
+
+//     if (!found) {
+//         ESP_LOGE(TAG, "RS marker not found");
+//         return;
+//     }
+
+//     // Move pointer to start of values
+//     rs_start += 3;  // Skip "RS|"
+
+//     // Parse values directly from the string without temporary buffers
+//     const char *current = rs_start;
+//     const char *next;
+//     float values[3];  // [setTemp, roomTemp, humidity]
+//     char date[11];    // DD/MM/YY\0
+//     char time[8];     // HH:MMAM\0
+    
+//     // Parse floating point values
+//     for (int i = 0; i < 3; i++) {
+//         next = find_next_delimiter(current);
+//         if (!next) {
+//             ESP_LOGE(TAG, "Missing delimiter after value %d", i);
+//             return;
+//         }
+        
+//         // Validate that we have a valid number
+//         if (next - current > 10) {  // Reasonable max length for a float
+//             ESP_LOGE(TAG, "Value %d too long", i);
+//             return;
+//         }
+        
+//         values[i] = fast_atof(current);
+//         current = next + 1;
+//     }
+
+//     // Parse date
+//     next = find_next_delimiter(current);
+//     if (!next || (next - current) > 9) {  // DD/MM/YY
+//         ESP_LOGE(TAG, "Invalid date format");
+//         return;
+//     }
+//     memcpy(date, current, next - current);
+//     date[next - current] = '\0';
+//     current = next + 1;
+
+//     // Parse time (look for ending parenthesis or null)
+//     next = strchr(current, ')');
+//     if (!next) next = strchr(current, '\0');
+//     if (!next || (next - current) > 7) {  // HH:MMAM
+//         ESP_LOGE(TAG, "Invalid time format");
+//         return;
+//     }
+//     memcpy(time, current, next - current);
+//     time[next - current] = '\0';
+
+//     // // Update values only if all parsing was successful
+//     // roomTemperature_partial_update(values[1]);
+//     // humidity_partial_update(values[2]);
+//     // date_partial_update(date);
+//     // time_partial_update(time);
+//     save_environmental_data(values[1],(int)values[2],set_temperature,date,time);
+//     ESP_LOGD(TAG, "Parsed: %.1f|%.1f|%.1f|%s|%s", 
+//              values[0], values[1], values[2], date, time);
+// }
+
+void save_display_messages(const char* front_msg, const char* back_msg) {
+    if (front_msg) {
+        save_string_to_nvs("front_msg", front_msg);
+    }
+    if (back_msg) {
+        save_string_to_nvs("back_msg", back_msg);
+    }
+    ESP_LOGD(TAG, "Messages saved - Front: %s, Back: %s", 
+             front_msg ? front_msg : "NULL", 
+             back_msg ? back_msg : "NULL");
+}
+
+void HandleRSMessage(const char* message) {
+    if (!message || strlen(message) < 5) {
+        ESP_LOGE(TAG, "Invalid message");
+        return;
+    }
+    ResponseStatus = true;
+    if (!isdigit((unsigned char)message[0]) || 
+        !isdigit((unsigned char)message[1]) || 
+        message[2] != DELIMITER) {
+        ESP_LOGE(TAG, "Invalid message ID format");
+        return;
+    }
+
+    if (memcmp(message + 3, ACK_MARKER + 1, 4) == 0) {
+        HandleAckMessage(message);
+    }
+
+    const char* rs_start = message;
+    bool found = false;
+    while (*rs_start) {
+        if (memcmp(rs_start, RS_MARKER, 3) == 0) {
+            found = true;
+            break;
+        }
+        rs_start++;
+    }
+
+    if (!found) {
+        ESP_LOGE(TAG, "RS marker not found");
+        return;
+    }
+
+    rs_start += 3;  // Skip "RS|"
+
+    const char *current = rs_start;
+    const char *next;
+    float values[3];
+    char date[11];
+    char time[8];
+    char front_message[256] = {0};  // For Welcome message
+    char back_message[256] = {0};   // For Thank you message
+    
+    // Parse floating point values
+    for (int i = 0; i < 3; i++) {
+        next = find_next_delimiter(current);
+        if (!next) {
+            ESP_LOGE(TAG, "Missing delimiter after value %d", i);
+            return;
+        }
+        
+        if (next - current > 10) {
+            ESP_LOGE(TAG, "Value %d too long", i);
+            return;
+        }
+        
+        values[i] = fast_atof(current);
+        current = next + 1;
+    }
+
+    // Parse date
+    next = find_next_delimiter(current);
+    if (!next || (next - current) > 9) {
+        ESP_LOGE(TAG, "Invalid date format");
+        return;
+    }
+    memcpy(date, current, next - current);
+    date[next - current] = '\0';
+    current = next + 1;
+
+    // Parse time
+    next = find_next_delimiter(current);
+    if (!next || (next - current) > 7) {
+        ESP_LOGE(TAG, "Invalid time format");
+        return;
+    }
+    memcpy(time, current, next - current);
+    time[next - current] = '\0';
+    current = next + 1;
+
+    // Parse front message (Welcome)
+    next = find_next_delimiter(current);
+    if (next && (next - current) < sizeof(front_message)) {
+        memcpy(front_message, current, next - current);
+        front_message[next - current] = '\0';
+        current = next + 1;
+    }
+
+    next = strchr(current, ')');
+    if (next && (next - current) < sizeof(back_message)) {
+        memcpy(back_message, current, next - current);
+        back_message[next - current] = '\0';
+    }
+
+    // Save environmental data
+    save_environmental_data(values[1], (int)values[2], set_temperature, date, time);
+    
+    // Save display messages
+    save_display_messages(front_message, back_message);
+
+    ESP_LOGD(TAG, "Parsed: %.1f|%.1f|%.1f|%s|%s|%s|%s", 
+             values[0], values[1], values[2], date, time, 
+             front_message, back_message);
 }
 void HandleMatchingMessage(int DevID, int HubID, const char* message) {
     if (message == NULL) {
@@ -616,9 +1063,26 @@ void HandleMatchingMessage(int DevID, int HubID, const char* message) {
         strncpy(message_id, message, 2);
         message_id[2] = '\0';
         ESP_LOGI(TAG, "Message ID: %s", message_id);
-
         // Move past the "XX|" part
         const char* message_content = message + 3;
+        if (strlen(message_content) >= 5 && 
+                message_content[0] == 'T' && 
+                message_content[1] == '|' && 
+                strcmp(message_content + 2, "ACK") == 0) {
+                    
+                ESP_LOGI(TAG, "ACK Status: true");
+                Thermostatdatasent = true;
+                char new_message[8];
+                snprintf(new_message, sizeof(new_message), "%s|ACK", message_id);
+                HandleAckMessage(new_message);
+                xSemaphoreGive(MessageMutex);
+                return;
+            } 
+        if (strstr(message_content, "RS|")) {
+            HandleRSMessage(message);
+            xSemaphoreGive(MessageMutex);
+            return;
+        }
                 // Check if the remaining message starts with "ST"
         if (strncmp(message_content, "ST", 2) == 0) {
             // Extract the temperature value (everything after "ST")
@@ -716,167 +1180,6 @@ ESP_ERROR_CHECK(esp_task_wdt_add_user("LoraRXContinious",&LoraRXContiniousTaskHa
         }
   }
 }
-///////////////////////////LEDInit //////////////////////////////
-void LedInit(){
-esp_rom_gpio_pad_select_gpio(CONFIG_GREEN_LED_GPIO);
-gpio_set_direction(CONFIG_GREEN_LED_GPIO, GPIO_MODE_OUTPUT);
-
-esp_rom_gpio_pad_select_gpio(CONFIG_RED_LED_GPIO);
-gpio_set_direction(CONFIG_RED_LED_GPIO, GPIO_MODE_OUTPUT);
-
-esp_rom_gpio_pad_select_gpio(CONFIG_BLUE_LED_GPIO);
-gpio_set_direction(CONFIG_BLUE_LED_GPIO, GPIO_MODE_OUTPUT);
-
-gpio_set_level(CONFIG_BLUE_LED_GPIO, 0);
-gpio_set_level(CONFIG_RED_LED_GPIO, 0); 
-gpio_set_level(CONFIG_GREEN_LED_GPIO, 0);
-
-}
-///////////////////////END///////////////////////////////////////
-void AutoProvisionTask()
-{
-    time_t CurrentTime, Timeout;
-    struct tm* local_time;
-    char LoraData[255];
-    char LoraDataACK[255];
-    vTaskSuspend(NULL);
-    CurrentTime = time(NULL);
-    Timeout = CurrentTime + 500;
-    ESP_ERROR_CHECK(esp_task_wdt_add(NULL));
-
-    while(1)
-    {
-        esp_task_wdt_reset();
-        CurrentTime = time(NULL);
-        gpio_set_level(CONFIG_GREEN_LED_GPIO, 1);
-        gpio_set_level(CONFIG_RED_LED_GPIO, 1);
-        gpio_set_level(CONFIG_BLUE_LED_GPIO, 0);
-         if (TaskResetDecision == 0){
-            printf("entere user reset");
-        esp_err_t res2 = esp_task_wdt_reset_user(LoraRXContiniousTaskHandleWDT);
-        if (res2 != ESP_OK) {
-            printf("Failed to reset TWDT for RX continpus mode\n");
-        }
-        }
-
-        esp_err_t LoraDataStatus = LoraSingleModeRX(1000, LoraSingleRXLength, LoraData);
-        if (LoraDataStatus == ESP_OK) {
-            char* token = strtok(LoraData, ",)");
-            if (token != NULL && strcmp(token, NEMS_ID) == 0) {
-                token = strtok(NULL, ",)");
-                if (token != NULL) {
-                    int pDevID = atoi(token);
-                    token = strtok(NULL, ",)");
-                    if (token != NULL) {
-                        int rHubID = atoi(token);
-                        token = strtok(NULL, ",)");
-                        const char* receivedMessage = token ? token : "";
-
-                        printf("Parsed values: NEMS_ID = %s, PDevID = %d, RHubID = %d, Message = %s\n",
-                               NEMS_ID, pDevID, rHubID, receivedMessage);
-
-                        char* lora_string = CreateLoraMessage(ConfigDevID, rHubID, NULL,20);
-                        printf("CreatedLora string for sending line 620 is %s",lora_string);
-                        if (lora_string != NULL) {
-                            vTaskDelay(40);
-                            for (int i = 0; i < 5; i++) {
-                                vTaskDelay(40);
-                                esp_task_wdt_reset();
-                                esp_err_t SendResult = SendMessageWithCAD(lora_string);
-                                while (SendResult != ESP_OK) {
-                                    SendResult = SendMessageWithCAD(lora_string);
-                                }
-                            }
-                            for (int i = 0; i < 5; i++) {
-                                esp_task_wdt_reset();
-                                  if (TaskResetDecision == 0){
-                                        printf("entere user reset");
-                                    esp_err_t res2 = esp_task_wdt_reset_user(LoraRXContiniousTaskHandleWDT);
-                                    if (res2 != ESP_OK) {
-                                        printf("Failed to reset TWDT for RX continpus mode\n");
-                                    }
-                                    }
-                                esp_err_t LoraDataStatusACK = LoraSingleModeRX(1000, LoraSingleRXLength, LoraDataACK);
-                                if (LoraDataStatusACK == ESP_OK) {
-                                    if (LoraDataACK[0] != '\0') {
-                                        printf("Lora message is %s\n", LoraDataACK);
-                                        token = strtok(LoraDataACK, ",)");
-                                        if (token != NULL && strcmp(token, NEMS_ID) == 0) {
-                                            token = strtok(NULL, ",)");
-                                            if (token != NULL) {
-                                                int pDevID = atoi(token);
-                                                token = strtok(NULL, ",)");
-                                                if (token != NULL) {
-                                                    int rHubID = atoi(token);
-                                                    token = strtok(NULL, ",)");
-                                                    const char* receivedMessage = token ? token : "";
-
-                                                    printf("Parsed ACK values: NEMS_ID = %s, PDevID = %d, RHubID = %d, Message = %s\n",
-                                                           NEMS_ID, pDevID, rHubID, receivedMessage);
-
-                                                    if (token != NULL && strcmp(receivedMessage, "ACK") == 0 && pDevID == ConfigDevID) {
-                                                        printf("Handling ACK message...\n");
-                                                        printf("DEVi ID (int): %d\n", pDevID);
-                                                        printf("HUBID (int): %d\n", rHubID);
-
-                                                        if (rHubID != 0) {
-                                                            esp_err_t RetValue2 = save_int_to_nvs(HUBKeyMain, rHubID);
-                                                            if (RetValue2 == ESP_OK) {
-                                                                lora_end_rx();
-                                                                esp_restart();
-                                                                vTaskDelay(200);
-                                                            }
-                                                        }
-                                                    } else {
-                                                        printf("String value is not 'ACK'.\n");
-                                                    }
-                                                } else {
-                                                    printf("Invalid message format (missing second integer).\n");
-                                                }
-                                            } else {
-                                                printf("Invalid message format (missing first integer).\n");
-                                            }
-                                        } else {
-                                            printf("No 'NEMS_ID' found in ACK data.\n");
-                                        }
-                                    }
-                                }
-                            }
-                            free(lora_string);
-                        } else {
-                            printf("Failed to create LoRa message.\n");
-                        }
-                    }
-                }
-            } else {
-                printf("Invalid NEMS_ID or no NEMS_ID found in received data.\n");
-            }
-        } else {
-            printf("Error receiving data from LoRa.\n");
-        }
-
-        local_time = localtime(&CurrentTime);
-        printf("Current time: %s", asctime(local_time));
-        printf("Timeout time: %lld\n", Timeout);
-        esp_task_wdt_reset();
-       
-        if ((CurrentTime > Timeout) && (Timeout != 0)) {
-            lora_end_rx();
-            printf("Auto Provision ended due to 3 Minute timeout\n");
-            ESP_ERROR_CHECK(esp_task_wdt_delete(NULL));
-            // ErrorProvisionLight(); run as a task
-            if (TaskResetDecision == 0){
-            vTaskResume(LoraRXContiniousTaskHandle);
-            vTaskDelay(50);
-            }
-            vTaskSuspend(NULL);
-            CurrentTime = time(NULL);
-            Timeout = CurrentTime + 20;
-            ESP_ERROR_CHECK(esp_task_wdt_add(NULL));
-        }
-    }
-}
-
 static void init_littlefs()
 {
 
@@ -901,12 +1204,12 @@ static void init_littlefs()
     }
 }
 }
-
-//////////////////////Temperature data message formation //////////////////
 void Temperaturedata(void) {
     // Convert integer temperature to float (assuming 2 decimal places precision)
-    float temperatureF = HDC1080_temp_data();
-    int humidityF = HDC1080_humid_data();
+    // float temperatureF = HDC1080_temp_data();
+    // int humidityF = HDC1080_humid_data();
+    float temperatureF = 50.0;
+    int humidityF = 50;
     
     printf("Temperature: %.2f, Humidity: %d\n", temperatureF, humidityF);
 
@@ -935,9 +1238,13 @@ void Temperaturedata(void) {
 
     if (GenMessageTemp) {
         printf("Temperature to Generate str func %s\n", GenMessageTemp);
+        for(int Retry = 0; ((Retry < ACK_RETRY_COUNT) && (Thermostatdatasent == false)); Retry++){
         esp_err_t result  = send_thermostat_message_with_retry(GenMessageTemp);
-        if (result == ESP_OK){
+        if ((result == ESP_OK )&& (Thermostatdatasent == true)){
          printf("Sucess to create Lora message\n");// Assuming CreateLoraMessage allocates memory
+         Thermostatdatasent = false;
+         break;
+        }
         }
     } else {
         printf("Failed to create Lora message\n");
@@ -945,14 +1252,64 @@ void Temperaturedata(void) {
 
     free(GenMessageTemp);
     free(Humidity);
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 1);
 }
 
-void app_main()
+//////////////////////Temperature data message formation //////////////////
+void TemperaturedataRS(void) {
+    // Convert integer temperature to float (assuming 2 decimal places precision)
+    // float temperatureF = HDC1080_temp_data();
+    // int humidityF = HDC1080_humid_data();
+    float temperatureF = 50.0;
+    int humidityF = 50;
+    
+    printf("Temperature: %.2f, Humidity: %d\n", temperatureF, humidityF);
+
+    char Temperaturechar[MAX_FLOAT_STR_LEN];
+    //char Humidity[MAX_FLOAT_STR_LEN];
+    char settemperature[MAX_FLOAT_STR_LEN];
+    const char* Battery = "30";  // Kept as const char*
+
+    floatToString(temperatureF, Temperaturechar, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
+    char* Humidity = IntStrCoverter(humidityF,3);
+    floatToString(set_temperature, settemperature, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
+
+    size_t message_len = strlen(Temperaturechar) + strlen(Humidity) + 
+                         strlen(settemperature) + strlen(Battery) + 10;  // Extra space for separators and null terminator
+    char* GenMessageTemp = malloc(message_len);
+    
+    if (GenMessageTemp == NULL) {
+        printf("Memory allocation failed for GenMessageTemp\n");
+        return;
+    }
+
+    snprintf(GenMessageTemp, message_len, "R%s@%s@%s@%s", 
+             Temperaturechar, settemperature, Humidity, Battery);
+
+    printf("Temperaturedata: %s\n", GenMessageTemp);
+
+    if (GenMessageTemp) {
+        printf("Temperature to Generate str func %s\n", GenMessageTemp);
+        for(int Retry = 0; ((Retry < ACK_RETRY_COUNT) && (ResponseStatus == false)); Retry++){
+        esp_err_t result  = send_thermostat_message_with_retry(GenMessageTemp);
+        if ((result == ESP_OK )&& (ResponseStatus == true)){
+         printf("Sucess to create Lora message\n");// Assuming CreateLoraMessage allocates memory
+         ResponseStatus = false;
+         break;
+        }
+        }
+    } else {
+        printf("Failed to create Lora message\n");
+    }
+
+    free(GenMessageTemp);
+    free(Humidity);
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 1);
+}
+
+void InitMain()
 {
     esp_err_t err;
-    printf("*******************************\n");
-    printf("*******Device ID and INIt Thermo ID check Starts********\n");
-    printf("*******************************\n");
     esp_err_t CheckDEVStatus = CheckStoredKeyStatus(DEVKeyMain, &ValueMain);
     if(CheckDEVStatus == 4354 || ValueMain != ConfigDevID )
     {
@@ -972,27 +1329,6 @@ void app_main()
         ESP_LOGE("HubID", "Failed to read HubID from NVS");
     }
     ESP_LOGI(TAG, "DevID written: %d", StoredHubID);
-    printf("*******************************\n");
-    printf("*******Device ID check Stop********\n");
-    printf("*******************************\n");
-
-    printf("*******************************\n");
-    printf("*******Lora Init Starts********\n");
-    printf("*******************************\n");
-   err = lora_init();
-  if (err != ESP_OK)
-  {
-    ESP_LOGI("lora_init", "lora_init %d", err);
-    return;
-  }
-  LedInit();
-    printf("*****************************\n");
-    printf("*******Lora Init Ends********\n");
-    printf("*****************************\n");
-  ///////////// Initalize watchdog timmer//////////////////////////
-    printf("*******************************\n");
-    printf("*******WatchDog Init Starts****\n");
-    printf("*******************************\n");
   #if !CONFIG_ESP_TASK_WDT_INIT
   printf("Configured");
   esp_task_wdt_config_t twdt_config = {
@@ -1003,60 +1339,9 @@ void app_main()
   ESP_ERROR_CHECK(esp_task_wdt_init(&twdt_config));
   printf("TWDT initialized\n");
   #endif 
-    printf("*******************************\n");
-    printf("*******WatchDog Init Ends*****\n");
-    printf("*******************************\n");
- ///////////////////////END//////////////////////////////////////////
-
-  //////////////////////////////Multi-Button////////////////////////
-    printf("*****************************\n");
-    printf("***MultiButton Init Starts***\n");
-    printf("*****************************\n");
-    SetupMultiButton();
-    printf("*****************************\n");
-    printf("****MultiButton Init Ends****\n");
-    printf("*****************************\n"); 
-///////////////////////////////////END///////////////////////////
-  /////////////////////////Provision Check//////////////////////////////////////
-save_int_to_nvs(HUBKeyMain,100);
-    xTaskCreate(AutoProvisionTask, "AutoProvisionTask", 10096, NULL, 0, &AutoProvision);
-    esp_err_t CheckStatus = CheckStoredKeyStatus(HUBKeyMain, &ValueMain);
-    if(CheckStatus == 4354){
-      esp_err_t RetValue1 = save_int_to_nvs(HUBKeyMain,InitValueMain);
-      if (RetValue1 == ESP_OK){
-        esp_restart();
-      }  
-    }
-    snprintf(mqttTopic, sizeof(mqttTopic), "%d_P", ValueMain);
-    printf("MQTT Topic is %s", mqttTopic);
-    if(ValueMain != 100){
-    //   printf("*******************************\n");
-    //   printf("*******Auto Provision Starts***\n");
-    //   printf("*******************************\n");
-    //   TaskResetDecision = 1;
-    //   vTaskResume(AutoProvision);
-    }
-    else
-    {
-
-      printf("********************************\n");
-      printf("*******System Provisioned******\n");
-      printf("********************************\n");
-      TaskResetDecision = 0;
-       for(int i=0;i<1;i++)
-        {
-            gpio_set_level(CONFIG_GREEN_LED_GPIO, 1);
-            gpio_set_level(CONFIG_RED_LED_GPIO, 0);
-            gpio_set_level(CONFIG_BLUE_LED_GPIO, 0); 
-             vTaskDelay(30);  
-            gpio_set_level(CONFIG_GREEN_LED_GPIO, 1);
-            gpio_set_level(CONFIG_RED_LED_GPIO, 1);
-            gpio_set_level(CONFIG_BLUE_LED_GPIO, 0);   
-        }
-      InitalizeProgram();
-    }
- 
  }
+
+
  void check_wakeup_reason() {
     esp_sleep_wakeup_cause_t wakeup_reason = esp_sleep_get_wakeup_cause();
     
@@ -1068,41 +1353,45 @@ save_int_to_nvs(HUBKeyMain,100);
             } else if (wakeup_pin_mask & (1ULL << CONFIG_BUTTON_DEC_GPIO)) {
                 ESP_LOGI("ButtonTag", "Wake up from BUTTON_DEC");
             }
-            InitTempButton();
+            Display_Main();
             break;
         }
         case ESP_SLEEP_WAKEUP_TIMER:
-            ESP_LOGI("ButtonTag", "Wake up from timer");
-            break;
-        case ESP_SLEEP_WAKEUP_ULP:
-            ESP_LOGI("ButtonTag", "Wake up from ULP");
-            esp_err_t result = ESP_FAIL;
-            int retry_count = 0;
-            const int MAX_RETRIES = 5;
-
-            while (result != ESP_OK && retry_count < MAX_RETRIES) {
-                result = send_lora_message(StoredDevID, StoredHubID, "ULPACK", 21);
-                if (result != ESP_OK) {
-                    ESP_LOGW("LORA_SEND", "Failed to send LoRa message, attempt %d: %s", retry_count + 1, esp_err_to_name(result));
-                    vTaskDelay(pdMS_TO_TICKS(1000)); // Wait for 1 second before retrying
-                    retry_count++;
-                }
+            ESP_LOGI(TAG, "Wakeup caused by timer");
+            InitMain();
+            esp_err_t err2 = lora_init();
+            if (err2 != ESP_OK)
+            {
+                ESP_LOGI("lora_init", "lora_init %d", err2);
+                return;
             }
+            InitalizeProgram();
+            TemperaturedataRS();
+            enter_sleep_mode_Timmer();
             break;
         default:
             ESP_LOGI("ButtonTag", "Wake up not caused by deep sleep: %d", wakeup_reason);
-            InitTempButton();
+            InitMain();
+            esp_err_t err = lora_init();
+            if (err != ESP_OK)
+            {
+                ESP_LOGI("lora_init", "lora_init %d", err);
+                return;
+            }
+            InitalizeProgram();
+            TemperaturedataRS();
+            Inactive_message_Init();
+            enter_sleep_mode();
             break;
     }
 }
    
 void InitalizeProgram(){
+       
 //////////////////////////Lora Recieving Mode init and Queue////////
-    printf("*******************************\n");
-    printf("**Receive Continiousn Starts***\n");
-    printf("*******************************\n");
-
-
+  init_littlefs();
+  init_lora_queue();
+  start_lora_queue_task();  
   RecivedLoraContiniousModeInit();
   LoraRXCOntiniousQueue = xQueueCreate(7, sizeof(txBuffer));
   if (LoraRXCOntiniousQueue == NULL)
@@ -1118,32 +1407,8 @@ void InitalizeProgram(){
   }
   xTaskCreatePinnedToCore(LoraRXContiniousTask, "LoraRXContiniousTask", 8096, NULL, 3, &LoraRXContiniousTaskHandle,0);
   xTaskCreatePinnedToCore(RXContiniousMessageQueue, "RXContiniousMessageQueue", 9096, NULL, 1, &LoraRXContiniousMessageQueueTaskHandle,1);
-    printf("*******************************\n");
-    printf("**Receive Continiousn Srops***\n");
-    printf("*******************************\n");
+}
 
-        printf("*******************************\n");
-    printf("*******Temp Button check Start********\n");
-    printf("*******************************\n");
-   
-    printf("*******************************\n");
-    printf("*******Temp Button check Stop********\n");
-    printf("*******************************\n");
-
-    printf("*******************************\n");
-    printf("**Transmit Queue Starts***\n");
-    printf("*******************************\n");
-    init_lora_queue();
-    start_lora_queue_task();  
-    printf("*******************************\n");
-    printf("**Transmit Queue Stop***\n");
-    printf("*******************************\n");
-        /////////////////Initlize LiitleFS//////////////////////
-    // Initialize LittleFS
-    init_littlefs();
-    start_hdc1080_task();
+void app_main(void){
     check_wakeup_reason();
-   
-
-  
 }

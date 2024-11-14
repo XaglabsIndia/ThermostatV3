@@ -1,5 +1,0 @@
-C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/esp-idf/main/ulp_main/CMakeFiles/ulp_main.dir
-C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/esp-idf/main/ulp_main/CMakeFiles/ld_script.dir
-C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/esp-idf/main/ulp_main/CMakeFiles/build.dir
-C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/esp-idf/main/ulp_main/CMakeFiles/edit_cache.dir
-C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/esp-idf/main/ulp_main/CMakeFiles/rebuild_cache.dir

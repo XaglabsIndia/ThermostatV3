@@ -4,6 +4,6 @@
 
 method=source_dir
 command=
-source_dir=C:/Espressif/frameworks/esp-idf-v5.2.2/components/bootloader/subproject
+source_dir=C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/components/bootloader/subproject
 work_dir=
 

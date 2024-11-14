@@ -47,7 +47,7 @@
 #include <stdio.h>
 #include "esp_system.h"
 #include "esp_err.h"
-#include "freertos/queue.h"
+#include <freertos/queue.h>
 #include "esp_task_wdt.h"
 #include <freertos/semphr.h>
 #include <ctype.h>
@@ -219,25 +219,38 @@ static void lora_enable_crc(void)
  */
 void lora_write_reg(lora_reg_t reg, uint8_t val)
 {
-   uint8_t tx[2] = {0x80 | reg, val};
-   uint8_t rx[2];
-
-   spi_transaction_t t = {
-       .flags = 0,
-       .length = 8 * sizeof(tx),
-       .tx_buffer = tx,
-       .rx_buffer = rx};
+    spi_transaction_t t = {};  // Zero initialize
+    
+    uint8_t out[2] = {0x80 | reg, val};
+    uint8_t in[2] = {0};
+    
+    t.length = 16;  // total length in bits
+    t.tx_buffer = out;
+    t.rx_buffer = in;
+    
+    // Acquire bus before transaction
+    esp_err_t ret = spi_device_acquire_bus(__spi, portMAX_DELAY);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to acquire bus: %s", esp_err_to_name(ret));
+        return;
+    }
 
 #ifdef CONFIG_LORA_CS_ON_GPIO
-    ESP_LOGD("Line 215", "CONFIG_LORA_CS_ON_GPIO %d",CONFIG_LORA_CS_ON_GPIO);
-   gpio_set_level(CONFIG_LORA_CS_GPIO, 0);
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 0);
 #endif
-   spi_device_transmit(__spi, &t);
+
+    ret = spi_device_transmit(__spi, &t);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "SPI transmit failed: %s", esp_err_to_name(ret));
+    }
+
 #ifdef CONFIG_LORA_CS_ON_GPIO
-   ESP_LOGD("Line 220", "CONFIG_LORA_CS_ON_GPIO %d",CONFIG_LORA_CS_ON_GPIO);
-   gpio_set_level(CONFIG_LORA_CS_GPIO, 1);
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 1);
 #endif
+
+    spi_device_release_bus(__spi);
 }
+
 
 /**
  * Reads a register from the LoRa module.
@@ -248,26 +261,38 @@ void lora_write_reg(lora_reg_t reg, uint8_t val)
  */
 uint8_t lora_read_reg(lora_reg_t reg)
 {
-   uint8_t tx[2] = {reg, 0xff};
-   uint8_t rx[2];
-
-   spi_transaction_t t = {
-       .flags = 0,
-       .length = 8 * sizeof(tx),
-       .tx_buffer = tx,
-       .rx_buffer = rx};
+    spi_transaction_t t = {};  // Zero initialize
+    
+    uint8_t out[2] = {reg & 0x7F, 0xFF};
+    uint8_t in[2] = {0};
+    
+    t.length = 16;  // total length in bits
+    t.tx_buffer = out;
+    t.rx_buffer = in;
+    
+    esp_err_t ret = spi_device_acquire_bus(__spi, portMAX_DELAY);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to acquire bus: %s", esp_err_to_name(ret));
+        return 0;
+    }
 
 #ifdef CONFIG_LORA_CS_ON_GPIO
-   gpio_set_level(CONFIG_LORA_CS_GPIO, 0);
-#endif
-   spi_device_transmit(__spi, &t);
-#ifdef CONFIG_LORA_CS_ON_GPIO
-   gpio_set_level(CONFIG_LORA_CS_GPIO, 1);
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 0);
 #endif
 
-   return rx[1];
+    ret = spi_device_transmit(__spi, &t);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "SPI transmit failed: %s", esp_err_to_name(ret));
+    }
+
+#ifdef CONFIG_LORA_CS_ON_GPIO
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 1);
+#endif
+
+    spi_device_release_bus(__spi);
+    
+    return in[1];
 }
-
 /**
  * Initializes the LoRa module.
  *
@@ -275,79 +300,104 @@ uint8_t lora_read_reg(lora_reg_t reg)
  */
 esp_err_t lora_init(void)
 {
-    ESP_ERROR_CHECK(gpio_reset_pin(CONFIG_LORA_CS_GPIO));
-    ESP_ERROR_CHECK(gpio_reset_pin(CONFIG_LORA_MOSI_GPIO));
-    ESP_ERROR_CHECK(gpio_reset_pin(CONFIG_LORA_SCK_GPIO));
-    ESP_ERROR_CHECK(gpio_reset_pin(CONFIG_LORA_MISO_GPIO));
-    ESP_ERROR_CHECK(gpio_reset_pin(CONFIG_LORA_RST_GPIO));
-   ESP_LOGI(TAG, "Initialize LoRa module");
-   esp_err_t err = ESP_OK;
-   gpio_pad_select_gpio(CONFIG_LORA_RST_GPIO);
-   gpio_set_direction(CONFIG_LORA_RST_GPIO, GPIO_MODE_OUTPUT);
+    ESP_LOGI(TAG, "Initialize LoRa module");
+    esp_err_t err = ESP_OK;
+
+    // Install GPIO ISR service first
+    err = gpio_install_isr_service(0);
+    if (err != ESP_OK && err != ESP_ERR_INVALID_STATE) {
+        ESP_LOGE(TAG, "GPIO ISR service install failed: %s", esp_err_to_name(err));
+        return err;
+    }
+
+    // Configure GPIO pins
+    gpio_config_t io_conf = {
+        .pin_bit_mask = (1ULL << CONFIG_LORA_RST_GPIO),
+        .mode = GPIO_MODE_OUTPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE
+    };
+    gpio_config(&io_conf);
+
 #ifdef CONFIG_LORA_CS_ON_GPIO
-   gpio_pad_select_gpio(CONFIG_LORA_CS_GPIO);
-   gpio_set_direction(CONFIG_LORA_CS_GPIO, GPIO_MODE_OUTPUT);
+    io_conf.pin_bit_mask = (1ULL << CONFIG_LORA_CS_GPIO);
+    gpio_config(&io_conf);
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 1); // Initialize CS high
 #endif
 
-   ESP_LOGI("CONFIG_LORA_MISO_GPIO", "CONFIG_LORA_MISO_GPIO %d",CONFIG_LORA_MISO_GPIO);
-   ESP_LOGI("CONFIG_LORA_MOSI_GPIO", "CONFIG_LORA_MOSI_GPIO %d",CONFIG_LORA_MOSI_GPIO);
-   ESP_LOGI("CONFIG_LORA_SCK_GPIO", "CONFIG_LORA_SCK_GPIO %d",CONFIG_LORA_SCK_GPIO);
-   ESP_LOGI("CONFIG_LORA_SCK_GPIO", "CONFIG_LORA_CS_GPIO %d",CONFIG_LORA_CS_GPIO);
+    // SPI bus config - Use SPI3_HOST for LoRa to avoid conflict with Arduino
+    spi_bus_config_t buscfg = {
+        .miso_io_num = CONFIG_LORA_MISO_GPIO,
+        .mosi_io_num = CONFIG_LORA_MOSI_GPIO,
+        .sclk_io_num = CONFIG_LORA_SCK_GPIO,
+        .quadwp_io_num = -1,
+        .quadhd_io_num = -1,
+        .max_transfer_sz = 0,
+        .flags = SPICOMMON_BUSFLAG_MASTER,
+    };
 
-   spi_bus_config_t bus = {
-       .miso_io_num = CONFIG_LORA_MISO_GPIO,
-       .mosi_io_num = CONFIG_LORA_MOSI_GPIO,
-       .sclk_io_num = CONFIG_LORA_SCK_GPIO,
-       .quadwp_io_num = -1,
-       .quadhd_io_num = -1,
-       .max_transfer_sz = 0};
-   ESP_LOGI("LORA_SPI", "LORA_SPI %d",LORA_SPI);
-   err = spi_bus_initialize(LORA_SPI, &bus, 0);
-   if (err != ESP_OK)
-      return err;
-   spi_device_interface_config_t dev = {
-       .clock_speed_hz = 9000000,
-       .mode = 0,
-       .spics_io_num = -1,
-       .queue_size = 1,
-       .flags = 0,
-       .pre_cb = NULL};
-   err = spi_bus_add_device(LORA_SPI, &dev, &__spi);
-   if (err != ESP_OK)
-      return err;
-   ESP_LOGI("gpio_pad_select_gpio", "287");
-   lora_reset();
-   ESP_LOGI("gpio_pad_select_gpio", "289");
-   lora_set_mode(LORA_OP_MODE_SLEEP);
+    // Initialize SPI bus for LoRa
+    err = spi_bus_initialize(SPI3_HOST, &buscfg, SPI_DMA_CH_AUTO);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "SPI bus init failed: %s", esp_err_to_name(err));
+        return err;
+    }
 
-   uint8_t i = 0;
-   while (i++ < CONFIG_LORA_INIT_TIMEOUT)
-   {  //lora_write_reg(LORA_REG_VERSION,0x12);
-      uint8_t version = lora_read_reg(LORA_REG_VERSION);
-      ESP_LOGI("version", "version %d",version);
-      if (version == 0x12)
-         break;
-      vTaskDelay(2);
-   }
+    // Device config
+    spi_device_interface_config_t devcfg = {
+        .command_bits = 0,
+        .address_bits = 0,
+        .dummy_bits = 0,
+        .mode = 0,
+        .duty_cycle_pos = 128,
+        .cs_ena_pretrans = 1,
+        .cs_ena_posttrans = 1,
+        .clock_speed_hz = 9000000,
+        .spics_io_num = CONFIG_LORA_CS_ON_GPIO ? -1 : CONFIG_LORA_CS_GPIO,
+        .flags = 0,
+        .queue_size = 1,
+        .pre_cb = NULL,
+        .post_cb = NULL
+    };
 
-   if (i >= CONFIG_LORA_INIT_TIMEOUT + 1)
-      return ESP_ERR_TIMEOUT;
-   ESP_LOGI("gpio_pad_select_gpio", "303");
-   lora_write_reg(LORA_REG_FIFO_RX_BASE_ADDR, 0);
-   lora_write_reg(LORA_REG_FIFO_TX_BASE_ADDR, 0);
-   lora_write_reg(LORA_REG_LNA, lora_read_reg(LORA_REG_LNA) | LORA_LNA_BOOST_HF);
-   lora_write_reg(LORA_REG_MODEM_CONFIG_3, LORA_MODEM_CONFIG3_AGC_AUTO_ON);
-   lora_set_tx_power(CONFIG_LORA_TX_POWER);
-   lora_set_frequency(CONFIG_LORA_FREQ);
-   lora_set_preamble_length(CONFIG_LORA_PREAMBLE_LEN);
+    err = spi_bus_add_device(SPI3_HOST, &devcfg, &__spi);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "SPI device add failed: %s", esp_err_to_name(err));
+        return err;
+    }
 
-   lora_set_sync_word(CONFIG_LORA_SYNC_WORD);
-   lora_enable_crc();
-   lora_set_mode(LORA_OP_MODE_STDBY);
-   gpio_install_isr_service(0); 
-   return err;
+    lora_reset();
+    lora_set_mode(LORA_OP_MODE_SLEEP);
+
+    // Version check
+    uint8_t i = 0;
+    while (i++ < CONFIG_LORA_INIT_TIMEOUT) {
+        uint8_t version = lora_read_reg(LORA_REG_VERSION);
+        ESP_LOGI(TAG, "Version: 0x%02x", version);
+        if (version == 0x12)
+            break;
+        vTaskDelay(2);
+    }
+
+    if (i >= CONFIG_LORA_INIT_TIMEOUT + 1) {
+        return ESP_ERR_TIMEOUT;
+    }
+
+    // Initialize LoRa registers
+    lora_write_reg(LORA_REG_FIFO_RX_BASE_ADDR, 0);
+    lora_write_reg(LORA_REG_FIFO_TX_BASE_ADDR, 0);
+    lora_write_reg(LORA_REG_LNA, lora_read_reg(LORA_REG_LNA) | LORA_LNA_BOOST_HF);
+    lora_write_reg(LORA_REG_MODEM_CONFIG_3, LORA_MODEM_CONFIG3_AGC_AUTO_ON);
+    
+    lora_set_tx_power(CONFIG_LORA_TX_POWER);
+    lora_set_frequency(CONFIG_LORA_FREQ);
+    lora_set_preamble_length(CONFIG_LORA_PREAMBLE_LEN);
+    lora_set_sync_word(CONFIG_LORA_SYNC_WORD);
+    lora_enable_crc();
+    
+    return ESP_OK;
 }
-
 /**
  * Sets the LoRa module to sleep mode.
  */

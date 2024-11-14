@@ -224,7 +224,7 @@ esp_err_t mqtt_subscribe(const char *topic, int qos)
     }
 
     // Call the MQTT subscribe function
-    int msg_id = esp_mqtt_client_subscribe_single(client, topic, qos);
+    int msg_id = esp_mqtt_client_subscribe(client, topic, qos);
     if (msg_id >= 0)
     {
         ESP_LOGI(TAG, "Subscribed to topic %s, msg_id=%d", topic, msg_id);

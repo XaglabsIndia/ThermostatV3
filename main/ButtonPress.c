@@ -14,17 +14,19 @@
 #include "MultiButtonHeader.h"
 #include "Config.h"
 #include <string.h>
+#include <math.h>
 
 // #define CONFIGCONFIG_BUTTON_INC_GPIO 25
 // #define CONFIG_BUTTON_DEC_GPIO 27
-#define DEBOUNCE_TIME 100 // ms
-#define MIN_TEMPERATURE 1.0f  // Minimum temperature limit
-#define MAX_TEMPERATURE 50.0f  // Maximum temperature limit
-#define NVS_KEY "set_temp_f"
-#define BUTTON_TASK_TIMEOUT 5000 // 5 seconds in ms
+#define DEBOUNCE_TIME 10 // ms
+#define MIN_TEMPERATURE 10.0f  // Minimum temperature limit
+#define MAX_TEMPERATURE 30.0f  // Maximum temperature limit
+#define BUTTON_TASK_TIMEOUT 10000 // 5 seconds in ms
 #define TEMPERATURE_STEP 0.5f // Temperature change step
  const char* ButtonTag = "Button Press";
 extern float set_temperature;
+extern void setTemperature_partial_update(void);
+extern void inactive_screen_call(void);
 QueueHandle_t gpio_evt_queue = NULL;
 void load_set_temperature(void);
 typedef struct {
@@ -61,14 +63,14 @@ void print_gpio_status() {
 #include "driver/rtc_io.h"
 #include "esp_sleep.h"
 #include "esp_log.h"
-
+void enter_sleep_mode(void);
 void configure_wakeup() {
     // Configure EXT1 wake-up source for increment button
     esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_BUTTON_INC_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
     
     // // Configure EXT1 wake-up source for decrement button
     // esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
-    // esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_BUTTON_DEC_GPIO), 1);
+    // esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_BUTTON_DEC_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
 
     // Configure RTC GPIOs
     rtc_gpio_init(CONFIG_BUTTON_INC_GPIO);
@@ -81,6 +83,10 @@ void configure_wakeup() {
     rtc_gpio_pullup_en(CONFIG_BUTTON_DEC_GPIO);
 
     ESP_LOGI(ButtonTag, "EXT1 wake-up configuration complete for both buttons");
+    InitalizeProgram();
+    vTaskDelay(100);
+    Temperaturedata();
+   enter_sleep_mode();
 }
 void configure_gpio() {
     gpio_config_t io_conf;
@@ -109,28 +115,38 @@ void enter_sleep_mode(void) {
 
     // Configure EXT1 wake-up source for both buttons
     const uint64_t ext1_wakeup_pin_mask = (1ULL << CONFIG_BUTTON_INC_GPIO) | (1ULL << CONFIG_BUTTON_DEC_GPIO);
-    esp_sleep_enable_ext1_wakeup(ext1_wakeup_pin_mask, ESP_EXT1_WAKEUP_ANY_HIGH);
-
-    // Enable ULP wake-up
-    esp_sleep_enable_ulp_wakeup();
-
-    // Delay to allow for serial output
-    vTaskDelay(pdMS_TO_TICKS(100));
+    esp_sleep_enable_ext1_wakeup(ext1_wakeup_pin_mask, ESP_EXT1_WAKEUP_ALL_LOW);
+    esp_sleep_enable_timer_wakeup(1 * 60 * 1000000ULL);
+    inactive_screen_call();
+    vTaskDelay(pdMS_TO_TICKS(3000));
+    esp_deep_sleep_start();
 }
 
+void enter_sleep_mode_Timmer(void) {
+    ESP_LOGI(ButtonTag, "Preparing to enter deep sleep mode");
+   
+    print_gpio_status();
+
+// Disable all wake-up sources first
+    esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
+
+    // Configure EXT1 wake-up source for both buttons
+    const uint64_t ext1_wakeup_pin_mask = (1ULL << CONFIG_BUTTON_INC_GPIO) | (1ULL << CONFIG_BUTTON_DEC_GPIO);
+    esp_sleep_enable_ext1_wakeup(ext1_wakeup_pin_mask, ESP_EXT1_WAKEUP_ALL_LOW);
+    esp_sleep_enable_timer_wakeup(1 * 60 * 1000000ULL);
+    vTaskDelay(pdMS_TO_TICKS(3000));
+    esp_deep_sleep_start();
+}
 
 void save_temperature(void)
 {
+    set_temperature = round(set_temperature * 10.0) / 10.0;
     esp_err_t RetDevValue = save_float_to_nvs(NVS_KEY, set_temperature);
     if (RetDevValue != ESP_OK)
     {
         RetDevValue = save_float_to_nvs(NVS_KEY, set_temperature);
     }
     ESP_LOGI(ButtonTag, "Temperature written: %.1f", set_temperature);
-    Temperaturedata();
-    vTaskDelay(pdMS_TO_TICKS(100));
-    configure_wakeup();
-    ulp_component(0);
 }
 
 void load_set_temperature(void)
@@ -184,13 +200,17 @@ bool handle_button_presses(int timeout_ms) {
                     if (set_temperature > MAX_TEMPERATURE) set_temperature = MAX_TEMPERATURE;
                     set_temperature_changed = true;
                     ESP_LOGI(ButtonTag, "Temperature increased to: %.1f", set_temperature);
+                       setTemperature_partial_update();
                 } else if (event.gpio_num == CONFIG_BUTTON_DEC_GPIO && set_temperature > MIN_TEMPERATURE) {
                     set_temperature -= TEMPERATURE_STEP;
                     if (set_temperature < MIN_TEMPERATURE) set_temperature = MIN_TEMPERATURE;
                     set_temperature_changed = true;
                     ESP_LOGI(ButtonTag, "Temperature decreased to: %.1f", set_temperature);
+                       setTemperature_partial_update();
+
                 }
                 last_activity_time = current_time;  // Reset the timer on button press
+
                 ESP_LOGI(ButtonTag, "Button pressed. Resetting 5-second timer.");
             }
         } else {
@@ -229,7 +249,7 @@ void button_handling_task(void *pvParameters) {
         } else {
             ESP_LOGI(ButtonTag, "No temperature change in last 5 seconds");
             configure_wakeup();
-            ulp_component(0);
+           // ulp_component(0);
         }
         ESP_LOGI(ButtonTag, "Button handling task loop completed");
         vTaskDelay(pdMS_TO_TICKS(1000));
@@ -238,7 +258,12 @@ void button_handling_task(void *pvParameters) {
 void InitTempButton(void) {
     esp_log_level_set(ButtonTag, ESP_LOG_INFO);
     ESP_LOGI(ButtonTag, "Thermostat starting up");
-    
+    esp_err_t err = lora_init();
+    if (err != ESP_OK)
+    {
+        ESP_LOGI("lora_init", "lora_init %d", err);
+        return;
+    }
     // Load temperature from NVS
     load_set_temperature();
 
@@ -252,6 +277,5 @@ void InitTempButton(void) {
     // gpio_install_isr_service(0);
     gpio_isr_handler_add(CONFIG_BUTTON_INC_GPIO, gpio_isr_handler, (void*) CONFIG_BUTTON_INC_GPIO);
     gpio_isr_handler_add(CONFIG_BUTTON_DEC_GPIO, gpio_isr_handler, (void*) CONFIG_BUTTON_DEC_GPIO);
-
     // Create the button handling task
-xTaskCreatePinnedToCore(button_handling_task, "button_handling_task", 8192, NULL, 5, NULL,0);}
+    xTaskCreatePinnedToCore(button_handling_task, "button_handling_task", 8192, NULL, 5, NULL,0);}

@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/Lijith/Downloads/HUBV3/HUBV3/donotuse/ThermostatV3/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

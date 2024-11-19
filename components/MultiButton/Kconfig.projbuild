@@ -1,0 +1,35 @@
+menu "Button Conifugration"
+
+    config MULTIBUTTON_GPIO
+        int "MULTIBUTTON GPIO"
+        range 0 35
+        default 21
+        help 
+            MULTIBUTTON pin.
+    config RED_LED_GPIO
+        int "RED LED GPIO"
+        range 0 35
+        default 21
+        help 
+            REDLE GPIO pin.
+
+    config BLUE_LED_GPIO
+        int "BLUE_LED_GPIO"
+        range 0 35
+        default 21
+        help 
+            BLUE_LED_GPIO.
+
+    config GREEN_LED_GPIO
+        int "GREEN_LED_GPIO"
+        range 0 35
+        default 21
+        help 
+            GREEN_LED_GPIO.
+    config RELAY_GPIO
+        int "RELAY_GPIO"
+        range 0 35
+        default 21
+        help 
+            RELAY_GPIO.
+endmenu

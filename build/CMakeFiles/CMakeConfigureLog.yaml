@@ -80,8 +80,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-0r140j"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-0r140j"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-hd0cfj"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-hd0cfj"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -91,10 +91,10 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-0r140j'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-hd0cfj'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_cb0f6
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls     -v -o CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_d32ab
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls     -v -o CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe
         Target: xtensa-esp32s3-elf
@@ -102,8 +102,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib
         gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_cb0f6.dir/'
-         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_cb0f6.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cchvKcng.s
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d32ab.dir/'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_d32ab.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccQmh43d.s
         GNU C17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)
         	compiled by GNU C version 6.3.0 20170516, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
         
@@ -124,12 +124,12 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: b69a94acee987b4de6aaaa336cf1fbde
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_cb0f6.dir/'
-         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cchvKcng.s
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d32ab.dir/'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccQmh43d.s
         COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/
         LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/\x0d
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.'\x0d
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls -v CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj -o cmTC_cb0f6   && cd ."
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.'\x0d
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls -v CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj -o cmTC_d32ab   && cd ."
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe
         COLLECT_LTO_WRAPPER=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe
@@ -140,9 +140,9 @@ events:
         gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
         COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/
         LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_cb0f6' '-dumpdir' 'cmTC_cb0f6.'
-         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccs2XHco.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_cb0f6 c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_cb0f6' '-dumpdir' 'cmTC_cb0f6.'\x0d
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_d32ab' '-dumpdir' 'cmTC_d32ab.'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccbbbtQa.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_d32ab c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_d32ab' '-dumpdir' 'cmTC_d32ab.'\x0d
         
       exitCode: 0
   -
@@ -179,10 +179,10 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
-        ignore line: [Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-0r140j']
+        ignore line: [Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-hd0cfj']
         ignore line: []
-        ignore line: [Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_cb0f6]
-        ignore line: [[1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls     -v -o CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_d32ab]
+        ignore line: [[1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls     -v -o CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe]
         ignore line: [Target: xtensa-esp32s3-elf]
@@ -190,8 +190,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib]
         ignore line: [gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_cb0f6.dir/']
-        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_cb0f6.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cchvKcng.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d32ab.dir/']
+        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_d32ab.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccQmh43d.s]
         ignore line: [GNU C17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)]
         ignore line: [	compiled by GNU C version 6.3.0 20170516  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
         ignore line: []
@@ -212,16 +212,16 @@ events:
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: b69a94acee987b4de6aaaa336cf1fbde]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_cb0f6.dir/']
-        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cchvKcng.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d32ab.dir/']
+        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccQmh43d.s]
         ignore line: [COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/]
         ignore line: [LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/\x0d]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.'\x0d]
-        ignore line: [[2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls -v CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj -o cmTC_cb0f6   && cd ."]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.'\x0d]
+        ignore line: [[2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls -v CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj -o cmTC_d32ab   && cd ."]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe]
         ignore line: [COLLECT_LTO_WRAPPER=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe]
@@ -236,27 +236,27 @@ events:
         ignore line: [LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_cb0f6' '-dumpdir' 'cmTC_cb0f6.']
-        link line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccs2XHco.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_cb0f6 c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_d32ab' '-dumpdir' 'cmTC_d32ab.']
+        link line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccbbbtQa.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_d32ab c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe] ==> ignore
           arg [-plugin] ==> ignore
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll] ==> ignore
           arg [-plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe] ==> ignore
-          arg [-plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccs2XHco.res] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccbbbtQa.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lnosys] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_cb0f6] ==> ignore
+          arg [cmTC_d32ab] ==> ignore
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o]
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o]
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o]
           arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0]
           arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc]
           arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib]
-          arg [CMakeFiles/cmTC_cb0f6.dir/CMakeCCompilerABI.c.obj] ==> ignore
+          arg [CMakeFiles/cmTC_d32ab.dir/CMakeCCompilerABI.c.obj] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [-lc] ==> lib [c]
           arg [-lnosys] ==> lib [nosys]
@@ -264,7 +264,7 @@ events:
           arg [-lgcc] ==> lib [gcc]
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o]
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_cb0f6' '-dumpdir' 'cmTC_cb0f6.'\x0d]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_d32ab' '-dumpdir' 'cmTC_d32ab.'\x0d]
         ignore line: []
         ignore line: []
         collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/lib/crt0.o]
@@ -291,8 +291,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zvqf7l"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zvqf7l"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-96qm4a"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-96qm4a"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "-mlongcalls "
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -303,10 +303,10 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zvqf7l'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-96qm4a'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_d1f01
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe   -mlongcalls     -v -o CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_4e5ca
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe   -mlongcalls     -v -o CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe
         Target: xtensa-esp32s3-elf
@@ -314,8 +314,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib
         gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d1f01.dir/'
-         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1plus.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_d1f01.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cc8L24c2.s
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4e5ca.dir/'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1plus.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_4e5ca.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccNqTV6B.s
         GNU C++17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)
         	compiled by GNU C version 6.3.0 20170516, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
         
@@ -342,12 +342,12 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 4b9c7c36b27f0814815d9daed1ed2832
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d1f01.dir/'
-         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cc8L24c2.s
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4e5ca.dir/'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccNqTV6B.s
         COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/
         LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/\x0d
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.'\x0d
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe -mlongcalls -v CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_d1f01   && cd ."
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.'\x0d
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe -mlongcalls -v CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_4e5ca   && cd ."
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe
         COLLECT_LTO_WRAPPER=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe
@@ -358,9 +358,9 @@ events:
         gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
         COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/
         LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_d1f01' '-dumpdir' 'cmTC_d1f01.'
-         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccSjhNod.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_d1f01 c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_d1f01' '-dumpdir' 'cmTC_d1f01.'\x0d
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_4e5ca' '-dumpdir' 'cmTC_4e5ca.'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cctWyMSG.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_4e5ca c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_4e5ca' '-dumpdir' 'cmTC_4e5ca.'\x0d
         
       exitCode: 0
   -
@@ -403,10 +403,10 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
-        ignore line: [Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zvqf7l']
+        ignore line: [Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-96qm4a']
         ignore line: []
-        ignore line: [Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_d1f01]
-        ignore line: [[1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe   -mlongcalls     -v -o CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_4e5ca]
+        ignore line: [[1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe   -mlongcalls     -v -o CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe]
         ignore line: [Target: xtensa-esp32s3-elf]
@@ -414,8 +414,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib]
         ignore line: [gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d1f01.dir/']
-        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1plus.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_d1f01.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cc8L24c2.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4e5ca.dir/']
+        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1plus.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_4e5ca.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccNqTV6B.s]
         ignore line: [GNU C++17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)]
         ignore line: [	compiled by GNU C version 6.3.0 20170516  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
         ignore line: []
@@ -442,16 +442,16 @@ events:
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 4b9c7c36b27f0814815d9daed1ed2832]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d1f01.dir/']
-        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cc8L24c2.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4e5ca.dir/']
+        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccNqTV6B.s]
         ignore line: [COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/]
         ignore line: [LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/\x0d]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.'\x0d]
-        ignore line: [[2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe -mlongcalls -v CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_d1f01   && cd ."]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.'\x0d]
+        ignore line: [[2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe -mlongcalls -v CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_4e5ca   && cd ."]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe]
         ignore line: [COLLECT_LTO_WRAPPER=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe]
@@ -466,27 +466,27 @@ events:
         ignore line: [LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/]
         ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_d1f01' '-dumpdir' 'cmTC_d1f01.']
-        link line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccSjhNod.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_d1f01 c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_4e5ca' '-dumpdir' 'cmTC_4e5ca.']
+        link line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cctWyMSG.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_4e5ca c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe] ==> ignore
           arg [-plugin] ==> ignore
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll] ==> ignore
           arg [-plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe] ==> ignore
-          arg [-plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccSjhNod.res] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cctWyMSG.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lnosys] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_d1f01] ==> ignore
+          arg [cmTC_4e5ca] ==> ignore
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o]
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o]
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o]
           arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0]
           arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc]
           arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib]
-          arg [CMakeFiles/cmTC_d1f01.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
+          arg [CMakeFiles/cmTC_4e5ca.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc] ==> lib [gcc]
@@ -496,7 +496,7 @@ events:
           arg [-lgcc] ==> lib [gcc]
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o]
           arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_d1f01' '-dumpdir' 'cmTC_d1f01.'\x0d]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_4e5ca' '-dumpdir' 'cmTC_4e5ca.'\x0d]
         ignore line: []
         ignore line: []
         collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/lib/crt0.o]
@@ -522,8 +522,8 @@ events:
     checks:
       - "Looking for sys/types.h"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-poqtnf"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-poqtnf"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-davdn7"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-davdn7"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -533,11 +533,11 @@ events:
       variable: "HAVE_SYS_TYPES_H"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-poqtnf'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-davdn7'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_964c8
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_964c8.dir/CheckIncludeFile.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-poqtnf/CheckIncludeFile.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_964c8.dir/CheckIncludeFile.c.obj -o cmTC_964c8   && cd ."
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_03ee5
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_03ee5.dir/CheckIncludeFile.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-davdn7/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_03ee5.dir/CheckIncludeFile.c.obj -o cmTC_03ee5   && cd ."
         
       exitCode: 0
   -
@@ -549,8 +549,8 @@ events:
     checks:
       - "Looking for stdint.h"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-th3u7a"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-th3u7a"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-e353kn"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-e353kn"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -560,11 +560,580 @@ events:
       variable: "HAVE_STDINT_H"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-th3u7a'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-e353kn'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_2eaf3
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_2eaf3.dir/CheckIncludeFile.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-th3u7a/CheckIncludeFile.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_2eaf3.dir/CheckIncludeFile.c.obj -o cmTC_2eaf3   && cd ."
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_f3fe4
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_f3fe4.dir/CheckIncludeFile.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-e353kn/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_f3fe4.dir/CheckIncludeFile.c.obj -o cmTC_f3fe4   && cd ."
+        
+      exitCode: 0
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/project.cmake:505 (__project)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      The target system is: Generic -  - 
+      The host system is: Windows - 10.0.22631 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/project.cmake:505 (__project)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-gcc.exe 
+      Build flags: -mlongcalls
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is GNU, found in:
+        C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/3.30.2/CompilerIdC/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/project.cmake:505 (__project)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-g++.exe 
+      Build flags: -mlongcalls
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/3.30.2/CompilerIdCXX/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:1192 (message)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineASMCompiler.cmake:135 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/project.cmake:505 (__project)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      xtensa-esp32s3-elf-gcc.exe (crosstool-NG esp-12.2.0_20230208) 12.2.0
+      Copyright (C) 2022 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/project.cmake:505 (__project)"
+      - "CMakeLists.txt:8 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-8jz4nt"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-8jz4nt"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-mlongcalls "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake;C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/third_party"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-8jz4nt'
+        
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_b6eeb
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls     -v -o CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe
+        Target: xtensa-esp32s3-elf
+        Configured with: /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-host_w64-mingw32 --target=xtensa-esp32s3-elf --prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --exec_prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --with-local-prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf --with-headers=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include --with-newlib --enable-threads=no --disable-shared --with-pkgversion='crosstool-NG esp-12.2.0_20230208' --disable-__cxa_atexit --enable-cxx-flags=-ffunction-sections --disable-libgomp --disable-libmudflap --disable-libmpx --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libstdcxx-verbose --with-gmp=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpfr=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpc=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-isl=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --enable-lto --enable-target-optspace --without-long-double-128 --disable-nls --enable-multiarch --enable-languages=c,c++ --disable-libstdcxx-verbose --enable-threads=posix --enable-gcov-custom-rtio --enable-libstdcxx-time=yes --with-gnu-ld
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b6eeb.dir/'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_b6eeb.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cckTq1ap.s
+        GNU C17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)
+        	compiled by GNU C version 6.3.0 20170516, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/include"
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed"
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include"
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/include
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include
+        End of search list.
+        GNU C17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)
+        	compiled by GNU C version 6.3.0 20170516, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: b69a94acee987b4de6aaaa336cf1fbde
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b6eeb.dir/'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cckTq1ap.s
+        COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/
+        LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/\x0d
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.'\x0d
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls -v CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj -o cmTC_b6eeb   && cd ."
+        Using built-in specs.
+        COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe
+        COLLECT_LTO_WRAPPER=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe
+        Target: xtensa-esp32s3-elf
+        Configured with: /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-host_w64-mingw32 --target=xtensa-esp32s3-elf --prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --exec_prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --with-local-prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf --with-headers=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include --with-newlib --enable-threads=no --disable-shared --with-pkgversion='crosstool-NG esp-12.2.0_20230208' --disable-__cxa_atexit --enable-cxx-flags=-ffunction-sections --disable-libgomp --disable-libmudflap --disable-libmpx --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libstdcxx-verbose --with-gmp=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpfr=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpc=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-isl=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --enable-lto --enable-target-optspace --without-long-double-128 --disable-nls --enable-multiarch --enable-languages=c,c++ --disable-libstdcxx-verbose --enable-threads=posix --enable-gcov-custom-rtio --enable-libstdcxx-time=yes --with-gnu-ld
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
+        COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/
+        LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_b6eeb' '-dumpdir' 'cmTC_b6eeb.'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccExFnlt.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_b6eeb c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_b6eeb' '-dumpdir' 'cmTC_b6eeb.'\x0d
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/project.cmake:505 (__project)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/include]
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed]
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include]
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include]
+        end of search list found
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/include] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/include]
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed]
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/sys-include]
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include]
+        implicit include dirs: [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/include;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/sys-include;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/project.cmake:505 (__project)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-8jz4nt']
+        ignore line: []
+        ignore line: [Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_b6eeb]
+        ignore line: [[1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls     -v -o CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe]
+        ignore line: [Target: xtensa-esp32s3-elf]
+        ignore line: [Configured with: /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-host_w64-mingw32 --target=xtensa-esp32s3-elf --prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --exec_prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --with-local-prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf --with-headers=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include --with-newlib --enable-threads=no --disable-shared --with-pkgversion='crosstool-NG esp-12.2.0_20230208' --disable-__cxa_atexit --enable-cxx-flags=-ffunction-sections --disable-libgomp --disable-libmudflap --disable-libmpx --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libstdcxx-verbose --with-gmp=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpfr=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpc=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-isl=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --enable-lto --enable-target-optspace --without-long-double-128 --disable-nls --enable-multiarch --enable-languages=c,c++ --disable-libstdcxx-verbose --enable-threads=posix --enable-gcov-custom-rtio --enable-libstdcxx-time=yes --with-gnu-ld]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b6eeb.dir/']
+        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_b6eeb.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cckTq1ap.s]
+        ignore line: [GNU C17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)]
+        ignore line: [	compiled by GNU C version 6.3.0 20170516  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/include"]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed"]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include"]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/include]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)]
+        ignore line: [	compiled by GNU C version 6.3.0 20170516  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: b69a94acee987b4de6aaaa336cf1fbde]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b6eeb.dir/']
+        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cckTq1ap.s]
+        ignore line: [COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/]
+        ignore line: [LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/\x0d]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.'\x0d]
+        ignore line: [[2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls -v CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj -o cmTC_b6eeb   && cd ."]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe]
+        ignore line: [COLLECT_LTO_WRAPPER=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe]
+        ignore line: [Target: xtensa-esp32s3-elf]
+        ignore line: [Configured with: /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-host_w64-mingw32 --target=xtensa-esp32s3-elf --prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --exec_prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --with-local-prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf --with-headers=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include --with-newlib --enable-threads=no --disable-shared --with-pkgversion='crosstool-NG esp-12.2.0_20230208' --disable-__cxa_atexit --enable-cxx-flags=-ffunction-sections --disable-libgomp --disable-libmudflap --disable-libmpx --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libstdcxx-verbose --with-gmp=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpfr=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpc=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-isl=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --enable-lto --enable-target-optspace --without-long-double-128 --disable-nls --enable-multiarch --enable-languages=c,c++ --disable-libstdcxx-verbose --enable-threads=posix --enable-gcov-custom-rtio --enable-libstdcxx-time=yes --with-gnu-ld]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) ]
+        ignore line: [COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/]
+        ignore line: [LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_b6eeb' '-dumpdir' 'cmTC_b6eeb.']
+        link line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccExFnlt.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_b6eeb c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll] ==> ignore
+          arg [-plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccExFnlt.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lnosys] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_b6eeb] ==> ignore
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o]
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o]
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o]
+          arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0]
+          arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc]
+          arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib]
+          arg [CMakeFiles/cmTC_b6eeb.dir/CMakeCCompilerABI.c.obj] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lnosys] ==> lib [nosys]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o]
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_b6eeb' '-dumpdir' 'cmTC_b6eeb.'\x0d]
+        ignore line: []
+        ignore line: []
+        collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/lib/crt0.o]
+        collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o]
+        collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o]
+        collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o]
+        collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
+        collapse library dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0]
+        collapse library dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc]
+        collapse library dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/lib]
+        implicit libs: [gcc;c;nosys;c;gcc]
+        implicit objs: [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/lib/crt0.o;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
+        implicit dirs: [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/project.cmake:505 (__project)"
+      - "CMakeLists.txt:8 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-nqw15q"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-nqw15q"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-mlongcalls "
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake;C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/third_party"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-nqw15q'
+        
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_1d04a
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe   -mlongcalls     -v -o CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp
+        Using built-in specs.
+        COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe
+        Target: xtensa-esp32s3-elf
+        Configured with: /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-host_w64-mingw32 --target=xtensa-esp32s3-elf --prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --exec_prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --with-local-prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf --with-headers=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include --with-newlib --enable-threads=no --disable-shared --with-pkgversion='crosstool-NG esp-12.2.0_20230208' --disable-__cxa_atexit --enable-cxx-flags=-ffunction-sections --disable-libgomp --disable-libmudflap --disable-libmpx --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libstdcxx-verbose --with-gmp=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpfr=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpc=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-isl=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --enable-lto --enable-target-optspace --without-long-double-128 --disable-nls --enable-multiarch --enable-languages=c,c++ --disable-libstdcxx-verbose --enable-threads=posix --enable-gcov-custom-rtio --enable-libstdcxx-time=yes --with-gnu-ld
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_1d04a.dir/'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1plus.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_1d04a.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccU3h3AP.s
+        GNU C++17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)
+        	compiled by GNU C version 6.3.0 20170516, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0"
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/xtensa-esp32s3-elf"
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/backward"
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/include"
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed"
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include"
+        ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/xtensa-esp32s3-elf
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/backward
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/include
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include
+         c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include
+        End of search list.
+        GNU C++17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)
+        	compiled by GNU C version 6.3.0 20170516, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: 4b9c7c36b27f0814815d9daed1ed2832
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_1d04a.dir/'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccU3h3AP.s
+        COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/
+        LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/\x0d
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.'\x0d
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe -mlongcalls -v CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_1d04a   && cd ."
+        Using built-in specs.
+        COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe
+        COLLECT_LTO_WRAPPER=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe
+        Target: xtensa-esp32s3-elf
+        Configured with: /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-host_w64-mingw32 --target=xtensa-esp32s3-elf --prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --exec_prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --with-local-prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf --with-headers=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include --with-newlib --enable-threads=no --disable-shared --with-pkgversion='crosstool-NG esp-12.2.0_20230208' --disable-__cxa_atexit --enable-cxx-flags=-ffunction-sections --disable-libgomp --disable-libmudflap --disable-libmpx --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libstdcxx-verbose --with-gmp=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpfr=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpc=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-isl=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --enable-lto --enable-target-optspace --without-long-double-128 --disable-nls --enable-multiarch --enable-languages=c,c++ --disable-libstdcxx-verbose --enable-threads=posix --enable-gcov-custom-rtio --enable-libstdcxx-time=yes --with-gnu-ld
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
+        COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/
+        LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/;c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_1d04a' '-dumpdir' 'cmTC_1d04a.'
+         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cc48A57S.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_1d04a c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_1d04a' '-dumpdir' 'cmTC_1d04a.'\x0d
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/project.cmake:505 (__project)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0]
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/xtensa-esp32s3-elf]
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/backward]
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/include]
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed]
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include]
+          add: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include]
+        end of search list found
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include/c++/12.2.0]
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/xtensa-esp32s3-elf] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include/c++/12.2.0/xtensa-esp32s3-elf]
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/backward] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include/c++/12.2.0/backward]
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/include] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/include]
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed]
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/sys-include]
+        collapse include dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include]
+        implicit include dirs: [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include/c++/12.2.0;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include/c++/12.2.0/xtensa-esp32s3-elf;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include/c++/12.2.0/backward;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/include;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/sys-include;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/project.cmake:505 (__project)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-nqw15q']
+        ignore line: []
+        ignore line: [Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_1d04a]
+        ignore line: [[1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe   -mlongcalls     -v -o CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe]
+        ignore line: [Target: xtensa-esp32s3-elf]
+        ignore line: [Configured with: /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-host_w64-mingw32 --target=xtensa-esp32s3-elf --prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --exec_prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --with-local-prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf --with-headers=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include --with-newlib --enable-threads=no --disable-shared --with-pkgversion='crosstool-NG esp-12.2.0_20230208' --disable-__cxa_atexit --enable-cxx-flags=-ffunction-sections --disable-libgomp --disable-libmudflap --disable-libmpx --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libstdcxx-verbose --with-gmp=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpfr=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpc=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-isl=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --enable-lto --enable-target-optspace --without-long-double-128 --disable-nls --enable-multiarch --enable-languages=c,c++ --disable-libstdcxx-verbose --enable-threads=posix --enable-gcov-custom-rtio --enable-libstdcxx-time=yes --with-gnu-ld]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_1d04a.dir/']
+        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/cc1plus.exe -quiet -v -iprefix c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/ C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_1d04a.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlongcalls -version -o C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccU3h3AP.s]
+        ignore line: [GNU C++17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)]
+        ignore line: [	compiled by GNU C version 6.3.0 20170516  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0"]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/xtensa-esp32s3-elf"]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/backward"]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/include"]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed"]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include"]
+        ignore line: [ignoring duplicate directory "c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/../../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/xtensa-esp32s3-elf]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include/c++/12.2.0/backward]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/include]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/include-fixed]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/sys-include]
+        ignore line: [ c:\\users\\esq-linux\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C++17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32s3-elf)]
+        ignore line: [	compiled by GNU C version 6.3.0 20170516  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: 4b9c7c36b27f0814815d9daed1ed2832]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_1d04a.dir/']
+        ignore line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\ccU3h3AP.s]
+        ignore line: [COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/]
+        ignore line: [LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/\x0d]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.'\x0d]
+        ignore line: [[2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe -mlongcalls -v CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_1d04a   && cd ."]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-g++.exe]
+        ignore line: [COLLECT_LTO_WRAPPER=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe]
+        ignore line: [Target: xtensa-esp32s3-elf]
+        ignore line: [Configured with: /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-host_w64-mingw32 --target=xtensa-esp32s3-elf --prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --exec_prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf --with-local-prefix=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf --with-headers=/builds/idf/crosstool-NG/builds/xtensa-esp32s3-elf/xtensa-esp32s3-elf/include --with-newlib --enable-threads=no --disable-shared --with-pkgversion='crosstool-NG esp-12.2.0_20230208' --disable-__cxa_atexit --enable-cxx-flags=-ffunction-sections --disable-libgomp --disable-libmudflap --disable-libmpx --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libstdcxx-verbose --with-gmp=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpfr=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-mpc=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --with-isl=/builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp32s3-elf/buildtools/complibs-host --enable-lto --enable-target-optspace --without-long-double-128 --disable-nls --enable-multiarch --enable-languages=c,c++ --disable-libstdcxx-verbose --enable-threads=posix --enable-gcov-custom-rtio --enable-libstdcxx-time=yes --with-gnu-ld]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) ]
+        ignore line: [COMPILER_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/]
+        ignore line: [LIBRARY_PATH=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/]
+        ignore line: [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_1d04a' '-dumpdir' 'cmTC_1d04a.']
+        link line: [ c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe -plugin c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cc48A57S.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_1d04a c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0 -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc -Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/collect2.exe] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/liblto_plugin.dll] ==> ignore
+          arg [-plugin-opt=c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../libexec/gcc/xtensa-esp32s3-elf/12.2.0/lto-wrapper.exe] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\ESQ-LI~1\\AppData\\Local\\Temp\\cc48A57S.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lnosys] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_1d04a] ==> ignore
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o]
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o]
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o]
+          arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0]
+          arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc]
+          arg [-Lc:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib] ==> dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib]
+          arg [CMakeFiles/cmTC_1d04a.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lnosys] ==> lib [nosys]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o]
+          arg [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o] ==> obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-v' '-o' 'cmTC_1d04a' '-dumpdir' 'cmTC_1d04a.'\x0d]
+        ignore line: []
+        ignore line: []
+        collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib/crt0.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/lib/crt0.o]
+        collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o]
+        collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o]
+        collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o]
+        collapse obj [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
+        collapse library dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0]
+        collapse library dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc]
+        collapse library dir [c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/lib] ==> [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/lib]
+        implicit libs: [stdc++;m;gcc;c;nosys;c;gcc]
+        implicit objs: [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/lib/crt0.o;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crti.o;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtbegin.o;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtend.o;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0/crtn.o]
+        implicit dirs: [C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc/xtensa-esp32s3-elf/12.2.0;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/lib/gcc;C:/Users/ESQ-LINUX/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/xtensa-esp32s3-elf/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CheckTypeSize.cmake:251 (check_include_file)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/CMakeLists.txt:257 (check_type_size)"
+    checks:
+      - "Looking for sys/types.h"
+    directories:
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-kgmu94"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-kgmu94"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-mlongcalls "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake;C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/third_party"
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-kgmu94'
+        
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_90157
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_90157.dir/CheckIncludeFile.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-kgmu94/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_90157.dir/CheckIncludeFile.c.obj -o cmTC_90157   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "C:/Users/ESQ-LINUX/.espressif/tools/tools/cmake/3.30.2/share/cmake-3.30/Modules/CheckTypeSize.cmake:252 (check_include_file)"
+      - "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/CMakeLists.txt:257 (check_type_size)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-3hm63p"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-3hm63p"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-mlongcalls "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake;C:/Users/ESQ-LINUX/esp/v5.1/esp-idf/tools/cmake/third_party"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-3hm63p'
+        
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_1db73
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_1db73.dir/CheckIncludeFile.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-3hm63p/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_1db73.dir/CheckIncludeFile.c.obj -o cmTC_1db73   && cd ."
         
       exitCode: 0
   -
@@ -576,8 +1145,8 @@ events:
     checks:
       - "Looking for stddef.h"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-05w2h8"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-05w2h8"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-btqcb8"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-btqcb8"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -587,11 +1156,11 @@ events:
       variable: "HAVE_STDDEF_H"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-05w2h8'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-btqcb8'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_b1f8b
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_b1f8b.dir/CheckIncludeFile.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-05w2h8/CheckIncludeFile.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_b1f8b.dir/CheckIncludeFile.c.obj -o cmTC_b1f8b   && cd ."
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_0eabc
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_0eabc.dir/CheckIncludeFile.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-btqcb8/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_0eabc.dir/CheckIncludeFile.c.obj -o cmTC_0eabc   && cd ."
         
       exitCode: 0
   -
@@ -603,8 +1172,8 @@ events:
     checks:
       - "Check size of time_t"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-kb30zg"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-kb30zg"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-dztoig"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-dztoig"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -614,11 +1183,11 @@ events:
       variable: "HAVE_TIME_T_SIZE"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-kb30zg'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-dztoig'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_7fb86
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_7fb86.dir/TIME_T_SIZE.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-kb30zg/TIME_T_SIZE.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_7fb86.dir/TIME_T_SIZE.c.obj -o cmTC_7fb86   && cd ."
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_0ac48
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_0ac48.dir/TIME_T_SIZE.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-dztoig/TIME_T_SIZE.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_0ac48.dir/TIME_T_SIZE.c.obj -o cmTC_0ac48   && cd ."
         
       exitCode: 0
   -
@@ -632,8 +1201,8 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zahz2t"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zahz2t"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-2gg0pa"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-2gg0pa"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -643,20 +1212,20 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zahz2t'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-2gg0pa'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_aaaf4
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -DCMAKE_HAVE_LIBC_PTHREAD  -mlongcalls -o CMakeFiles/cmTC_aaaf4.dir/src.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zahz2t/src.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_aaaf4.dir/src.c.obj -o cmTC_aaaf4   && cd ."
-        FAILED: cmTC_aaaf4 
-        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_aaaf4.dir/src.c.obj -o cmTC_aaaf4   && cd ."
-        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_aaaf4.dir/src.c.obj:(.literal+0x10): warning: pthread_join is not implemented and will always fail
-        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_aaaf4.dir/src.c.obj:(.literal+0x18): warning: pthread_exit is not implemented and will always fail
-        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_aaaf4.dir/src.c.obj:(.literal+0x8): warning: pthread_detach is not implemented and will always fail
-        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_aaaf4.dir/src.c.obj:(.literal+0x4): warning: pthread_create is not implemented and will always fail
-        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_aaaf4.dir/src.c.obj:(.literal+0xc): warning: pthread_cancel is not implemented and will always fail
-        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_aaaf4.dir/src.c.obj:(.literal+0x4): undefined reference to `pthread_atfork'
-        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_aaaf4.dir/src.c.obj: in function `main':\x0d
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_a787a
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -DCMAKE_HAVE_LIBC_PTHREAD  -mlongcalls -o CMakeFiles/cmTC_a787a.dir/src.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-2gg0pa/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_a787a.dir/src.c.obj -o cmTC_a787a   && cd ."
+        FAILED: cmTC_a787a 
+        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_a787a.dir/src.c.obj -o cmTC_a787a   && cd ."
+        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_a787a.dir/src.c.obj:(.literal+0x10): warning: pthread_join is not implemented and will always fail
+        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_a787a.dir/src.c.obj:(.literal+0x18): warning: pthread_exit is not implemented and will always fail
+        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_a787a.dir/src.c.obj:(.literal+0x8): warning: pthread_detach is not implemented and will always fail
+        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_a787a.dir/src.c.obj:(.literal+0x4): warning: pthread_create is not implemented and will always fail
+        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_a787a.dir/src.c.obj:(.literal+0xc): warning: pthread_cancel is not implemented and will always fail
+        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_a787a.dir/src.c.obj:(.literal+0x4): undefined reference to `pthread_atfork'
+        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_a787a.dir/src.c.obj: in function `main':\x0d
         src.c:(.text+0x3f): undefined reference to `pthread_atfork'\x0d
         collect2.exe: error: ld returned 1 exit status
         ninja: build stopped: subcommand failed.
@@ -671,8 +1240,8 @@ events:
     checks:
       - "Check if compiler accepts -pthread"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-ytm6l0"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-ytm6l0"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-fst3p3"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-fst3p3"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls "
       CMAKE_EXE_LINKER_FLAGS: ""
@@ -681,13 +1250,13 @@ events:
       variable: "THREADS_HAVE_PTHREAD_ARG"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-ytm6l0'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-fst3p3'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_3c63f
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_3c63f.dir/CheckForPthreads.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-ytm6l0/CheckForPthreads.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_3c63f.dir/CheckForPthreads.c.obj -o cmTC_3c63f  -pthread && cd ."
-        FAILED: cmTC_3c63f 
-        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_3c63f.dir/CheckForPthreads.c.obj -o cmTC_3c63f  -pthread && cd ."
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_3db46
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls -o CMakeFiles/cmTC_3db46.dir/CheckForPthreads.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-fst3p3/CheckForPthreads.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_3db46.dir/CheckForPthreads.c.obj -o cmTC_3db46  -pthread && cd ."
+        FAILED: cmTC_3db46 
+        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  CMakeFiles/cmTC_3db46.dir/CheckForPthreads.c.obj -o cmTC_3db46  -pthread && cd ."
         xtensa-esp32s3-elf-gcc.exe: error: unrecognized command-line option '-pthread'
         ninja: build stopped: subcommand failed.
         
@@ -702,8 +1271,8 @@ events:
     checks:
       - "Looking for pthread_create in pthreads"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zw6xbi"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zw6xbi"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-et9v3v"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-et9v3v"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls "
       CMAKE_EXE_LINKER_FLAGS: ""
@@ -712,15 +1281,15 @@ events:
       variable: "CMAKE_HAVE_PTHREADS_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zw6xbi'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-et9v3v'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_84e90
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_84e90.dir/CheckFunctionExists.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-zw6xbi/CheckFunctionExists.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_84e90.dir/CheckFunctionExists.c.obj -o cmTC_84e90  -lpthreads && cd ."
-        FAILED: cmTC_84e90 
-        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_84e90.dir/CheckFunctionExists.c.obj -o cmTC_84e90  -lpthreads && cd ."
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_90a2a
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_90a2a.dir/CheckFunctionExists.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-et9v3v/CheckFunctionExists.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_90a2a.dir/CheckFunctionExists.c.obj -o cmTC_90a2a  -lpthreads && cd ."
+        FAILED: cmTC_90a2a 
+        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_90a2a.dir/CheckFunctionExists.c.obj -o cmTC_90a2a  -lpthreads && cd ."
         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: cannot find -lpthreads: No such file or directory\x0d
-        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_84e90.dir/CheckFunctionExists.c.obj:(.literal+0x0): warning: pthread_create is not implemented and will always fail\x0d
+        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_90a2a.dir/CheckFunctionExists.c.obj:(.literal+0x0): warning: pthread_create is not implemented and will always fail\x0d
         collect2.exe: error: ld returned 1 exit status
         ninja: build stopped: subcommand failed.
         
@@ -735,8 +1304,8 @@ events:
     checks:
       - "Looking for pthread_create in pthread"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-rmdjdw"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-rmdjdw"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-ek0isw"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-ek0isw"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls "
       CMAKE_EXE_LINKER_FLAGS: ""
@@ -745,15 +1314,15 @@ events:
       variable: "CMAKE_HAVE_PTHREAD_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-rmdjdw'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-ek0isw'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_ef691
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_ef691.dir/CheckFunctionExists.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-rmdjdw/CheckFunctionExists.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_ef691.dir/CheckFunctionExists.c.obj -o cmTC_ef691  -lpthread && cd ."
-        FAILED: cmTC_ef691 
-        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_ef691.dir/CheckFunctionExists.c.obj -o cmTC_ef691  -lpthread && cd ."
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_c0685
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe   -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_c0685.dir/CheckFunctionExists.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-ek0isw/CheckFunctionExists.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_c0685.dir/CheckFunctionExists.c.obj -o cmTC_c0685  -lpthread && cd ."
+        FAILED: cmTC_c0685 
+        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_c0685.dir/CheckFunctionExists.c.obj -o cmTC_c0685  -lpthread && cd ."
         c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: cannot find -lpthread: No such file or directory\x0d
-        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_ef691.dir/CheckFunctionExists.c.obj:(.literal+0x0): warning: pthread_create is not implemented and will always fail\x0d
+        c:/users/esq-linux/.espressif/tools/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin/../lib/gcc/xtensa-esp32s3-elf/12.2.0/../../../../xtensa-esp32s3-elf/bin/ld.exe: CMakeFiles/cmTC_c0685.dir/CheckFunctionExists.c.obj:(.literal+0x0): warning: pthread_create is not implemented and will always fail\x0d
         collect2.exe: error: ld returned 1 exit status
         ninja: build stopped: subcommand failed.
         
@@ -768,8 +1337,8 @@ events:
     checks:
       - "Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS"
     directories:
-      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-xvy9rp"
-      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-xvy9rp"
+      source: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-a2cuob"
+      binary: "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-a2cuob"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls  -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -779,11 +1348,11 @@ events:
       variable: "C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-xvy9rp'
+        Change Dir: 'C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-a2cuob'
         
-        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_19a57
-        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -DC_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS  -mlongcalls  -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow    -Wformat-signedness -o CMakeFiles/cmTC_19a57.dir/src.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-xvy9rp/src.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow  CMakeFiles/cmTC_19a57.dir/src.c.obj -o cmTC_19a57   && cd ."
+        Run Build Command(s): C:/Users/ESQ-LINUX/.espressif/tools/tools/ninja/1.12.1/ninja.exe -v cmTC_34089
+        [1/2] C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -DC_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS  -mlongcalls  -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow    -Wformat-signedness -o CMakeFiles/cmTC_34089.dir/src.c.obj -c C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/CMakeFiles/CMakeScratch/TryCompile-a2cuob/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\ESQ-LINUX\\.espressif\\tools\\tools\\xtensa-esp32s3-elf\\esp-12.2.0_20230208\\xtensa-esp32s3-elf\\bin\\xtensa-esp32s3-elf-gcc.exe -mlongcalls  -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow  CMakeFiles/cmTC_34089.dir/src.c.obj -o cmTC_34089   && cd ."
         
       exitCode: 0
 ...

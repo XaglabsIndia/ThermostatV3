@@ -6524,6 +6524,79 @@
     {
         "children": [
             {
+                "children": [],
+                "depends_on": null,
+                "help": "MULTIBUTTON pin.",
+                "id": "MULTIBUTTON_GPIO",
+                "name": "MULTIBUTTON_GPIO",
+                "range": [
+                    0,
+                    35
+                ],
+                "title": "MULTIBUTTON GPIO",
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "REDLE GPIO pin.",
+                "id": "RED_LED_GPIO",
+                "name": "RED_LED_GPIO",
+                "range": [
+                    0,
+                    35
+                ],
+                "title": "RED LED GPIO",
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "BLUE_LED_GPIO.",
+                "id": "BLUE_LED_GPIO",
+                "name": "BLUE_LED_GPIO",
+                "range": [
+                    0,
+                    35
+                ],
+                "title": "BLUE_LED_GPIO",
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "GREEN_LED_GPIO.",
+                "id": "GREEN_LED_GPIO",
+                "name": "GREEN_LED_GPIO",
+                "range": [
+                    0,
+                    35
+                ],
+                "title": "GREEN_LED_GPIO",
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "RELAY_GPIO.",
+                "id": "RELAY_GPIO",
+                "name": "RELAY_GPIO",
+                "range": [
+                    0,
+                    35
+                ],
+                "title": "RELAY_GPIO",
+                "type": "int"
+            }
+        ],
+        "depends_on": null,
+        "id": "button-conifugration",
+        "title": "Button Conifugration",
+        "type": "menu"
+    },
+    {
+        "children": [
+            {
                 "children": [
                     {
                         "children": [],

@@ -1,6 +1,6 @@
 #include "xag_wifi_component.h"
 #include "xag_nvs_component.h"
-
+#include "LedTask.h"
 /*
  * xag_wifi_component.c
  *
@@ -45,8 +45,7 @@ static const char *TAG = "wifi";
 static int s_retry_num = 0;
 
 /**
- * @brief Wi-Fi event handler.
- *
+ * @brief Wi-Fi event handler.q
  * Handles various Wi-Fi events such as start, disconnect, and IP acquisition.
  *
  * @param arg User-defined argument.

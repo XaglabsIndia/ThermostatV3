@@ -88,13 +88,15 @@ C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/arduino/libarduino.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/Adafruit_BusIO/libAdafruit_BusIO.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/Adafruit_GFX/libAdafruit_GFX.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/GxEPD2/libGxEPD2.a
+C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/LedCode/libLedCode.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/lora/liblora.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/xag_nvs_component/libxag_nvs_component.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/provision/libprovision.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/xag_mqtt_component/libxag_mqtt_component.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/xag_ota_component/libxag_ota_component.a
-C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/esp_littlefs/libesp_littlefs.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/MultiButton/libMultiButton.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/xag_wifi_component/libxag_wifi_component.a
+C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/esp_littlefs/libesp_littlefs.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/hdc1080/libhdc1080.a
 C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/main/libmain.a
+C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/xag_battery_component/libxag_battery_component.a

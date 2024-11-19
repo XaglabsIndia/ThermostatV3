@@ -5,8 +5,6 @@
 #include "ProvisionHeader.h"
 #include "xag_nvs_component.h"
 #include "esp_err.h"
-
-
 #include <stdio.h>
 #include "lora.h"
 #include <esp_system.h>

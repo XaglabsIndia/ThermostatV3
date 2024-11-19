@@ -25,5 +25,6 @@ esp_err_t save_int_to_nvs(const char *key, int value);
 esp_err_t read_int_from_nvs(const char *key, int *value);
 esp_err_t save_float_to_nvs(const char *key, float value);
 esp_err_t read_float_from_nvs(const char *key, float *value);
-
+esp_err_t save_bool_to_nvs(const char* key, bool value);
+esp_err_t read_bool_from_nvs(const char* key, bool* out_value);
 #endif // XAG_NVS_COMPONENT_H

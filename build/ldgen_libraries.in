@@ -88,13 +88,15 @@ $<TARGET_FILE:__idf_arduino>
 $<TARGET_FILE:__idf_Adafruit_BusIO>
 $<TARGET_FILE:__idf_Adafruit_GFX>
 $<TARGET_FILE:__idf_GxEPD2>
+$<TARGET_FILE:__idf_LedCode>
 $<TARGET_FILE:__idf_lora>
 $<TARGET_FILE:__idf_xag_nvs_component>
 $<TARGET_FILE:__idf_provision>
 $<TARGET_FILE:__idf_xag_mqtt_component>
 $<TARGET_FILE:__idf_xag_ota_component>
-$<TARGET_FILE:__idf_esp_littlefs>
 $<TARGET_FILE:__idf_MultiButton>
 $<TARGET_FILE:__idf_xag_wifi_component>
+$<TARGET_FILE:__idf_esp_littlefs>
 $<TARGET_FILE:__idf_hdc1080>
 $<TARGET_FILE:__idf_main>
+$<TARGET_FILE:__idf_xag_battery_component>

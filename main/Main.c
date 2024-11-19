@@ -20,6 +20,7 @@
 #include <esp_timer.h>
 #include "ProvisionHeader.h"
 #include "xag_nvs_component.h"
+#include "xag_ota_component.h"
 #include "MultiButtonHeader.h"
 #include"Config.h"
 #include "xag_ota_component.h"
@@ -27,7 +28,7 @@
 #include "nvs_flash.h"
 #include "xag_wifi_component.h"
 #include "hdc1080.h"
-
+#include "LedTask.h"
 #define MAX_FLOAT_STR_LEN 20
 #define FLOAT_PRECISION 2 
 
@@ -48,7 +49,7 @@
 #define MAX_PATH_LENGTH 256
 #define MAX_FILENAME_LENGTH 64
 #define MAX_RETRY_COUNT 1
-#define RETRY_DELAY_MS 1000
+#define RETRY_DELAY_MS 15000
 TaskHandle_t LoraRXContiniousTaskHandle = NULL;
 TaskHandle_t LoraRXContiniousMessageQueueTaskHandle = NULL;
 QueueHandle_t LoraRXCOntiniousQueue;
@@ -984,8 +985,8 @@ void HandleRSMessage(const char* message) {
     float values[3];
     char date[11];
     char time[8];
-    char front_message[256] = {0};  // For Welcome message
-    char back_message[256] = {0};   // For Thank you message
+    char front_message[256] = {0};
+    char back_message[256] = {0};
     
     // Parse floating point values
     for (int i = 0; i < 3; i++) {
@@ -1024,25 +1025,45 @@ void HandleRSMessage(const char* message) {
     time[next - current] = '\0';
     current = next + 1;
 
-    // Parse front message (Welcome)
+    // Parse front message
     next = find_next_delimiter(current);
     if (next && (next - current) < sizeof(front_message)) {
         memcpy(front_message, current, next - current);
         front_message[next - current] = '\0';
         current = next + 1;
+    } else {
+        ESP_LOGW(TAG, "Front message parsing failed or too long");
+        return;
     }
 
-    next = strchr(current, ')');
-    if (next && (next - current) < sizeof(back_message)) {
-        memcpy(back_message, current, next - current);
-        back_message[next - current] = '\0';
+    // Parse back message - Modified this part
+    size_t remaining_len = strlen(current);
+    if (remaining_len > 0 && remaining_len < sizeof(back_message)) {
+        // Copy everything until the end, excluding any trailing delimiters
+        size_t msg_len = remaining_len;
+        while (msg_len > 0 && (current[msg_len - 1] == '|' || current[msg_len - 1] == ')')) {
+            msg_len--;
+        }
+        if (msg_len > 0) {
+            memcpy(back_message, current, msg_len);
+            back_message[msg_len] = '\0';
+        }
     }
 
     // Save environmental data
     save_environmental_data(values[1], (int)values[2], set_temperature, date, time);
     
-    // Save display messages
-    save_display_messages(front_message, back_message);
+    // Log parsed messages for debugging
+    ESP_LOGD(TAG, "Front message: '%s'", front_message);
+    ESP_LOGD(TAG, "Back message: '%s'", back_message);
+    
+    // Save display messages only if they're not empty
+    if (strlen(front_message) > 0 || strlen(back_message) > 0) {
+        save_display_messages(
+            strlen(front_message) > 0 ? front_message : NULL,
+            strlen(back_message) > 0 ? back_message : NULL
+        );
+    }
 
     ESP_LOGD(TAG, "Parsed: %.1f|%.1f|%.1f|%s|%s|%s|%s", 
              values[0], values[1], values[2], date, time, 
@@ -1208,7 +1229,7 @@ void Temperaturedata(void) {
     // Convert integer temperature to float (assuming 2 decimal places precision)
     // float temperatureF = HDC1080_temp_data();
     // int humidityF = HDC1080_humid_data();
-    float temperatureF = 50.0;
+    float temperatureF = 20.0;
     int humidityF = 50;
     
     printf("Temperature: %.2f, Humidity: %d\n", temperatureF, humidityF);
@@ -1220,6 +1241,7 @@ void Temperaturedata(void) {
 
     floatToString(temperatureF, Temperaturechar, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
     char* Humidity = IntStrCoverter(humidityF,3);
+    read_float_from_nvs(NVS_KEY, &set_temperature);
     floatToString(set_temperature, settemperature, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
 
     size_t message_len = strlen(Temperaturechar) + strlen(Humidity) + 
@@ -1260,7 +1282,7 @@ void TemperaturedataRS(void) {
     // Convert integer temperature to float (assuming 2 decimal places precision)
     // float temperatureF = HDC1080_temp_data();
     // int humidityF = HDC1080_humid_data();
-    float temperatureF = 50.0;
+    float temperatureF = 20.0;
     int humidityF = 50;
     
     printf("Temperature: %.2f, Humidity: %d\n", temperatureF, humidityF);
@@ -1272,6 +1294,7 @@ void TemperaturedataRS(void) {
 
     floatToString(temperatureF, Temperaturechar, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
     char* Humidity = IntStrCoverter(humidityF,3);
+    read_float_from_nvs(NVS_KEY, &set_temperature);
     floatToString(set_temperature, settemperature, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
 
     size_t message_len = strlen(Temperaturechar) + strlen(Humidity) + 
@@ -1338,7 +1361,8 @@ void InitMain()
   };
   ESP_ERROR_CHECK(esp_task_wdt_init(&twdt_config));
   printf("TWDT initialized\n");
-  #endif 
+  #endif
+  init_led_control();
  }
 
 
@@ -1356,6 +1380,12 @@ void InitMain()
             Display_Main();
             break;
         }
+        case ESP_SLEEP_WAKEUP_EXT0:
+            ESP_LOGI(TAG, "Wakeup reason: External 0");
+            InitMain();
+            gpio_intr_disable(CONFIG_MULTIBUTTON_GPIO);
+            SetupMultiButton();
+            break;
         case ESP_SLEEP_WAKEUP_TIMER:
             ESP_LOGI(TAG, "Wakeup caused by timer");
             InitMain();

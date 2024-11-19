@@ -36,11 +36,9 @@
 #define __ESP_LORA_H__
 
 #include <esp_err.h>
-#include <freertos/FreeRTOS.h>
 #include "lora_reg.h"
-#include <freertos/queue.h>
 #include "esp_task_wdt.h"
-#include <freertos/semphr.h>
+#include "freertos/queue.h"
 #ifndef __INTERRUPT_H__
 #define __INTERRUPT_H__
 void AttachInterrupt(int gpio,void* isr_handler,int interrupt_type);
@@ -175,6 +173,7 @@ void flushBuffer();
  * @param val The value to set the DIO pin to.
  */
 void lora_dio_write(lora_reg_dio_num_t num, lora_reg_dio_mode_t mode, uint8_t val);
+void lora_set_mode(lora_reg_op_mode_t mode);
 
 
 #endif

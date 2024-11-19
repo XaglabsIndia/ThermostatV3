@@ -428,9 +428,9 @@
 #define CONFIG_USER_NAME "esquare"
 #define CONFIG_PASSWORD "Abcd1234"
 #define CONFIG_BROKER_URL "mqtt://esquare:Abcd1234@195.35.29.48:1883"
-#define CONFIG_FIRMWARE_UPGRADE_URL "https://home.nudgeenergy.co.uk/ftpuser/NEMS/HUB_LORA/advanced_https_ota.bin"
-#define CONFIG_HC_SSID "myssid"
-#define CONFIG_HC_PASSWORD "mypassword"
+#define CONFIG_FIRMWARE_UPGRADE_URL "https://home.nudgeenergy.co.uk/ftpuser/TRVOTA/ThermostatV3/ThermostatV3.bin"
+#define CONFIG_HC_SSID "Union Point"
+#define CONFIG_HC_PASSWORD "Un10nP01nt"
 #define CONFIG_ESP_MAXIMUM_RETRY 5
 #define CONFIG_ESP_WIFI_AUTH_WPA2_PSK 1
 #define CONFIG_MODEL_IN_FLASH 1

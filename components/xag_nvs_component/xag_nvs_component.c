@@ -263,3 +263,46 @@ esp_err_t read_float_from_nvs(const char *key, float *value)
     nvs_close(handle);
     return err;
 }
+
+esp_err_t save_bool_to_nvs(const char* key, bool value) {
+    nvs_handle_t my_handle;
+    esp_err_t err;
+
+    err = nvs_open("storage", NVS_READWRITE, &my_handle);
+    if (err != ESP_OK) return err;
+
+    err = nvs_set_u8(my_handle, key, value ? 1 : 0);
+    if (err != ESP_OK) {
+        nvs_close(my_handle);
+        return err;
+    }
+
+    err = nvs_commit(my_handle);
+    if (err != ESP_OK) {
+        nvs_close(my_handle);
+        return err;
+    }
+
+    nvs_close(my_handle);
+    return ESP_OK;
+}
+
+// Function to read bool from NVS
+esp_err_t read_bool_from_nvs(const char* key, bool* out_value) {
+    nvs_handle_t my_handle;
+    esp_err_t err;
+
+    err = nvs_open("storage", NVS_READWRITE, &my_handle);
+    if (err != ESP_OK) return err;
+
+    uint8_t value = 0;
+    err = nvs_get_u8(my_handle, key, &value);
+    if (err != ESP_OK && err != ESP_ERR_NVS_NOT_FOUND) {
+        nvs_close(my_handle);
+        return err;
+    }
+
+    *out_value = (value != 0);
+    nvs_close(my_handle);
+    return ESP_OK;
+}

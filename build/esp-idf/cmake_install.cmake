@@ -554,6 +554,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/LedCode/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/lora/cmake_install.cmake")
 endif()
 
@@ -579,11 +584,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/esp_littlefs/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/MultiButton/cmake_install.cmake")
 endif()
 
@@ -594,11 +594,21 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/esp_littlefs/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/hdc1080/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
   include("C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/main/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/xag_battery_component/cmake_install.cmake")
 endif()
 

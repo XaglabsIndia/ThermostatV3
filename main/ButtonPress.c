@@ -63,6 +63,8 @@ void print_gpio_status() {
 #include "driver/rtc_io.h"
 #include "esp_sleep.h"
 #include "esp_log.h"
+#define WAKEUP_GPIO_PIN GPIO_NUM_16  // Using GPIO16 as wake-up pin
+
 void enter_sleep_mode(void);
 void configure_wakeup() {
     // Configure EXT1 wake-up source for increment button
@@ -112,11 +114,24 @@ void enter_sleep_mode(void) {
 
 // Disable all wake-up sources first
     esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
+    // Configure GPIO wake-up pin
+    gpio_config_t io_conf = {
+        .pin_bit_mask = (1ULL << WAKEUP_GPIO_PIN),
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,    // Enable pull-up
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_LOW_LEVEL,    // Wake up on low level (button press)
+    };
+    
+    // Configure GPIO
+    ESP_ERROR_CHECK(gpio_config(&io_conf));
 
+    // Configure wake-up source
+    ESP_ERROR_CHECK(esp_sleep_enable_ext0_wakeup(WAKEUP_GPIO_PIN, 0));
     // Configure EXT1 wake-up source for both buttons
     const uint64_t ext1_wakeup_pin_mask = (1ULL << CONFIG_BUTTON_INC_GPIO) | (1ULL << CONFIG_BUTTON_DEC_GPIO);
     esp_sleep_enable_ext1_wakeup(ext1_wakeup_pin_mask, ESP_EXT1_WAKEUP_ALL_LOW);
-    esp_sleep_enable_timer_wakeup(1 * 60 * 1000000ULL);
+    esp_sleep_enable_timer_wakeup(2 * 60 * 1000000ULL);
     inactive_screen_call();
     vTaskDelay(pdMS_TO_TICKS(3000));
     esp_deep_sleep_start();
@@ -129,11 +144,24 @@ void enter_sleep_mode_Timmer(void) {
 
 // Disable all wake-up sources first
     esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
+    // Configure GPIO wake-up pin
+    gpio_config_t io_conf = {
+        .pin_bit_mask = (1ULL << WAKEUP_GPIO_PIN),
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,    // Enable pull-up
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_LOW_LEVEL,    // Wake up on low level (button press)
+    };
+    
+    // Configure GPIO
+    ESP_ERROR_CHECK(gpio_config(&io_conf));
 
+    // Configure wake-up source
+    ESP_ERROR_CHECK(esp_sleep_enable_ext0_wakeup(WAKEUP_GPIO_PIN, 0));
     // Configure EXT1 wake-up source for both buttons
     const uint64_t ext1_wakeup_pin_mask = (1ULL << CONFIG_BUTTON_INC_GPIO) | (1ULL << CONFIG_BUTTON_DEC_GPIO);
     esp_sleep_enable_ext1_wakeup(ext1_wakeup_pin_mask, ESP_EXT1_WAKEUP_ALL_LOW);
-    esp_sleep_enable_timer_wakeup(1 * 60 * 1000000ULL);
+    esp_sleep_enable_timer_wakeup(2 * 60 * 1000000ULL);
     vTaskDelay(pdMS_TO_TICKS(3000));
     esp_deep_sleep_start();
 }

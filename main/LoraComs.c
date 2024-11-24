@@ -163,6 +163,7 @@ void lora_queue_task(void *pvParameters) {
             esp_err_t result;
             do {
                 result = SendMessageWithCAD(message);
+                vTaskDelay(pdMS_TO_TICKS(10));
                 RecivedLoraContiniousModeInit();
                 if (result == ESP_OK) {
                     ESP_LOGI(LoraCommTag, "Message sent successfully: %s", message);
@@ -236,8 +237,6 @@ esp_err_t send_message_with_ack(int DevID, int HubID, const char* message, int L
     // Free the LoRa message as it's now queued
     free(lora_message);
     ESP_LOGI(LoraCommTag, "Message queued for transmission: %s", message_with_id);
-    RecivedLoraContiniousModeInit();
-
     // Wait a short time before first ACK check
     vTaskDelay(pdMS_TO_TICKS(2000));
 

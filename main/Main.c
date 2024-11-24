@@ -44,13 +44,13 @@
 #define END_CHAR ')'
 #define PADDING_CHAR '*'
 #define SEPARATOR ','
-#define ACK_RETRY_COUNT 5
+#define ACK_RETRY_COUNT 3
 #define ACK_RETRY_DELAY_MS 1000
 #define LITTLEFS_BASE_PATH "/littlefs"
 #define MAX_PATH_LENGTH 256
 #define MAX_FILENAME_LENGTH 64
 #define MAX_RETRY_COUNT 1
-#define RETRY_DELAY_MS 15000
+#define RETRY_DELAY_MS 1000
 TaskHandle_t LoraRXContiniousTaskHandle = NULL;
 TaskHandle_t LoraRXContiniousMessageQueueTaskHandle = NULL;
 QueueHandle_t LoraRXCOntiniousQueue;
@@ -301,6 +301,9 @@ esp_err_t resume_temperature_monitoring(void) {
 static esp_err_t send_thermostat_message_with_retry(const char* message) {
 
     for (int i = 0; i < MAX_RETRY_COUNT; i++) {
+        stop_leds();
+        vTaskDelay(pdMS_TO_TICKS(100));
+        set_led_blink_alternate(false,true,true,false,true,false,200);
         esp_err_t result = send_message_with_ack(ConfigDevID, StoredHubID, message, 35);
         if (result == ESP_OK) {
             ESP_LOGI(TAG, "Message sent successfully to thermostat %d: %s (attempt %d)", ConfigDevID, message, i + 1);
@@ -308,6 +311,10 @@ static esp_err_t send_thermostat_message_with_retry(const char* message) {
         }
         ESP_LOGW(TAG, "Failed to send message to thermostat %d: %s (attempt %d)", ConfigDevID, message, i + 1);
         vTaskDelay(pdMS_TO_TICKS(RETRY_DELAY_MS));
+        stop_leds();
+        vTaskDelay(pdMS_TO_TICKS(100));
+        set_led_blink_alternate(false,true,true,true,false,false,200);
+         
     }
     return ESP_FAIL;
 }
@@ -1317,7 +1324,9 @@ void Temperaturedata(void) {
     // int humidityF = HDC1080_humid_data();
     float temperatureF = 20.0;
     int humidityF = 50;
-    
+    stop_leds();
+    vTaskDelay(pdMS_TO_TICKS(100));
+    set_led_blink(false,true,true,200);
     printf("Temperature: %.2f, Humidity: %d\n", temperatureF, humidityF);
 
     char Temperaturechar[MAX_FLOAT_STR_LEN];
@@ -1349,6 +1358,9 @@ void Temperaturedata(void) {
         for(int Retry = 0; ((Retry < ACK_RETRY_COUNT) && (Thermostatdatasent == false)); Retry++){
         esp_err_t result  = send_thermostat_message_with_retry(GenMessageTemp);
         if ((result == ESP_OK )&& (Thermostatdatasent == true)){
+        stop_leds();
+        vTaskDelay(pdMS_TO_TICKS(100));
+        set_led_blink_alternate(false,true,true,false,true,false,200);
          printf("Sucess to create Lora message\n");// Assuming CreateLoraMessage allocates memory
          Thermostatdatasent = false;
          break;
@@ -1370,7 +1382,9 @@ void TemperaturedataRS(void) {
     // int humidityF = HDC1080_humid_data();
     float temperatureF = 20.0;
     int humidityF = 50;
-    
+    stop_leds();
+    vTaskDelay(pdMS_TO_TICKS(100));
+    set_led_blink(false,true,true,200);
     printf("Temperature: %.2f, Humidity: %d\n", temperatureF, humidityF);
 
     char Temperaturechar[MAX_FLOAT_STR_LEN];
@@ -1402,6 +1416,9 @@ void TemperaturedataRS(void) {
         for(int Retry = 0; ((Retry < ACK_RETRY_COUNT) && (ResponseStatus == false)); Retry++){
         esp_err_t result  = send_thermostat_message_with_retry(GenMessageTemp);
         if ((result == ESP_OK )&& (ResponseStatus == true)){
+        stop_leds();
+        vTaskDelay(pdMS_TO_TICKS(100));
+        set_led_blink_alternate(false,true,true,false,true,false,200);
          printf("Sucess to create Lora message\n");// Assuming CreateLoraMessage allocates memory
          ResponseStatus = false;
          break;
@@ -1438,17 +1455,6 @@ void InitMain()
         ESP_LOGE("HubID", "Failed to read HubID from NVS");
     }
     ESP_LOGI(TAG, "DevID written: %d", StoredHubID);
-  #if !CONFIG_ESP_TASK_WDT_INIT
-  printf("Configured");
-  esp_task_wdt_config_t twdt_config = {
-      .timeout_ms = TWDT_TIMEOUT_MS,
-      .idle_core_mask = (1 << 2) - 1,    // Bitmask of all cores
-      .trigger_panic = true,
-  };
-  ESP_ERROR_CHECK(esp_task_wdt_init(&twdt_config));
-  printf("TWDT initialized\n");
-  #endif
-  init_led_control();
  }
 
 
@@ -1457,6 +1463,9 @@ void InitMain()
     
     switch(wakeup_reason) {
         case ESP_SLEEP_WAKEUP_EXT1: {
+            stop_leds();
+            vTaskDelay(pdMS_TO_TICKS(100));
+            set_led_solid(true,true,true);
             uint64_t wakeup_pin_mask = esp_sleep_get_ext1_wakeup_status();
             if (wakeup_pin_mask & (1ULL << CONFIG_BUTTON_INC_GPIO)) {
                 ESP_LOGI("ButtonTag", "Wake up from BUTTON_INC");
@@ -1464,16 +1473,25 @@ void InitMain()
                 ESP_LOGI("ButtonTag", "Wake up from BUTTON_DEC");
             }
             Display_Main();
+            stop_leds();
             break;
         }
         case ESP_SLEEP_WAKEUP_EXT0:
             ESP_LOGI(TAG, "Wakeup reason: External 0");
             InitMain();
             gpio_intr_disable(CONFIG_MULTIBUTTON_GPIO);
+            stop_leds();
+            vTaskDelay(pdMS_TO_TICKS(100));
+            set_led_blink(true,false,true,200);
             SetupMultiButton();
+            vTaskDelay(pdMS_TO_TICKS(1000));
+            stop_leds();
             break;
         case ESP_SLEEP_WAKEUP_TIMER:
             ESP_LOGI(TAG, "Wakeup caused by timer");
+            stop_leds();
+            vTaskDelay(pdMS_TO_TICKS(100));
+            set_led_blink_alternate(true,true,true,false,true,false,200);
             InitMain();
             esp_err_t err2 = lora_init();
             if (err2 != ESP_OK)
@@ -1488,6 +1506,10 @@ void InitMain()
         default:
             ESP_LOGI("ButtonTag", "Wake up not caused by deep sleep: %d", wakeup_reason);
             InitMain();
+            stop_leds();
+            vTaskDelay(pdMS_TO_TICKS(100));
+            set_led_blink_alternate(true,true,true,false,true,false,200);
+            vTaskDelay(pdMS_TO_TICKS(900));
             esp_err_t err = lora_init();
             if (err != ESP_OK)
             {
@@ -1529,5 +1551,28 @@ void InitalizeProgram(){
 }
 
 void app_main(void){
+    #if !CONFIG_ESP_TASK_WDT_INIT
+    printf("Configured");
+    esp_task_wdt_config_t twdt_config = {
+        .timeout_ms = TWDT_TIMEOUT_MS,
+        .idle_core_mask = (1 << 2) - 1,    // Bitmask of all cores
+        .trigger_panic = true,
+    };
+    ESP_ERROR_CHECK(esp_task_wdt_init(&twdt_config));
+    printf("TWDT initialized\n");
+    #endif
+    init_led_control();
+    esp_err_t err = CheckStoredKeyStatus(HUBKeyMain, &StoredHubID);
+
+    if (err == 4354) {
+        stop_leds();
+        ESP_LOGE("StoreID", "Failed to read from NVS");
+        esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_MULTIBUTTON_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
+        stop_leds();
+        set_led_solid(true,true,false);
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        // Enter deep sleep
+        esp_deep_sleep_start();
+    }
     check_wakeup_reason();
 }

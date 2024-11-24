@@ -364,45 +364,6 @@ spi_mutex = xSemaphoreCreateMutex();
    if (spi_mutex == NULL) {
        return ESP_ERR_NO_MEM;
    }
-// #ifdef CONFIG_LORA_DIO0_ON_GPIO
-//    gpio_pad_select_gpio(CONFIG_LORA_DIO0_GPIO);
-//    ESP_LOGI("CONFIG_LORA_CS_GPIO", "CONFIG_LORA_DIO0_GPIO %d",CONFIG_LORA_DIO0_GPIO);
-//     DIO0Pin = CONFIG_LORA_DIO0_GPIO;
-//    gpio_set_direction(CONFIG_LORA_DIO0_GPIO, GPIO_MODE_INPUT);
-//    ESP_LOGI("gpio_pad_select_gpio", "235");
-// #endif
-
-// #ifdef CONFIG_LORA_DIO1_ON_GPIO
-//    gpio_pad_select_gpio(CONFIG_LORA_DIO1_GPIO);
-//    ESP_LOGI("CONFIG_LORA_CS_GPIO", "CONFIG_LORA_DIO1_GPIO %d",CONFIG_LORA_DIO1_GPIO);
-//    DIO0Pin = CONFIG_LORA_DIO1_ON_GPIO;
-//    gpio_set_direction(CONFIG_LORA_DIO1_GPIO, GPIO_MODE_INPUT);
-//    ESP_LOGI("gpio_pad_select_gpio", "242");
-// #endif
-
-// #ifdef CONFIG_LORA_DIO2_ON_GPIO
-//    gpio_pad_select_gpio(CONFIG_LORA_DIO2_GPIO);
-//    gpio_set_direction(CONFIG_LORA_DIO2_GPIO, GPIO_MODE_INPUT);
-//    ESP_LOGI("gpio_pad_select_gpio", "252");
-// #endif
-
-// #ifdef CONFIG_LORA_DIO3_ON_GPIO
-//    gpio_pad_select_gpio(CONFIG_LORA_DIO3_GPIO);
-//    gpio_set_direction(CONFIG_LORA_DIO3_GPIO, GPIO_MODE_INPUT);
-//    ESP_LOGI("gpio_pad_select_gpio", "257");
-// #endif
-
-// #ifdef CONFIG_LORA_DIO4_ON_GPIO
-//    gpio_pad_select_gpio(CONFIG_LORA_DIO4_GPIO);
-//    gpio_set_direction(CONFIG_LORA_DIO4_GPIO, GPIO_MODE_INPUT);
-//    ESP_LOGI("gpio_pad_select_gpio", "264");
-// #endif
-
-// #ifdef CONFIG_LORA_DIO5_ON_GPIO
-//    gpio_pad_select_gpio(CONFIG_LORA_DIO5_GPIO);
-//    gpio_set_direction(CONFIG_LORA_DIO5_GPIO, GPIO_MODE_INPUT);
-//    ESP_LOGI("gpio_pad_select_gpio", "270");
-// #endif
    ESP_LOGI("CONFIG_LORA_MISO_GPIO", "CONFIG_LORA_MISO_GPIO %d",CONFIG_LORA_MISO_GPIO);
    ESP_LOGI("CONFIG_LORA_MOSI_GPIO", "CONFIG_LORA_MOSI_GPIO %d",CONFIG_LORA_MOSI_GPIO);
    ESP_LOGI("CONFIG_LORA_SCK_GPIO", "CONFIG_LORA_SCK_GPIO %d",CONFIG_LORA_SCK_GPIO);

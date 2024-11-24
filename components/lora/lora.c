@@ -52,7 +52,8 @@
 #include <freertos/semphr.h>
 #include <ctype.h>
 #include <string.h>
-
+#include "driver/gpio.h"
+#include "driver/rtc_io.h"
 #ifdef CONFIG_LORA_HSPI_ON
 #define LORA_SPI 1
 #elif CONFIG_LORA_VSPI_ON
@@ -339,6 +340,18 @@ uint8_t lora_read_reg(lora_reg_t reg)
  */
 esp_err_t lora_init(void)
 {
+   rtc_gpio_hold_dis(CONFIG_LORA_CS_GPIO);
+   rtc_gpio_hold_dis(CONFIG_LORA_RST_GPIO);
+   rtc_gpio_hold_dis(CONFIG_LORA_MISO_GPIO); 
+   rtc_gpio_hold_dis(CONFIG_LORA_MOSI_GPIO);
+   rtc_gpio_hold_dis(CONFIG_LORA_SCK_GPIO);
+
+   // Set as regular GPIO pins for SPI
+   gpio_reset_pin(CONFIG_LORA_CS_GPIO);
+   gpio_reset_pin(CONFIG_LORA_RST_GPIO);
+   gpio_reset_pin(CONFIG_LORA_MISO_GPIO);
+   gpio_reset_pin(CONFIG_LORA_MOSI_GPIO);
+   gpio_reset_pin(CONFIG_LORA_SCK_GPIO);
    ESP_LOGI(TAG, "Initialize LoRa module");
    esp_err_t err = ESP_OK;
    gpio_pad_select_gpio(CONFIG_LORA_RST_GPIO);
@@ -455,6 +468,7 @@ spi_mutex = xSemaphoreCreateMutex();
    gpio_install_isr_service(0); 
    return err;
 }
+
 
 /**
  * Sets the LoRa module to sleep mode.
@@ -1081,12 +1095,12 @@ esp_err_t  SendMessageWithCAD(char* Data)
   return ESP_OK;
 }
 
-#include "driver/gpio.h"
-#include "driver/rtc_io.h"
+
 void LoraDeepSleepInit(void){
    lora_set_mode(LORA_OP_MODE_STDBY);
    vTaskDelay(100);
    lora_set_mode(LORA_OP_MODE_SLEEP);
+   vTaskDelay(100);
    rtc_gpio_init(CONFIG_LORA_CS_GPIO);
    rtc_gpio_set_direction(CONFIG_LORA_CS_GPIO, RTC_GPIO_MODE_INPUT_ONLY);
    rtc_gpio_pulldown_en(CONFIG_LORA_CS_GPIO);

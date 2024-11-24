@@ -162,7 +162,7 @@ esp_err_t  SendMessageWithCAD(char* Data);
 esp_err_t lora_waiting_cad_rx(uint8_t *len);
 void flushBuffer();
 
-
+// void LoraDeepSleepInit(void);
 #ifdef CONFIG_CONFIG_LORA_DIO_ON_GPIO
 
 /**

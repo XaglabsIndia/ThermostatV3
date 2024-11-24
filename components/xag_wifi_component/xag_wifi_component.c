@@ -1,6 +1,6 @@
 #include "xag_wifi_component.h"
 #include "xag_nvs_component.h"
-#include "LedTask.h"
+
 /*
  * xag_wifi_component.c
  *
@@ -202,7 +202,9 @@ esp_err_t connectWifi()
                                                         &wifi_event_handler,
                                                         NULL,
                                                         &instance_got_ip));
-
+    if (read_string_from_nvs("HardCodeSSID", HardCodeSSID, sizeof(HardCodeSSID)) == ESP_ERR_NOT_FOUND) {
+        StoreHardcodeWiFiData(CONFIG_HC_SSID, CONFIG_HC_PASSWORD);
+    }
     // Try hardcoded SSID and password first
     printf("               ************   Try HardCode SSID   ************\n");
 

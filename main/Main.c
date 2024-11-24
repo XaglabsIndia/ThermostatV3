@@ -35,7 +35,8 @@
 #define QUEUE_LENGTH 10
 #define QUEUE_ITEM_SIZE sizeof(int)
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
-
+#define ACK_RETRY_COUNT_WIFI_OTA 5
+#define ACK_RETRY_DELAY_MS_WIFI_OTA 1000
 #define TWDT_TIMEOUT_MS         80000
 #define TASK_RESET_PERIOD_MS    2000
 #define configUSE_IDLE_HOOK 1   // In your FreeRTOSConfig.h file
@@ -57,8 +58,10 @@ SemaphoreHandle_t RXDoneSemaphore;
 TaskHandle_t AutoProvision = NULL;
 static SemaphoreHandle_t MessageMutex;
 esp_task_wdt_user_handle_t LoraRXContiniousTaskHandleWDT,LoraRXContiniousMessageQueueTaskHandleWDT;
-
-
+SemaphoreHandle_t lora_rx_pause_semaphore = NULL;
+static SemaphoreHandle_t lora_rx_state_mutex = NULL;
+static volatile bool lora_rx_task_paused = false;
+bool DeepSleepFlag = false;
 void IRAM_ATTR RXDone(void* arg);
 void IRAM_ATTR MultiButtonISR(void *arg);
 void InitalizeProgram();
@@ -66,11 +69,11 @@ void AutoProvisionTask();
 void processMessage(const char *message);
 void HandleMatchingMessage(int DevID, int HubID, const char* message);
 bool ParseMessage(const char* input);
-
+void pause_lora_rx_task();
 bool Thermostatdatasent = false;
 bool ResponseStatus = false;
 char* TAG = "Main";
-int ConfigDevID = 100;
+int ConfigDevID = 200;
 int OTACN = 0;
 char NEMS_ID[20] = "NEMS";
 /////////Lora RX Continious Mode//////////////// 
@@ -79,7 +82,7 @@ const int OTARXMessageHub = 31;
 const int OTAWifiAckTXMessageHub = 30;
 const int WIFRXMessageLength =220;
 const int ThermostatRXACK = 27;
-uint8_t LoraContiRXLength[] = {ThermostatRXACK,WIFRXMessageLength,OTARXMessageHub,38,250};
+uint8_t LoraContiRXLength[] = {ThermostatRXACK,WIFRXMessageLength,OTARXMessageHub,38,250,32};
 char txBuffer[255];
 ////////Lora RX Single Mode//////////////// 
 uint8_t LoraSingleRXLength =20;
@@ -296,9 +299,9 @@ esp_err_t resume_temperature_monitoring(void) {
 
 // Helper function to send message with retry
 static esp_err_t send_thermostat_message_with_retry(const char* message) {
-    int HUBID = 100;
+
     for (int i = 0; i < MAX_RETRY_COUNT; i++) {
-        esp_err_t result = send_message_with_ack(ConfigDevID, HUBID, message, 35);
+        esp_err_t result = send_message_with_ack(ConfigDevID, StoredHubID, message, 35);
         if (result == ESP_OK) {
             ESP_LOGI(TAG, "Message sent successfully to thermostat %d: %s (attempt %d)", ConfigDevID, message, i + 1);
             return ESP_OK;
@@ -629,41 +632,45 @@ void HandleAckMessage(const char* ack_message) {
     free(message_copy);
 }
 
-void HandleOTAMessage( const char* message_id,int DevID,int HubID){
-                // Create and send ACK message
-            char ack_message[20];
-            snprintf(ack_message, sizeof(ack_message), "%s|ACK", message_id);
-            
-            char* lora_message = CreateLoraMessage(DevID, HubID, ack_message, OTAWifiAckTXMessageHub);
-            if (lora_message != NULL) {
-                esp_err_t send_result;
-                int retry_count = 0;
-                do {
-                    send_result = SendMessageWithCAD(lora_message);
-                    if (send_result != ESP_OK) {
-                        ESP_LOGW(TAG, "Failed to send ACK, retrying... (attempt %d)", retry_count + 1);
-                        vTaskDelay(pdMS_TO_TICKS(ACK_RETRY_DELAY_MS));
-                    }
-                    retry_count++;
-                } while (send_result != ESP_OK && retry_count < ACK_RETRY_COUNT);
+void HandleOTAMessage(int DevID, int HubID) {
+    ESP_LOGI(TAG, "Handling OTA message for DevID: %d, HubID: %d", DevID, HubID);
 
-                if (send_result == ESP_OK) {
-                    ESP_LOGI(TAG, "ACK sent successfully");
-                } else {
-                    ESP_LOGE(TAG, "Failed to send ACK after %d attempts", ACK_RETRY_COUNT);
-                }
-                
-                free(lora_message);
-            } else {
-                ESP_LOGE(TAG, "Failed to create LoRa message for ACK");
+    // Create and send ACK message
+    char ack_message[30];
+    snprintf(ack_message, sizeof(ack_message), "%d@%d|OACK", DevID, HubID);
+    
+    char* lora_message = CreateLoraMessage(StoredDevID, HubID, ack_message, 30);
+    if (lora_message != NULL) {
+        esp_err_t send_result;
+        int retry_count = 0;
+        do {
+            send_result = SendMessageWithCAD(lora_message);
+            if (send_result != ESP_OK) {
+                ESP_LOGW(TAG, "Failed to send OTA ACK, retrying... (attempt %d)", retry_count + 1);
+                vTaskDelay(pdMS_TO_TICKS(ACK_RETRY_DELAY_MS_WIFI_OTA));
             }
-            esp_task_wdt_delete(LoraRXContiniousTaskHandle);
-            esp_task_wdt_delete(LoraRXContiniousMessageQueueTaskHandle);
-        if (connectWifi() == ESP_OK)
-                {
-                    printf("Wifi connected, checking for updates\n");
-                    xag_ota_init();
-                }
+            retry_count++;
+        } while (send_result != ESP_OK && retry_count < ACK_RETRY_COUNT_WIFI_OTA);
+
+        if (send_result == ESP_OK) {
+            ESP_LOGI(TAG, "OTA ACK sent successfully");
+        } else {
+            ESP_LOGE(TAG, "Failed to send OTA ACK after %d attempts", ACK_RETRY_COUNT_WIFI_OTA);
+        }
+        
+        free(lora_message);
+    } else {
+        ESP_LOGE(TAG, "Failed to create LoRa message for OTA ACK");
+    }
+
+    // Delete watchdog tasks
+    if (LoraRXContiniousTaskHandle != NULL) {
+        esp_task_wdt_delete(LoraRXContiniousTaskHandle);
+        pause_lora_rx_task();
+        ESP_LOGI(TAG, "Deleted LoraRXContiniousTaskHandle from watchdog");
+    }
+    // Connect to WiFi and start OTA process
+    ConnectWifi();
 }
 
 void HandleWiFiChangeMessage(const char* ssid, const char* password, const char* message_id, int DevID, int HubID) {
@@ -1086,19 +1093,54 @@ void HandleMatchingMessage(int DevID, int HubID, const char* message) {
         ESP_LOGI(TAG, "Message ID: %s", message_id);
         // Move past the "XX|" part
         const char* message_content = message + 3;
-        if (strlen(message_content) >= 5 && 
-                message_content[0] == 'T' && 
-                message_content[1] == '|' && 
-                strcmp(message_content + 2, "ACK") == 0) {
-                    
-                ESP_LOGI(TAG, "ACK Status: true");
-                Thermostatdatasent = true;
-                char new_message[8];
-                snprintf(new_message, sizeof(new_message), "%s|ACK", message_id);
-                HandleAckMessage(new_message);
-                xSemaphoreGive(MessageMutex);
-                return;
-            } 
+       if (strlen(message_content) >= 5 && 
+        message_content[0] == 'T' && 
+        message_content[1] == '|' && 
+        strncmp(message_content + 2, "ACK", 3) == 0) {
+        
+        // Extract temperature and humidity values
+        const char* values = strchr(message_content + 5, '|');
+        if (values != NULL) {
+            float room_temp;
+            int humidity;
+            
+            // Parse temperature
+            char temp_str[10] = {0};
+            int temp_len = strchr(values + 1, '|') - (values + 1);
+            strncpy(temp_str, values + 1, temp_len);
+            room_temp = atof(temp_str);
+            
+            // Parse humidity
+            const char* humidity_str = strchr(values + 1, '|') + 1;
+            humidity = atoi(humidity_str);
+            
+            // Save values to NVS
+            esp_err_t err = save_float_to_nvs("room_temp_f", room_temp);
+            if (err != ESP_OK) {
+                ESP_LOGE(TAG, "Error saving temperature to NVS: %d", err);
+            }
+            
+            err = save_int_to_nvs("humidity_f", humidity);
+            if (err != ESP_OK) {
+                ESP_LOGE(TAG, "Error saving humidity to NVS: %d", err);
+            }
+            
+            ESP_LOGI(TAG, "Processed values - Temperature: %.2f, Humidity: %d", room_temp, humidity);
+            
+            // Set ACK status
+            ESP_LOGI(TAG, "ACK Status: true");
+            Thermostatdatasent = true;
+            
+            // Create and handle ACK message
+            char new_message[8];
+            snprintf(new_message, sizeof(new_message), "%s|ACK", message_id);
+            HandleAckMessage(new_message);
+            xSemaphoreGive(MessageMutex);
+            return;
+        } else {
+            ESP_LOGE(TAG, "Invalid message format - missing values");
+        }
+    }
         if (strstr(message_content, "RS|")) {
             HandleRSMessage(message);
             xSemaphoreGive(MessageMutex);
@@ -1129,7 +1171,7 @@ void HandleMatchingMessage(int DevID, int HubID, const char* message) {
     // Check if the message is an OTA message
     if (strncmp(message, "OTA", 3) == 0) {
         ESP_LOGI(TAG, "OTA Message: %s", message);
-        HandleOTAMessage(message_id, DevID, HubID);
+        HandleOTAMessage(DevID, HubID);
         xSemaphoreGive(MessageMutex);
         return;  // Exit after handling OTA
     }
@@ -1183,23 +1225,67 @@ void IRAM_ATTR RXDone(void* arg) {
 
 
 
-// Lora Continous task 
-
-void LoraRXContiniousTask(void *arg)
-{     
-ESP_ERROR_CHECK(esp_task_wdt_add_user("LoraRXContinious",&LoraRXContiniousTaskHandleWDT));
-
-
-  while(1) {        
-        esp_err_t res = esp_task_wdt_reset_user(LoraRXContiniousTaskHandleWDT);
-        if (res != ESP_OK) {
-            printf("Failed to reset TWDT for RX continpus mode\n");
+/**
+ * @brief Task control functions
+ */
+void pause_lora_rx_task() {
+    if (LoraRXContiniousTaskHandle != NULL) {
+        xSemaphoreTake(lora_rx_state_mutex, portMAX_DELAY);
+        lora_rx_task_paused = true;
+        vTaskSuspend(LoraRXContiniousTaskHandle);
+        xSemaphoreGive(lora_rx_state_mutex);
+        xSemaphoreTake(lora_rx_pause_semaphore, portMAX_DELAY);
+    }
+}
+/**
+ * @brief Task control functions
+ */
+void resume_lora_rx_task() {
+    if (LoraRXContiniousTaskHandle != NULL) {
+        xSemaphoreTake(lora_rx_state_mutex, portMAX_DELAY);
+        lora_rx_task_paused = false;
+        vTaskResume(LoraRXContiniousTaskHandle);
+        xSemaphoreGive(lora_rx_state_mutex);
+        xSemaphoreGive(lora_rx_pause_semaphore);
+    }
+}
+/**
+ * @brief Task control functions
+ */
+bool is_lora_rx_task_paused() {
+    bool paused;
+    xSemaphoreTake(lora_rx_state_mutex, portMAX_DELAY);
+    paused = lora_rx_task_paused;
+    xSemaphoreGive(lora_rx_state_mutex);
+    return paused;
+}
+/**
+ * @brief Continuous LoRa receive task
+ * @param arg Task argument (unused)
+ */
+void LoraRXContiniousTask(void *arg) {
+    while(1) {
+        xSemaphoreTake(lora_rx_state_mutex, portMAX_DELAY);
+        bool is_paused = lora_rx_task_paused;
+        xSemaphoreGive(lora_rx_state_mutex);
+        
+        if (is_paused) {
+            // Task is paused, wait for resume signal
+            xSemaphoreTake(lora_rx_pause_semaphore, portMAX_DELAY);
+            vTaskSuspend(NULL);
+            continue;
         }
-// Wait for the RX done semaphore
-     if (xSemaphoreTake(RXDoneSemaphore,  pdMS_TO_TICKS(10)) == pdTRUE) {
-     esp_err_t err =  RecivedLoraContiniousMode(TimeIntervalRX, LoraContiRXLength, sizeof(LoraContiRXLength) / sizeof(LoraContiRXLength[0]), LoraRXCOntiniousQueue);
+        
+        // Wait for the RX done semaphore
+        if (xSemaphoreTake(RXDoneSemaphore, pdMS_TO_TICKS(10)) == pdTRUE) {
+            esp_err_t err = RecivedLoraContiniousMode(TimeIntervalRX, LoraContiRXLength, sizeof(LoraContiRXLength) / sizeof(LoraContiRXLength[0]), LoraRXCOntiniousQueue);
+            if (err != ESP_OK) {
+                stop_leds();
+                set_led_blink_alternate(false,true,true,true,false,false,200);
+                ESP_LOGE(TAG, "Error in LoraRXContiniousTask: %s", esp_err_to_name(err));
+            }
         }
-  }
+    }
 }
 static void init_littlefs()
 {
@@ -1423,6 +1509,9 @@ void InitalizeProgram(){
   init_lora_queue();
   start_lora_queue_task();  
   RecivedLoraContiniousModeInit();
+  lora_rx_pause_semaphore = xSemaphoreCreateBinary();
+  xSemaphoreGive(lora_rx_pause_semaphore); // Initialize as available
+  lora_rx_state_mutex = xSemaphoreCreateMutex();
   LoraRXCOntiniousQueue = xQueueCreate(7, sizeof(txBuffer));
   if (LoraRXCOntiniousQueue == NULL)
   {

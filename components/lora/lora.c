@@ -69,6 +69,7 @@ static volatile int VarCADDone = 0;
 static volatile int VarCADDetected = 0;
 static volatile int VarRXDone = 0;
 static volatile int VarRXDoneSingle = 0;
+static SemaphoreHandle_t spi_mutex = NULL;
 
 uint8_t len;
 uint8_t new_buf[256];
@@ -131,10 +132,25 @@ static void lora_clear_irq(void)
  */
 void lora_set_mode(lora_reg_op_mode_t mode)
 {
-   ESP_LOGV(TAG, "Set mode num: %i", mode);
-   lora_clear_irq();
-   lora_write_reg(LORA_REG_OP_MODE, LORA_OP_MODE_LONG_RANGE_MODE | mode);
-   int res = lora_read_reg(LORA_REG_OP_MODE);
+    ESP_LOGV(TAG, "Set mode num: %i", mode);
+    
+    // Read current mode
+    uint8_t current_mode = lora_read_reg(LORA_REG_OP_MODE) & ~LORA_OP_MODE_LONG_RANGE_MODE;
+    
+    // If changing modes, go through STANDBY
+    if (current_mode != mode) {
+        // First go to standby if not already there
+        if (mode != LORA_OP_MODE_STDBY) {
+            lora_write_reg(LORA_REG_OP_MODE, LORA_OP_MODE_LONG_RANGE_MODE | LORA_OP_MODE_STDBY);
+            vTaskDelay(pdMS_TO_TICKS(10));  // Allow time to settle
+        }
+        
+        // Then switch to desired mode
+        lora_write_reg(LORA_REG_OP_MODE, LORA_OP_MODE_LONG_RANGE_MODE | mode);
+        vTaskDelay(pdMS_TO_TICKS(10));  // Allow time to settle
+    }
+
+    lora_clear_irq();  // Clear any pending interrupts
 }
 
 /**
@@ -217,57 +233,105 @@ static void lora_enable_crc(void)
  * @param reg The register to write.
  * @param val The value to write to the register.
  */
+
+
 void lora_write_reg(lora_reg_t reg, uint8_t val)
 {
-   uint8_t tx[2] = {0x80 | reg, val};
-   uint8_t rx[2];
+    if (__spi == NULL) {
+        ESP_LOGE(TAG, "SPI device not initialized");
+        return;
+    }
 
-   spi_transaction_t t = {
-       .flags = 0,
-       .length = 8 * sizeof(tx),
-       .tx_buffer = tx,
-       .rx_buffer = rx};
+    if (xSemaphoreTake(spi_mutex, pdMS_TO_TICKS(100)) != pdTRUE) {
+        ESP_LOGE(TAG, "Failed to take mutex for SPI write");
+        return;
+    }
 
-#ifdef CONFIG_LORA_CS_ON_GPIO
-    ESP_LOGD("Line 215", "CONFIG_LORA_CS_ON_GPIO %d",CONFIG_LORA_CS_ON_GPIO);
-   gpio_set_level(CONFIG_LORA_CS_GPIO, 0);
-#endif
-   spi_device_transmit(__spi, &t);
-#ifdef CONFIG_LORA_CS_ON_GPIO
-   ESP_LOGD("Line 220", "CONFIG_LORA_CS_ON_GPIO %d",CONFIG_LORA_CS_ON_GPIO);
-   gpio_set_level(CONFIG_LORA_CS_GPIO, 1);
-#endif
+    esp_err_t ret = ESP_OK;
+    
+    // Prepare transaction
+    uint8_t tx[2] = {0x80 | reg, val};
+    uint8_t rx[2] = {0};
+    
+    spi_transaction_t t = {
+        .flags = 0,
+        .length = 16,        // Total length is 16 bits
+        .tx_buffer = tx,
+        .rx_buffer = rx
+    };
+
+    // Assert CS before transaction
+    #ifdef CONFIG_LORA_CS_ON_GPIO
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 0);
+    vTaskDelay(pdMS_TO_TICKS(1));  // Brief delay after CS assertion
+    #endif
+
+    // Perform SPI transaction
+    ret = spi_device_transmit(__spi, &t);
+
+    // Deassert CS after transaction
+    #ifdef CONFIG_LORA_CS_ON_GPIO
+    vTaskDelay(pdMS_TO_TICKS(1));  // Brief delay before CS deassert
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 1);
+    #endif
+
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "SPI write failed: %s", esp_err_to_name(ret));
+    }
+
+    xSemaphoreGive(spi_mutex);
 }
 
-/**
- * Reads a register from the LoRa module.
- *
- * @param reg The register to read.
- *
- * @returns The value of the register.
- */
+// Mutex-protected SPI read with proper CS handling
 uint8_t lora_read_reg(lora_reg_t reg)
 {
-   uint8_t tx[2] = {reg, 0xff};
-   uint8_t rx[2];
+    if (__spi == NULL) {
+        ESP_LOGE(TAG, "SPI device not initialized");
+        return 0xFF;
+    }
 
-   spi_transaction_t t = {
-       .flags = 0,
-       .length = 8 * sizeof(tx),
-       .tx_buffer = tx,
-       .rx_buffer = rx};
+    uint8_t val = 0xFF;  // Default error value
 
-#ifdef CONFIG_LORA_CS_ON_GPIO
-   gpio_set_level(CONFIG_LORA_CS_GPIO, 0);
-#endif
-   spi_device_transmit(__spi, &t);
-#ifdef CONFIG_LORA_CS_ON_GPIO
-   gpio_set_level(CONFIG_LORA_CS_GPIO, 1);
-#endif
+    if (xSemaphoreTake(spi_mutex, pdMS_TO_TICKS(100)) != pdTRUE) {
+        ESP_LOGE(TAG, "Failed to take mutex for SPI read");
+        return val;
+    }
 
-   return rx[1];
+    // Prepare transaction
+    uint8_t tx[2] = {reg & 0x7F, 0xFF};  // Clear MSB for read operation
+    uint8_t rx[2] = {0};
+
+    spi_transaction_t t = {
+        .flags = 0,
+        .length = 16,        // Total length is 16 bits
+        .tx_buffer = tx,
+        .rx_buffer = rx
+    };
+
+    // Assert CS before transaction
+    #ifdef CONFIG_LORA_CS_ON_GPIO
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 0);
+    vTaskDelay(pdMS_TO_TICKS(1));  // Brief delay after CS assertion
+    #endif
+
+    // Perform SPI transaction
+    esp_err_t ret = spi_device_transmit(__spi, &t);
+
+    // Deassert CS after transaction
+    #ifdef CONFIG_LORA_CS_ON_GPIO
+    vTaskDelay(pdMS_TO_TICKS(1));  // Brief delay before CS deassert
+    gpio_set_level(CONFIG_LORA_CS_GPIO, 1);
+    #endif
+
+    if (ret == ESP_OK) {
+        val = rx[1];  // Second byte contains the read data
+    } else {
+        ESP_LOGE(TAG, "SPI read failed: %s", esp_err_to_name(ret));
+    }
+
+    xSemaphoreGive(spi_mutex);
+    return val;
 }
-
 /**
  * Initializes the LoRa module.
  *
@@ -283,6 +347,10 @@ esp_err_t lora_init(void)
    gpio_pad_select_gpio(CONFIG_LORA_CS_GPIO);
    gpio_set_direction(CONFIG_LORA_CS_GPIO, GPIO_MODE_OUTPUT);
 #endif
+spi_mutex = xSemaphoreCreateMutex();
+   if (spi_mutex == NULL) {
+       return ESP_ERR_NO_MEM;
+   }
 // #ifdef CONFIG_LORA_DIO0_ON_GPIO
 //    gpio_pad_select_gpio(CONFIG_LORA_DIO0_GPIO);
 //    ESP_LOGI("CONFIG_LORA_CS_GPIO", "CONFIG_LORA_DIO0_GPIO %d",CONFIG_LORA_DIO0_GPIO);
@@ -333,18 +401,25 @@ esp_err_t lora_init(void)
        .sclk_io_num = CONFIG_LORA_SCK_GPIO,
        .quadwp_io_num = -1,
        .quadhd_io_num = -1,
-       .max_transfer_sz = 0};
+       .max_transfer_sz = 0,
+       .flags = SPICOMMON_BUSFLAG_MASTER};
    ESP_LOGI("LORA_SPI", "LORA_SPI %d",LORA_SPI);
    err = spi_bus_initialize(LORA_SPI, &bus, 0);
    if (err != ESP_OK)
       return err;
    spi_device_interface_config_t dev = {
-       .clock_speed_hz = 9000000,
-       .mode = 0,
-       .spics_io_num = -1,
-       .queue_size = 1,
-       .flags = 0,
-       .pre_cb = NULL};
+        .clock_speed_hz = 5000000,    // 5MHz - stable speed for LoRa
+        .mode = 0,                    // SPI mode 0
+        .spics_io_num = -1,          // CS pin (managed manually)
+        .queue_size = 1,             // We want to handle transactions ourselves
+        .flags = SPI_DEVICE_NO_DUMMY,
+        .command_bits = 0,
+        .address_bits = 0,
+        .dummy_bits = 0,
+        .cs_ena_pretrans = 3,        // CS setup time
+        .cs_ena_posttrans = 3,       // CS hold time
+        .pre_cb = NULL
+    };
    err = spi_bus_add_device(LORA_SPI, &dev, &__spi);
    if (err != ESP_OK)
       return err;
@@ -718,6 +793,8 @@ void IRAM_ATTR RXDoneSingle(void* arg) {
 // }
 
 esp_err_t RecivedLoraContiniousModeInit(){
+   lora_set_mode(LORA_OP_MODE_STDBY);
+   vTaskDelay(10);
   lora_write_reg(LORA_REG_DIO_MAPPING_1, 0x00);
   ESP_LOGI("CONFIG_LORA_CS_GPIO", "CONFIG_LORA_DIO0_GPIO %d", CONFIG_LORA_DIO0_GPIO);
   ESP_LOGI("LORA_REG_DIO_MAPPING", "LORA_REG_DIO_MAPPING %d", LORA_REG_DIO_MAPPING_1);
@@ -936,6 +1013,8 @@ void IRAM_ATTR CADDetected(void* arg) {
  */
 esp_err_t  SendMessageWithCAD(char* Data)
 {
+   lora_set_mode(LORA_OP_MODE_STDBY);
+   vTaskDelay(10);
    //Local VAriables
   uint8_t buf[255];
   uint8_t len;
@@ -1000,4 +1079,32 @@ esp_err_t  SendMessageWithCAD(char* Data)
   ActivateCADMode();
   }
   return ESP_OK;
+}
+
+#include "driver/gpio.h"
+#include "driver/rtc_io.h"
+void LoraDeepSleepInit(void){
+   lora_set_mode(LORA_OP_MODE_STDBY);
+   vTaskDelay(100);
+   lora_set_mode(LORA_OP_MODE_SLEEP);
+   rtc_gpio_init(CONFIG_LORA_CS_GPIO);
+   rtc_gpio_set_direction(CONFIG_LORA_CS_GPIO, RTC_GPIO_MODE_INPUT_ONLY);
+   rtc_gpio_pulldown_en(CONFIG_LORA_CS_GPIO);
+   rtc_gpio_init(CONFIG_LORA_RST_GPIO);
+   rtc_gpio_set_direction(CONFIG_LORA_RST_GPIO, RTC_GPIO_MODE_INPUT_ONLY);
+   rtc_gpio_pulldown_en(CONFIG_LORA_RST_GPIO);
+   rtc_gpio_init(CONFIG_LORA_MISO_GPIO);
+   rtc_gpio_set_direction(CONFIG_LORA_MISO_GPIO, RTC_GPIO_MODE_INPUT_ONLY);
+   rtc_gpio_pulldown_en(CONFIG_LORA_MISO_GPIO);
+   rtc_gpio_init(CONFIG_LORA_MOSI_GPIO);
+   rtc_gpio_set_direction(CONFIG_LORA_MOSI_GPIO, RTC_GPIO_MODE_INPUT_ONLY);
+   rtc_gpio_pulldown_en(CONFIG_LORA_MOSI_GPIO);
+   rtc_gpio_init(CONFIG_LORA_SCK_GPIO);
+   rtc_gpio_set_direction(CONFIG_LORA_SCK_GPIO, RTC_GPIO_MODE_INPUT_ONLY);
+   rtc_gpio_pulldown_en(CONFIG_LORA_SCK_GPIO);
+   rtc_gpio_hold_en(CONFIG_LORA_CS_GPIO);  
+   rtc_gpio_hold_en(CONFIG_LORA_RST_GPIO);  
+   rtc_gpio_hold_en(CONFIG_LORA_MISO_GPIO);  
+   rtc_gpio_hold_en(CONFIG_LORA_MOSI_GPIO);  
+   rtc_gpio_hold_en(CONFIG_LORA_SCK_GPIO);  
 }

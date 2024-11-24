@@ -552,7 +552,7 @@ CONFIG_ARDUHAL_PARTITION_SCHEME="default"
 # Settings
 #
 CONFIG_LORA_FREQ=433000000
-CONFIG_LORA_SYNC_WORD=0xFD
+CONFIG_LORA_SYNC_WORD=0x69
 CONFIG_LORA_PREAMBLE_LEN=255
 CONFIG_LORA_TX_POWER=2
 CONFIG_LORA_INIT_TIMEOUT=100
@@ -597,14 +597,14 @@ CONFIG_BROKER_URL="mqtt://esquare:Abcd1234@195.35.29.48:1883"
 #
 # OTA Configuration
 #
-CONFIG_FIRMWARE_UPGRADE_URL="https://home.nudgeenergy.co.uk/ftpuser/NEMS/HUB_LORA/advanced_https_ota.bin"
+CONFIG_FIRMWARE_UPGRADE_URL="https://home.nudgeenergy.co.uk/ftpuser/TRVOTA/ThermostatV3/ThermostatV3.bin"
 # end of OTA Configuration
 
 #
 # WiFi Configuration
 #
-CONFIG_HC_SSID="myssid"
-CONFIG_HC_PASSWORD="mypassword"
+CONFIG_HC_SSID="Union Point"
+CONFIG_HC_PASSWORD="Un10nP01nt"
 CONFIG_ESP_MAXIMUM_RETRY=5
 # CONFIG_ESP_WIFI_AUTH_OPEN is not set
 # CONFIG_ESP_WIFI_AUTH_WEP is not set

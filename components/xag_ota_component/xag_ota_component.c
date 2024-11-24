@@ -19,16 +19,16 @@
 #include "esp_ota_ops.h"       // ESP-IDF OTA operations
 #include "esp_http_client.h"   // ESP-IDF HTTP client
 #include "esp_https_ota.h"     // ESP-IDF HTTPS OTA functions
-#include "nvs.h"               // ESP-IDF NVS functions
-#include "nvs_flash.h"         // ESP-IDF NVS flash functions
 #include "xag_ota_component.h" // Custom OTA header
 #include "cJSON.h"             // cJSON library for JSON parsing
 #include "xag_mqtt_component.h"
-#include "LedTask.h"
+#include "xag_nvs_component.h"
+#define TOPIC_BUFFER_SIZE 64
+#define PREFIX "XAGlab"
 // Logging tag for the OTA component
+extern const char* HUBKeyMain;
+extern const char* DEVKeyMain;
 static const char *TAG = "xag_ota";
-const char *pub_topic_ota = "sub_ota";
-
 // External variables for the server certificate
 extern const uint8_t server_cert_pem_start[] asm("_binary_ca_cert_pem_start");
 extern const uint8_t server_cert_pem_end[] asm("_binary_ca_cert_pem_end");
@@ -39,13 +39,116 @@ extern void set_led_blink_alternate(bool red1, bool green1, bool blue1,
                                     bool red2, bool green2, bool blue2,
                                     int blink_interval_ms);
 extern void stop_leds();
+extern bool DeepSleepFlag;
 char FirmwareVer[32];
-char Version_current_firmware[] = "1.0";
-#define Version "http://195.35.29.48:8080/ftpuser/NEMS/HUB_WIFI/fw_version.txt"
+extern bool DeepSleepFlag;
+char pub_topic_ota[TOPIC_BUFFER_SIZE] = {0};
+int stored_id = 0;
 esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 {
     // Event handler code here
     return ESP_OK;
+}
+
+
+void update_mqtt_topics(void) {
+    // Format the topic string
+    snprintf(pub_topic_ota, TOPIC_BUFFER_SIZE, "%s_%d_P", PREFIX, stored_id);
+}
+
+esp_err_t initialize_mqtt_topics(void) {
+    esp_err_t err;
+
+    // Initialize NVS
+    err = init_nvs();
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to initialize NVS");
+        return err;
+    }
+
+    // Read stored ID using your existing NVS function
+    err = read_int_from_nvs(HUBKeyMain, &stored_id);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to read stored_id from NVS: %d", err);
+        // You might want to set a default value if read fails
+        stored_id = 0;
+    }
+
+    // Update the topic string
+    update_mqtt_topics();
+
+    ESP_LOGI(TAG, "MQTT topics initialized with stored_id: %d", stored_id);
+    ESP_LOGI(TAG, "OTA topic: %s", pub_topic_ota);
+
+    return ESP_OK;
+}
+void mqtt_ota_success(const esp_app_desc_t *new_app_info) {
+    // Get device ID
+    int device_id = 0;
+    read_int_from_nvs(DEVKeyMain, &device_id);
+
+    // Get current version
+    const esp_partition_t *running = esp_ota_get_running_partition();
+    esp_app_desc_t current_app_info;
+    esp_ota_get_partition_description(running, &current_app_info);
+
+    // // Create topic
+    // char pub_topic[TOPIC_BUFFER_SIZE];
+    // snprintf(pub_topic, TOPIC_BUFFER_SIZE, "%s_%d_P", PREFIX, device_id);
+
+    // Create JSON message
+    cJSON *root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "status", "success");
+    cJSON_AddStringToObject(root, "message", "Update successful - rebooting");
+    cJSON_AddNumberToObject(root, "device_id", device_id);
+    cJSON_AddStringToObject(root, "current_version", current_app_info.version);
+
+    if (new_app_info != NULL) {
+        cJSON_AddStringToObject(root, "new_version", new_app_info->version);
+        cJSON_AddStringToObject(root, "project_name", new_app_info->project_name);
+        cJSON_AddStringToObject(root, "time", new_app_info->time);
+        cJSON_AddStringToObject(root, "date", new_app_info->date);
+    }
+
+    char *json_string = cJSON_PrintUnformatted(root);
+    
+    // Success message with retain flag = 1
+    mqtt_publish(pub_topic_ota, json_string, 1, 1);
+    ESP_LOGI(TAG, "OTA update successful");
+
+    cJSON_Delete(root);
+    free(json_string);
+}
+
+void mqtt_ota_failure(const char* error_msg) {
+    // Get device ID
+    int device_id = 0;
+    read_int_from_nvs(DEVKeyMain, &device_id);
+
+    // Get current version
+    const esp_partition_t *running = esp_ota_get_running_partition();
+    esp_app_desc_t current_app_info;
+    esp_ota_get_partition_description(running, &current_app_info);
+
+    // Create topic
+    char pub_topic[TOPIC_BUFFER_SIZE];
+    snprintf(pub_topic, TOPIC_BUFFER_SIZE, "%s_%d_P", PREFIX, device_id);
+
+    // Create JSON message
+    cJSON *root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "status", "failed");
+    cJSON_AddStringToObject(root, "message", error_msg);
+    cJSON_AddNumberToObject(root, "device_id", device_id);
+    cJSON_AddStringToObject(root, "current_version", current_app_info.version);
+
+    char *json_string = cJSON_PrintUnformatted(root);
+    
+    // Failure message with retain flag = 0
+    mqtt_publish(pub_topic_ota, json_string, 1, 0);
+    ESP_LOGE(TAG, "OTA update failed: %s", error_msg);
+
+    cJSON_Delete(root);
+    free(json_string);
 }
 
 /**
@@ -60,35 +163,6 @@ esp_err_t _http_event_handler(esp_http_client_event_t *evt)
  * @param event_data Additional data associated with the event.
  */
 
-char *CreateJson(const char *input_str)
-{
-    // Create a new JSON object
-    cJSON *json_obj = cJSON_CreateObject();
-    if (json_obj == NULL)
-    {
-        ESP_LOGE(TAG, "Failed to create JSON object");
-        return NULL;
-    }
-
-    // Add the passed string to the JSON object
-    cJSON_AddStringToObject(json_obj, "OTA MESSAGE", input_str);
-
-    // Convert the JSON object to an unformatted string
-    char *json_str = cJSON_PrintUnformatted(json_obj);
-    if (json_str == NULL)
-    {
-        ESP_LOGE(TAG, "Failed to convert JSON object to string");
-        cJSON_Delete(json_obj);
-        return NULL;
-    }
-
-    // Free the JSON object as it is no longer needed
-    cJSON_Delete(json_obj);
-
-    // Return the JSON string
-    return json_str;
-}
-
 static void event_handler(void *arg, esp_event_base_t event_base,
                           int32_t event_id, void *event_data)
 {
@@ -98,67 +172,12 @@ static void event_handler(void *arg, esp_event_base_t event_base,
         {
         case ESP_HTTPS_OTA_START:         // OTA started event
             ESP_LOGI(TAG, "OTA started"); // Log the event
-            const char *example_str = "OTA started!";
-
-            char *json_str = CreateJson(example_str);
-
-            if (json_str != NULL)
-            {
-                ESP_LOGI(TAG, "Generated JSON: %s", json_str);
-
-                // Publish the JSON string via MQTT
-                // Replace `//mqtt_publish` with the appropriate function from your MQTT library
-                // mqtt_publish(pub_topic_ota, json_str, 0, 0);
-
-                // Free the JSON string after use
-                free(json_str);
-            }
-            else
-            {
-                ESP_LOGE(TAG, "Failed to generate JSON string");
-            }
             break;
         case ESP_HTTPS_OTA_CONNECTED:             // Connected to server event
             ESP_LOGI(TAG, "Connected to server"); // Log the event
-            const char *example_str_1 = "Connected to server!";
-            char *json_str_1 = CreateJson(example_str_1);
-
-            if (json_str_1 != NULL)
-            {
-                ESP_LOGI(TAG, "Generated JSON: %s", json_str_1);
-
-                // Publish the JSON string via MQTT
-                // Replace `//mqtt_publish` with the appropriate function from your MQTT library
-                // mqtt_publish(pub_topic_ota, json_str_1, 0, 0);
-
-                // Free the JSON string after use
-                free(json_str_1);
-            }
-            else
-            {
-                ESP_LOGE(TAG, "Failed to generate JSON string");
-            }
             break;
         case ESP_HTTPS_OTA_GET_IMG_DESC:                // Reading Image Description event
             ESP_LOGI(TAG, "Reading Image Description"); // Log the event
-            const char *example_str_2 = "Reading Image Description";
-            char *json_str_2 = CreateJson(example_str_2);
-
-            if (json_str_2 != NULL)
-            {
-                ESP_LOGI(TAG, "Generated JSON: %s", json_str_2);
-
-                // Publish the JSON string via MQTT
-                // Replace `//mqtt_publish` with the appropriate function from your MQTT library
-                // mqtt_publish(pub_topic_ota, json_str_2, 0, 0);
-
-                // Free the JSON string after use
-                free(json_str_2);
-            }
-            else
-            {
-                ESP_LOGE(TAG, "Failed to generate JSON string");
-            }
             break;
         case ESP_HTTPS_OTA_VERIFY_CHIP_ID:                                                     // Verifying chip ID event
             ESP_LOGI(TAG, "Verifying chip id of new image: %d", *(esp_chip_id_t *)event_data); // Log the event with chip ID
@@ -173,46 +192,12 @@ static void event_handler(void *arg, esp_event_base_t event_base,
             ESP_LOGI(TAG, "Boot partition updated. Next Partition: %d", *(esp_partition_subtype_t *)event_data); // Log the event with partition info
             break;
         case ESP_HTTPS_OTA_FINISH:       // OTA finish event
-            ESP_LOGI(TAG, "OTA finish"); // Log the event
-            const char *example_str_4 = "OTA finish!";
-            char *json_str_4 = CreateJson(example_str_4);
-
-            if (json_str_4 != NULL)
-            {
-                ESP_LOGI(TAG, "Generated JSON: %s", json_str_4);
-
-                // Publish the JSON string via MQTT
-                // Replace `//mqtt_publish` with the appropriate function from your MQTT library
-                // mqtt_publish(pub_topic_ota, json_str_4, 0, 0);
-
-                // Free the JSON string after use
-                free(json_str_4);
-            }
-            else
-            {
-                ESP_LOGE(TAG, "Failed to generate JSON string");
-            }
             break;
         case ESP_HTTPS_OTA_ABORT:       // OTA abort event
             ESP_LOGI(TAG, "OTA abort"); // Log the event
-            const char *example_str_5 = "OTA abort!";
-            char *json_str_5 = CreateJson(example_str_5);
-            if (json_str_5 != NULL)
-            {
-                ESP_LOGI(TAG, "Generated JSON: %s", json_str_5);
-
-                // Publish the JSON string via MQTT
-                // Replace `//mqtt_publish` with the appropriate function from your MQTT library
-                // mqtt_publish(pub_topic_ota, json_str_5, 0, 0);
-
-                // Free the JSON string after use
-                free(json_str_5);
-
-            }
-            else
-            {
-                ESP_LOGE(TAG, "Failed to generate JSON string");
-            }
+            DeepSleepFlag = false;
+            mqtt_ota_failure("Update verification failed");
+            esp_restart(); 
             break;
         }
     }
@@ -300,8 +285,12 @@ void advanced_ota_example_task(void *pvParameter)
     {
         ESP_LOGE(TAG, "ESP HTTPS OTA Begin failed"); // Log the error
         stop_leds();
-        set_led_blink_alternate(true, false, true, true, false, false, 100);
+        set_led_blink_alternate(true, true, false, true, false, false, 100);
+        mqtt_ota_failure("ESP HTTPS OTA Begin failed");
         vTaskDelay(3000 / portTICK_PERIOD_MS);
+        
+        esp_restart();
+        DeepSleepFlag = false;
         vTaskDelete(NULL); // Delete the task
     }
 
@@ -310,6 +299,7 @@ void advanced_ota_example_task(void *pvParameter)
     if (err != ESP_OK)                                             // Check if getting image description failed
     {
         ESP_LOGE(TAG, "esp_https_ota_read_img_desc failed"); // Log the error
+        mqtt_ota_failure("esp_https_ota_read_img_desc failed");
         goto ota_end;                                        // Jump to ota_end
     }
 
@@ -319,7 +309,9 @@ void advanced_ota_example_task(void *pvParameter)
     err = validate_image_header(&app_desc); // Validate the image header
     if (err != ESP_OK)                      // Check if validation failed
     {
-        ESP_LOGE(TAG, "image header verification failed"); // Log the error
+        ESP_LOGE(TAG, "image header verification failed");
+        mqtt_ota_failure("image header verification failed");
+         // Log the error
         goto ota_end;                                      // Jump to ota_end
     }
 
@@ -343,27 +335,11 @@ void advanced_ota_example_task(void *pvParameter)
         ota_finish_err = esp_https_ota_finish(https_ota_handle); // Finish the OTA process
         if ((err == ESP_OK) && (ota_finish_err == ESP_OK))       // Check if OTA was successful
         {
-            const char *example_str_7 = "ESP_HTTPS_OTA upgrade successful. Rebooting .... ";
-            char *json_str_7 = CreateJson(example_str_7);
-
-            if (json_str_7 != NULL)
-            {
-                ESP_LOGI(TAG, "Generated JSON: %s", json_str_7);
-
-                // Publish the JSON string via MQTT
-                // Replace `//mqtt_publish` with the appropriate function from your MQTT library
-                // mqtt_publish(pub_topic_ota, json_str_7, 0, 0);
-
-                // Free the JSON string after use
-                free(json_str_7);
-            }
-            else
-            {
-                ESP_LOGE(TAG, "Failed to generate JSON string");
-            }
             ESP_LOGI(TAG, "ESP_HTTPS_OTA upgrade successful. Rebooting ..."); // Log the success
-            set_led_blink_alternate(true, false, true, false, false, true, 100);
+            stop_leds();
+            set_led_blink_alternate(true, true, false, false, true, false, 100);
             vTaskDelay(5000 / portTICK_PERIOD_MS);
+            mqtt_ota_success(&app_desc);
             esp_restart();                         // Restart the ESP32
         }
         else
@@ -373,9 +349,11 @@ void advanced_ota_example_task(void *pvParameter)
                 ESP_LOGE(TAG, "Image validation failed, image is corrupted"); // Log the error
             }
             ESP_LOGE(TAG, "ESP_HTTPS_OTA upgrade failed 0x%x", ota_finish_err); // Log the OTA failure
-            set_led_blink_alternate(true, false, true, true, false, false, 100);
+            stop_leds();
+            set_led_blink_alternate(true, true, false, true, false, false, 100);
             vTaskDelay(3000 / portTICK_PERIOD_MS);
-            
+            mqtt_ota_failure("Update verification failed");
+            esp_restart(); 
             vTaskDelete(NULL); // Delete the task
         }
     }
@@ -384,9 +362,11 @@ ota_end:
     esp_https_ota_abort(https_ota_handle);         // Abort the OTA process
     ESP_LOGE(TAG, "ESP_HTTPS_OTA upgrade failed"); // Log the OTA failure
     stop_leds();
-    set_led_blink_alternate(true, false, true, true, false, false, 100);
+    DeepSleepFlag = false;
+    set_led_blink_alternate(true, true, false, true, false, false, 100);
     vTaskDelay(3000 / portTICK_PERIOD_MS);
-    
+    mqtt_ota_failure("Update verification failed");
+    esp_restart(); 
     vTaskDelete(NULL); // Delete the task
 }
 
@@ -434,6 +414,7 @@ void xag_ota_init(void)
 {
     ESP_LOGI(TAG, "Initializing OTA component"); // Log the initialization
     stop_leds();
+    ESP_ERROR_CHECK(initialize_mqtt_topics());
     ESP_ERROR_CHECK(esp_event_handler_register(ESP_HTTPS_OTA_EVENT, ESP_EVENT_ANY_ID, &event_handler, NULL)); // Register the event handler
     check_ota_update();                                                                                       // Check for OTA update
 }

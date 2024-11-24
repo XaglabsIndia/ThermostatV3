@@ -75,6 +75,7 @@ void set_led_blink_alternate(bool red1, bool green1, bool blue1,
                             bool red2, bool green2, bool blue2,
                             int blink_interval_ms);
 void stop_leds(void);
+void ConnectWifi();
 #ifdef __cplusplus
 }
 #endif

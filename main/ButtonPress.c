@@ -18,10 +18,10 @@
 
 // #define CONFIGCONFIG_BUTTON_INC_GPIO 25
 // #define CONFIG_BUTTON_DEC_GPIO 27
-#define DEBOUNCE_TIME 10 // ms
+#define DEBOUNCE_TIME 50 // ms
 #define MIN_TEMPERATURE 10.0f  // Minimum temperature limit
 #define MAX_TEMPERATURE 30.0f  // Maximum temperature limit
-#define BUTTON_TASK_TIMEOUT 10000 // 5 seconds in ms
+#define BUTTON_TASK_TIMEOUT 5000 // 5 seconds in ms
 #define TEMPERATURE_STEP 0.5f // Temperature change step
  const char* ButtonTag = "Button Press";
 extern float set_temperature;
@@ -111,7 +111,7 @@ void enter_sleep_mode(void) {
     ESP_LOGI(ButtonTag, "Preparing to enter deep sleep mode");
    
     print_gpio_status();
-
+   // LoraDeepSleepInit();
 // Disable all wake-up sources first
     esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
     // Configure GPIO wake-up pin
@@ -131,7 +131,7 @@ void enter_sleep_mode(void) {
     // Configure EXT1 wake-up source for both buttons
     const uint64_t ext1_wakeup_pin_mask = (1ULL << CONFIG_BUTTON_INC_GPIO) | (1ULL << CONFIG_BUTTON_DEC_GPIO);
     esp_sleep_enable_ext1_wakeup(ext1_wakeup_pin_mask, ESP_EXT1_WAKEUP_ALL_LOW);
-    esp_sleep_enable_timer_wakeup(2 * 60 * 1000000ULL);
+    esp_sleep_enable_timer_wakeup(5 * 60 * 1000000ULL);
     inactive_screen_call();
     vTaskDelay(pdMS_TO_TICKS(3000));
     esp_deep_sleep_start();
@@ -141,7 +141,7 @@ void enter_sleep_mode_Timmer(void) {
     ESP_LOGI(ButtonTag, "Preparing to enter deep sleep mode");
    
     print_gpio_status();
-
+    //LoraDeepSleepInit();
 // Disable all wake-up sources first
     esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
     // Configure GPIO wake-up pin
@@ -161,7 +161,7 @@ void enter_sleep_mode_Timmer(void) {
     // Configure EXT1 wake-up source for both buttons
     const uint64_t ext1_wakeup_pin_mask = (1ULL << CONFIG_BUTTON_INC_GPIO) | (1ULL << CONFIG_BUTTON_DEC_GPIO);
     esp_sleep_enable_ext1_wakeup(ext1_wakeup_pin_mask, ESP_EXT1_WAKEUP_ALL_LOW);
-    esp_sleep_enable_timer_wakeup(2 * 60 * 1000000ULL);
+    esp_sleep_enable_timer_wakeup(5 * 60 * 1000000ULL);
     vTaskDelay(pdMS_TO_TICKS(3000));
     esp_deep_sleep_start();
 }

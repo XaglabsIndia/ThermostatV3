@@ -26,7 +26,6 @@
 #include "nvs.h"
 #include "esp_system.h"
 #include "esp_mac.h"
-#include "LedTask.h"
 #define MAX_TOPIC_LENGTH 128
 #define NVS_KEY_SUBSCRIBE "mqtt_sub_topic"
 #define NVS_KEY_PUBLISH "mqtt_pub_topic"
@@ -75,20 +74,10 @@ extern char current_subscribe_topic[MAX_TOPIC_LENGTH];
     {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAGMQTT, "MQTT_EVENT_CONNECTED");
-         esp_err_t CheckMQTTTpcStatus = read_string_from_nvs(NVS_KEY_SUBSCRIBE,CurrentTopic, sizeof(CurrentTopic));
-        printf("Topic is %s",CurrentTopic);
-        esp_err_t MQTTSub = mqtt_subscribe( CurrentTopic, 1);
-            if (MQTTSub == ESP_OK) {
-                ESP_LOGI(TAGMQTT, "Subscribed to initial topic: %s", CurrentTopic);
-            } else {
-                ESP_LOGE(TAGMQTT, "Initial subscription failed %s", CurrentTopic);
-            }
-            break;
+        break;
 
     case MQTT_EVENT_DISCONNECTED:
         ESP_LOGI(TAGMQTT, "MQTT_EVENT_DISCONNECTED");
-        // Restart the ESP in case of disconnection
-        esp_restart();
         break;
 
     case MQTT_EVENT_SUBSCRIBED:

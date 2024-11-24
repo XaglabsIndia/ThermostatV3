@@ -7,7 +7,6 @@
 #include "esp_task_wdt.h"
 #include "driver/ledc.h"
 #include "esp_err.h"
-#include"Config.h"
 
 #define LED_RED_GPIO CONFIG_RED_LED_GPIO
 #define LED_GREEN_GPIO CONFIG_GREEN_LED_GPIO

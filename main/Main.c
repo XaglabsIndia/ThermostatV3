@@ -310,10 +310,10 @@ static esp_err_t send_thermostat_message_with_retry(const char* message) {
             return ESP_OK;
         }
         ESP_LOGW(TAG, "Failed to send message to thermostat %d: %s (attempt %d)", ConfigDevID, message, i + 1);
-        vTaskDelay(pdMS_TO_TICKS(RETRY_DELAY_MS));
         stop_leds();
         vTaskDelay(pdMS_TO_TICKS(100));
         set_led_blink_alternate(false,true,true,true,false,false,200);
+        vTaskDelay(pdMS_TO_TICKS(RETRY_DELAY_MS));
          
     }
     return ESP_FAIL;

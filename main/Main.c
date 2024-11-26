@@ -1477,7 +1477,7 @@ void InitMain()
 {
     esp_err_t err;
     esp_err_t CheckDEVStatus = CheckStoredKeyStatus(DEVKeyMain, &ValueMain);
-    if(CheckDEVStatus == 4354 || ValueMain != ConfigDevID )
+    if(CheckDEVStatus == 4354 )
     {
       esp_err_t RetDevValue = save_int_to_nvs(DEVKeyMain,ConfigDevID);
       if (RetDevValue == ESP_OK)

@@ -26,8 +26,7 @@
 #define TOPIC_BUFFER_SIZE 64
 #define PREFIX "XAGlab"
 // Logging tag for the OTA component
-extern const char* HUBKeyMain;
-extern const char* DEVKeyMain;
+
 static const char *TAG = "xag_ota";
 // External variables for the server certificate
 extern const uint8_t server_cert_pem_start[] asm("_binary_ca_cert_pem_start");
@@ -67,11 +66,10 @@ esp_err_t initialize_mqtt_topics(void) {
     }
 
     // Read stored ID using your existing NVS function
-    err = read_int_from_nvs(HUBKeyMain, &stored_id);
+    err = read_int_from_nvs("HUBID", &stored_id);
     if (err != ESP_OK) {
         ESP_LOGE(TAG, "Failed to read stored_id from NVS: %d", err);
         // You might want to set a default value if read fails
-        stored_id = 0;
     }
 
     // Update the topic string
@@ -85,7 +83,7 @@ esp_err_t initialize_mqtt_topics(void) {
 void mqtt_ota_success(const esp_app_desc_t *new_app_info) {
     // Get device ID
     int device_id = 0;
-    read_int_from_nvs(DEVKeyMain, &device_id);
+    read_int_from_nvs("DEVID", &device_id);
 
     // Get current version
     const esp_partition_t *running = esp_ota_get_running_partition();
@@ -123,7 +121,7 @@ void mqtt_ota_success(const esp_app_desc_t *new_app_info) {
 void mqtt_ota_failure(const char* error_msg) {
     // Get device ID
     int device_id = 0;
-    read_int_from_nvs(DEVKeyMain, &device_id);
+    read_int_from_nvs("DEVID", &device_id);
 
     // Get current version
     const esp_partition_t *running = esp_ota_get_running_partition();
@@ -338,8 +336,8 @@ void advanced_ota_example_task(void *pvParameter)
             ESP_LOGI(TAG, "ESP_HTTPS_OTA upgrade successful. Rebooting ..."); // Log the success
             stop_leds();
             set_led_blink_alternate(true, true, false, false, true, false, 100);
-            vTaskDelay(5000 / portTICK_PERIOD_MS);
             mqtt_ota_success(&app_desc);
+            vTaskDelay(5000 / portTICK_PERIOD_MS);
             esp_restart();                         // Restart the ESP32
         }
         else

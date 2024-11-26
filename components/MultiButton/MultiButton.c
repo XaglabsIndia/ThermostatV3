@@ -82,12 +82,12 @@ void MultiButton(void *pvParameter)
             
             if (pressLength_milliSeconds > 10 && pressLength_milliSeconds < 4999)
             {
-                set_led_solid(true,false,false);
+                set_led_solid(true,true,true);
 
             }
             if (pressLength_milliSeconds > 5000 && pressLength_milliSeconds < 9999)
             {
-                set_led_solid(false,true,false);
+                set_led_solid(false,true,true);
 
             }
             

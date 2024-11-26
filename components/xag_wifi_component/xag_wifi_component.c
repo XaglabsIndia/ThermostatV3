@@ -202,7 +202,7 @@ esp_err_t connectWifi()
                                                         &wifi_event_handler,
                                                         NULL,
                                                         &instance_got_ip));
-    if (read_string_from_nvs("HardCodeSSID", HardCodeSSID, sizeof(HardCodeSSID)) == ESP_ERR_NOT_FOUND) {
+    if (read_string_from_nvs("HardCodeSSID", HardCodeSSID, sizeof(HardCodeSSID)) == 4354) {
         StoreHardcodeWiFiData(CONFIG_HC_SSID, CONFIG_HC_PASSWORD);
     }
     // Try hardcoded SSID and password first

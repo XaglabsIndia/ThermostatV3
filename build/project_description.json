@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "ThermostatV3",
-    "project_version":    "3.0",
+    "project_version":    "6.0",
     "project_path":       "C:/Users/ESQ-LINUX/Desktop/ThermostatV3",
     "idf_path":           "C:/Users/ESQ-LINUX/esp/v5.1/esp-idf",
     "build_dir":          "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build",

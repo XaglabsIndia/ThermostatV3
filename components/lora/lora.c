@@ -63,6 +63,7 @@
 #define LORA_SPI
 #endif
 
+#define LORA_SYNC_WORD 0x54
 static const char TAG[] = "lora";
 
 
@@ -423,7 +424,7 @@ spi_mutex = xSemaphoreCreateMutex();
    lora_set_frequency(CONFIG_LORA_FREQ);
    lora_set_preamble_length(CONFIG_LORA_PREAMBLE_LEN);
 
-   lora_set_sync_word(CONFIG_LORA_SYNC_WORD);
+   lora_set_sync_word(LORA_SYNC_WORD);
    lora_enable_crc();
    lora_set_mode(LORA_OP_MODE_STDBY);
    gpio_install_isr_service(0); 

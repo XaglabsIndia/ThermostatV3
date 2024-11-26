@@ -21,7 +21,7 @@
 #define DEBOUNCE_TIME 50 // ms
 #define MIN_TEMPERATURE 10.0f  // Minimum temperature limit
 #define MAX_TEMPERATURE 30.0f  // Maximum temperature limit
-#define BUTTON_TASK_TIMEOUT 2000 // 5 seconds in ms
+#define BUTTON_TASK_TIMEOUT 5000 // 5 seconds in ms
 #define TIMMER_WAKEUP_MINUTES 15
 #define TEMPERATURE_STEP 0.5f // Temperature change step
  const char* ButtonTag = "Button Press";

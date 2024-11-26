@@ -31,7 +31,6 @@
 #include "LedTask.h"
 #define MAX_FLOAT_STR_LEN 20
 #define FLOAT_PRECISION 2 
-
 #define QUEUE_LENGTH 10
 #define QUEUE_ITEM_SIZE sizeof(int)
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
@@ -948,16 +947,50 @@ void save_environmental_data(float room_temp, int humidity, float set_temp, cons
 //              values[0], values[1], values[2], date, time);
 // }
 
-void save_display_messages(const char* front_msg, const char* back_msg) {
+// void save_display_messages(const char* front_msg, const char* back_msg) {
+//     if (front_msg) {
+//         save_string_to_nvs("front_msg", front_msg);
+//     }
+//     if (back_msg) {
+//         save_string_to_nvs("back_msg", back_msg);
+//     }
+//     ESP_LOGD(TAG, "Messages saved - Front: %s, Back: %s", 
+//              front_msg ? front_msg : "NULL", 
+//              back_msg ? back_msg : "NULL");
+// }
+
+esp_err_t save_display_messages(const char* front_msg, const char* back_msg) {
+    esp_err_t err = ESP_OK;
+    char stored_msg[128] = {0};  // Buffer for reading existing messages
+    bool needs_update = false;
+
     if (front_msg) {
-        save_string_to_nvs("front_msg", front_msg);
+        err = read_string_from_nvs("front_msg", stored_msg, sizeof(stored_msg));
+        if (err == ESP_ERR_NVS_NOT_FOUND || 
+            (err == ESP_OK && strcmp(stored_msg, front_msg) != 0)) {
+            err = save_string_to_nvs("front_msg", front_msg);
+            needs_update = true;
+        }
     }
-    if (back_msg) {
-        save_string_to_nvs("back_msg", back_msg);
+
+    if (back_msg && err == ESP_OK) {
+        err = read_string_from_nvs("back_msg", stored_msg, sizeof(stored_msg));
+        if (err == ESP_ERR_NVS_NOT_FOUND || 
+            (err == ESP_OK && strcmp(stored_msg, back_msg) != 0)) {
+            err = save_string_to_nvs("back_msg", back_msg);
+            needs_update = true;
+        }
     }
-    ESP_LOGD(TAG, "Messages saved - Front: %s, Back: %s", 
-             front_msg ? front_msg : "NULL", 
-             back_msg ? back_msg : "NULL");
+
+    if (needs_update || err == ESP_ERR_NVS_NOT_FOUND) {
+        ESP_LOGI(TAG, "Messages updated - Front: %s, Back: %s", 
+                front_msg ? front_msg : "NULL", 
+                back_msg ? back_msg : "NULL");
+    } else {
+        ESP_LOGD(TAG, "Messages unchanged - skipping save");
+    }
+
+    return err;
 }
 
 void HandleRSMessage(const char* message) {
@@ -1073,12 +1106,19 @@ void HandleRSMessage(const char* message) {
     
     // Save display messages only if they're not empty
     if (strlen(front_message) > 0 || strlen(back_message) > 0) {
-        save_display_messages(
+        esp_err_t err = save_display_messages(
             strlen(front_message) > 0 ? front_message : NULL,
             strlen(back_message) > 0 ? back_message : NULL
         );
+        
+        if (err != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to save messages: %s", esp_err_to_name(err));
+        } else {
+            ESP_LOGI(TAG, "Messages saved successfully");
+            Inactive_message_Init();
+            inactive_screen_call();
+        }
     }
-
     ESP_LOGD(TAG, "Parsed: %.1f|%.1f|%.1f|%s|%s|%s|%s", 
              values[0], values[1], values[2], date, time, 
              front_message, back_message);
@@ -1450,7 +1490,7 @@ void InitMain()
         ESP_LOGE("StoreID", "Failed to read DevID from NVS");
     }
     ESP_LOGI(TAG, "DevID written: %d", StoredDevID);
-    err = read_int_from_nvs(HUBKeyMain, &StoredHubID);
+    err = read_int_from_nvs("HUBID", &StoredHubID);
     if (err != ESP_OK) {
         ESP_LOGE("HubID", "Failed to read HubID from NVS");
     }
@@ -1507,13 +1547,40 @@ void InitMain()
             ESP_LOGI("ButtonTag", "Wake up not caused by deep sleep: %d", wakeup_reason);
             InitMain();
             stop_leds();
+            esp_err_t err = CheckStoredKeyStatus("HUBID", &StoredHubID);
+            if (err == 4354) {
+                stop_leds();
+                ESP_LOGE("StoreID", "Failed to read from NVS");
+                // Configure GPIO16 for wakeup
+                gpio_config_t io_conf = {
+                    .pin_bit_mask = (1ULL << CONFIG_MULTIBUTTON_GPIO),
+                    .mode = GPIO_MODE_INPUT,
+                    .pull_up_en = GPIO_PULLUP_ENABLE,
+                    .pull_down_en = GPIO_PULLDOWN_DISABLE,
+                    .intr_type = GPIO_INTR_DISABLE
+                };
+                gpio_config(&io_conf);
+
+                // Enable EXT0 wakeup on GPIO16
+                esp_err_t err = esp_sleep_enable_ext0_wakeup(CONFIG_MULTIBUTTON_GPIO, 0);  // 0 for LOW level trigger
+                if (err != ESP_OK) {
+                    ESP_LOGE(TAG, "Failed to configure EXT0 wakeup on GPIO16: %s", esp_err_to_name(err));
+                } else {
+                    ESP_LOGI(TAG, "EXT0 wakeup configured on GPIO16");
+                }
+                stop_leds();
+                set_led_blink_alternate(true,true,true,true,false,false,200);
+                vTaskDelay(pdMS_TO_TICKS(2000));
+                // Enter deep sleep
+                esp_deep_sleep_start();
+            }
             vTaskDelay(pdMS_TO_TICKS(100));
             set_led_blink_alternate(true,true,true,false,true,false,200);
             vTaskDelay(pdMS_TO_TICKS(900));
-            esp_err_t err = lora_init();
-            if (err != ESP_OK)
+            esp_err_t err_LoRa = lora_init();
+            if (err_LoRa != ESP_OK)
             {
-                ESP_LOGI("lora_init", "lora_init %d", err);
+                ESP_LOGI("lora_init", "lora_init %d", err_LoRa);
                 return;
             }
             InitalizeProgram();
@@ -1550,7 +1617,35 @@ void InitalizeProgram(){
   xTaskCreatePinnedToCore(RXContiniousMessageQueue, "RXContiniousMessageQueue", 9096, NULL, 1, &LoraRXContiniousMessageQueueTaskHandle,1);
 }
 
+///////////////////////Saftey Feture to shut system down in 50 second//////////
+esp_timer_handle_t timeout_timer_main;
+bool timer_active_main = false;
+static void timer_callback_main(void *arg)
+{
+    if (timer_active_main)
+    {
+       enter_sleep_mode();
+    }
+}
+
+// Initialize timer
+void init_timeout_timer_main(void)
+{
+    const esp_timer_create_args_t timer_args = {
+        .callback = &timer_callback_main,
+        .name = "timeout_timer"};
+    ESP_ERROR_CHECK(esp_timer_create(&timer_args, &timeout_timer_main));
+}
+
+// Start timer
+void start_timeout_timer_main(void)
+{
+    timer_active_main = true;
+    ESP_ERROR_CHECK(esp_timer_start_once(timeout_timer_main, 90000000)); // 90s in microseconds
+}
+//////////////////////////END Safety Feature/////////////////////////////////////////////////
 void app_main(void){
+    //nvs_flash_erase();
     #if !CONFIG_ESP_TASK_WDT_INIT
     printf("Configured");
     esp_task_wdt_config_t twdt_config = {
@@ -1562,17 +1657,7 @@ void app_main(void){
     printf("TWDT initialized\n");
     #endif
     init_led_control();
-    esp_err_t err = CheckStoredKeyStatus(HUBKeyMain, &StoredHubID);
-
-    if (err == 4354) {
-        stop_leds();
-        ESP_LOGE("StoreID", "Failed to read from NVS");
-        esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_MULTIBUTTON_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
-        stop_leds();
-        set_led_solid(true,true,false);
-        vTaskDelay(pdMS_TO_TICKS(2000));
-        // Enter deep sleep
-        esp_deep_sleep_start();
-    }
+    init_timeout_timer_main();
+    start_timeout_timer_main();
     check_wakeup_reason();
 }

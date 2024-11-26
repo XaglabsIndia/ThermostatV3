@@ -393,27 +393,27 @@ void inactive_screen(void) {
         switch(number_of_inactive_msg_lines) {
             case 5:
                 drawWrappedText(String(Back_line1), 10, 150, display.width() - 30, "CENTER", 8);
-                drawWrappedText(String(Back_line2), 10, 190, display.width() - 30, "CENTER", 8);
-                drawWrappedText(String(Back_line3), 10, 230, display.width() - 30, "CENTER", 8);
-                drawWrappedText(String(Back_line4), 10, 270, display.width() - 30, "CENTER", 8);
-                drawWrappedText(String(Back_line5), 10, 310, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line2), 10, 210, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line3), 10, 270, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line4), 10, 330, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line5), 10, 390, display.width() - 30, "CENTER", 8);
                 break;
                 
             case 4:
-                drawWrappedText(String(Back_line1), 10, 180, display.width() - 30, "CENTER", 8);
-                drawWrappedText(String(Back_line2), 10, 220, display.width() - 30, "CENTER", 8);
-                drawWrappedText(String(Back_line3), 10, 260, display.width() - 30, "CENTER", 8);
-                drawWrappedText(String(Back_line4), 10, 300, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line1), 10, 150, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line2), 10, 210, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line3), 10, 270, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line4), 10, 330, display.width() - 30, "CENTER", 8);
                 break;
                 
             case 3:
-                drawWrappedText(String(Back_line1), 10, 210, display.width() - 30, "CENTER", 8);
-                drawWrappedText(String(Back_line2), 10, 250, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line1), 10, 170, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line2), 10, 230, display.width() - 30, "CENTER", 8);
                 drawWrappedText(String(Back_line3), 10, 290, display.width() - 30, "CENTER", 8);
                 break;
                 
             case 2:
-                drawWrappedText(String(Back_line1), 10, 230, display.width() - 30, "CENTER", 8);
+                drawWrappedText(String(Back_line1), 10, 210, display.width() - 30, "CENTER", 8);
                 drawWrappedText(String(Back_line2), 10, 270, display.width() - 30, "CENTER", 8);
                 break;
                 

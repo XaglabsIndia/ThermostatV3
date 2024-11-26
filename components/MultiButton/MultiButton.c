@@ -28,7 +28,6 @@ esp_timer_handle_t timeout_timer;
 static bool isTaskRunning = false;
 extern char NEMS_ID;
 int StoredDeviceID;
-extern const char* HUBKeyMain;
 //extern const char* THKeyMain;
 extern const char* DEVKeyMain;
 extern int ValueMain;
@@ -43,6 +42,25 @@ void IRAM_ATTR MultiButtonISR(void *arg)
     xTaskResumeFromISR(MultiButtonTaskHandle);
 }
 
+void ConfigureGPIOSleep(){
+// Configure GPIO16 for wakeup
+    gpio_config_t io_conf = {
+        .pin_bit_mask = (1ULL << CONFIG_MULTIBUTTON_GPIO),
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE
+    };
+    gpio_config(&io_conf);
+
+    // Enable EXT0 wakeup on GPIO16
+    esp_err_t err = esp_sleep_enable_ext0_wakeup(CONFIG_MULTIBUTTON_GPIO, 0);  // 0 for LOW level trigger
+    if (err != ESP_OK) {
+        ESP_LOGE(TAGMultiButton, "Failed to configure EXT0 wakeup on GPIO16: %s", esp_err_to_name(err));
+    } else {
+        ESP_LOGI(TAGMultiButton, "EXT0 wakeup configured on GPIO16");
+    }
+}
 void MultiButton(void *pvParameter)
 {
     float pressLength_milliSeconds = 0;
@@ -100,18 +118,18 @@ void PerformAction(uint32_t duration) {
         HandleOTAMessage(StoredDeviceID,StoredHubID);
     }
     else if (duration < 5000) {  // Keep existing restart functionality
-            esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_MULTIBUTTON_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
+            ConfigureGPIOSleep();
             stop_leds();
             set_led_solid(true,true,false);
             vTaskDelay(pdMS_TO_TICKS(2000));
             // Enter deep sleep
            // esp_err_t status = CheckStoredKeyStatus(THKeyMain, &ValueMain);
-            esp_err_t err = CheckStoredKeyStatus(HUBKeyMain, &StoredHubID);
+            esp_err_t err = CheckStoredKeyStatus("HUBID", &StoredHubID);
 
             if ( err == 4354) {
                 stop_leds();
                 ESP_LOGE("StoreID", "Failed to read from NVS");
-                esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_MULTIBUTTON_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
+                ConfigureGPIOSleep();
                 stop_leds();
                 set_led_solid(true,true,false);
                 vTaskDelay(pdMS_TO_TICKS(2000));
@@ -215,7 +233,7 @@ static bool validate_lora_message(const char* message, int expected_dev_id, char
     ESP_LOGI(TAGMultiButton, "Successfully saved TH value: %d", th_value);
 
     // Then save hub ID
-    esp_err_t err = save_int_to_nvs(HUBKeyMain, hub_id);
+    esp_err_t err = save_int_to_nvs("HUBID", hub_id);
     if (err != ESP_OK) {
         ESP_LOGE(TAGMultiButton, "Failed to save hub ID: %d, error: %s", hub_id, esp_err_to_name(err));
         return false;
@@ -290,7 +308,7 @@ void AutoProvisionTask(void *pvParameters) {
                         ESP_LOGI(TAGMultiButton, "Message validated, hub_id: %d", hub_id);
                         if (hub_id != 0) {
                             ESP_LOGI(TAGMultiButton, "Valid hub_id received, saving to NVS");
-                            if (save_int_to_nvs(HUBKeyMain, hub_id) == ESP_OK) {
+                            if (save_int_to_nvs("HUBID", hub_id) == ESP_OK) {
                                 // Remove watchdog before restart
                                 ESP_ERROR_CHECK(esp_task_wdt_delete(NULL));
                                 valid_response_received = true;
@@ -330,12 +348,12 @@ void AutoProvisionTask(void *pvParameters) {
             lora_end_rx();
             ESP_LOGI(TAGMultiButton, "Entering deep sleep");
            // esp_err_t status = CheckStoredKeyStatus(THKeyMain, &ValueMain);
-            esp_err_t err = CheckStoredKeyStatus(HUBKeyMain, &StoredHubID);
+            esp_err_t err = CheckStoredKeyStatus("HUBID", &StoredHubID);
 
             if (err == 4354) {
                 stop_leds();
                 ESP_LOGE("StoreID", "Failed to read from NVS");
-                esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_MULTIBUTTON_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
+                ConfigureGPIOSleep();
                 stop_leds();
                 set_led_solid(true,true,false);
                 vTaskDelay(pdMS_TO_TICKS(2000));
@@ -357,11 +375,11 @@ static void timer_callback(void *arg)
     if (timer_active)
     {
         //esp_err_t status = CheckStoredKeyStatus(THKeyMain, &ValueMain);
-        esp_err_t err = CheckStoredKeyStatus(HUBKeyMain, &StoredHubID);
+        esp_err_t err = CheckStoredKeyStatus("HUBID", &StoredHubID);
         if (err == 4354) {
             stop_leds();
             ESP_LOGE("StoreID", "Failed to read from NVS");
-            esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_MULTIBUTTON_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
+            ConfigureGPIOSleep();
             set_led_solid(true,true,false);
             vTaskDelay(pdMS_TO_TICKS(2000));
             // Enter deep sleep
@@ -402,15 +420,31 @@ void SetupMultiButton() {
         ESP_LOGI("lora_init", "lora_init %d", err);
             stop_leds();
             set_led_blink_alternate(false,true,true,true,false,false,200);
-            esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_MULTIBUTTON_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
+            // Configure GPIO16 for wakeup
+                gpio_config_t io_conf = {
+                    .pin_bit_mask = (1ULL << CONFIG_MULTIBUTTON_GPIO),
+                    .mode = GPIO_MODE_INPUT,
+                    .pull_up_en = GPIO_PULLUP_ENABLE,
+                    .pull_down_en = GPIO_PULLDOWN_DISABLE,
+                    .intr_type = GPIO_INTR_DISABLE
+                };
+                gpio_config(&io_conf);
+
+                // Enable EXT0 wakeup on GPIO16
+                esp_err_t err = esp_sleep_enable_ext0_wakeup(CONFIG_MULTIBUTTON_GPIO, 0);  // 0 for LOW level trigger
+                if (err != ESP_OK) {
+                    ESP_LOGE(TAGMultiButton, "Failed to configure EXT0 wakeup on GPIO16: %s", esp_err_to_name(err));
+                } else {
+                    ESP_LOGI(TAGMultiButton, "EXT0 wakeup configured on GPIO16");
+                }
             // Enter deep sleep
             //esp_err_t status = CheckStoredKeyStatus(THKeyMain, &ValueMain);
-            esp_err_t err = CheckStoredKeyStatus(HUBKeyMain, &StoredHubID);
+             err = CheckStoredKeyStatus("HUBID", &StoredHubID);
 
             if (err == 4354) {
                 stop_leds();
                 ESP_LOGE("StoreID", "Failed to read from NVS");
-                esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_MULTIBUTTON_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
+                ConfigureGPIOSleep();
                 stop_leds();
                 set_led_solid(true,true,false);
                 vTaskDelay(pdMS_TO_TICKS(2000));
@@ -425,19 +459,20 @@ void SetupMultiButton() {
     if (RetValue != ESP_OK) 
     {
         printf("Error initializing NVS: %d\n", RetValue);
-            esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_MULTIBUTTON_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
+            ConfigureGPIOSleep();
             stop_leds();
             set_led_blink_alternate(false,true,true,true,false,false,200);
             vTaskDelay(pdMS_TO_TICKS(2000));
             // Enter deep sleep
            //esp_err_t status = CheckStoredKeyStatus(THKeyMain, &ValueMain);
-            esp_err_t err = CheckStoredKeyStatus(HUBKeyMain, &StoredHubID);
-            esp_err_t statusDEV = CheckStoredKeyStatus(DEVKeyMain, &StoredDeviceID);
+            esp_err_t err = CheckStoredKeyStatus("HUBID", &StoredHubID);
+            esp_err_t statusDEV = CheckStoredKeyStatus("DEVID", &StoredDeviceID);
 
             if (err == 4354) {
                 stop_leds();
                 ESP_LOGE("StoreID", "Failed to read from NVS");
-                esp_sleep_enable_ext1_wakeup((1ULL << CONFIG_MULTIBUTTON_GPIO), ESP_EXT1_WAKEUP_ALL_LOW);
+                // Configure GPIO16 for wakeup
+                ConfigureGPIOSleep();
                 set_led_solid(true,true,false);
                 vTaskDelay(pdMS_TO_TICKS(2000));
                 // Enter deep sleep
@@ -447,7 +482,7 @@ void SetupMultiButton() {
                 esp_restart();
             }
     }
-    esp_err_t DEVKeyMainStatus = CheckStoredKeyStatus(DEVKeyMain, &StoredDeviceID);
+    esp_err_t DEVKeyMainStatus = CheckStoredKeyStatus("DEVID", &StoredDeviceID);
     xTaskCreate(MultiButton, "MultiButton", 5000, NULL, configMAX_PRIORITIES - 1, &MultiButtonTaskHandle);
     xTaskCreate(AutoProvisionTask, "auto_provision", 9096, NULL, 5, &autoProvisionTaskHandle);
     init_timeout_timer();

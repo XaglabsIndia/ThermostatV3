@@ -155,8 +155,8 @@ static void temperature_task(void* pvParameters) {
         }
 
         // Get sensor data
-        float temperatureF = 50.0; // Replace with HDC1080_temp_data();
-        int humidityF = 50;        // Replace with HDC1080_humid_data();
+        float temperatureF = HDC1080_temp_data(); // Replace with HDC1080_temp_data();
+        int humidityF = HDC1080_humid_data();        // Replace with HDC1080_humid_data();
         
         ESP_LOGI(TAG, "Temperature: %.2f, Humidity: %d", temperatureF, humidityF);
         
@@ -1360,10 +1360,10 @@ static void init_littlefs()
 }
 void Temperaturedata(void) {
     // Convert integer temperature to float (assuming 2 decimal places precision)
-    // float temperatureF = HDC1080_temp_data();
-    // int humidityF = HDC1080_humid_data();
-    float temperatureF = 20.0;
-    int humidityF = 50;
+    float temperatureF = HDC1080_temp_data();
+    int humidityF = HDC1080_humid_data();
+    // float temperatureF = 20.0;
+    // int humidityF = 50;
     stop_leds();
     vTaskDelay(pdMS_TO_TICKS(100));
     set_led_blink(false,true,true,200);
@@ -1418,10 +1418,10 @@ void Temperaturedata(void) {
 //////////////////////Temperature data message formation //////////////////
 void TemperaturedataRS(void) {
     // Convert integer temperature to float (assuming 2 decimal places precision)
-    // float temperatureF = HDC1080_temp_data();
-    // int humidityF = HDC1080_humid_data();
-    float temperatureF = 20.0;
-    int humidityF = 50;
+    float temperatureF = HDC1080_temp_data();
+    int humidityF = HDC1080_humid_data();
+    // float temperatureF = 20.0;
+    // int humidityF = 50;
     stop_leds();
     vTaskDelay(pdMS_TO_TICKS(100));
     set_led_blink(false,true,true,200);

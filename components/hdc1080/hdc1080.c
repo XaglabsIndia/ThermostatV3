@@ -16,8 +16,8 @@ https://docs.espressif.com/projects/esp-idf/en/release-v5.0/esp32/api-reference/
 #include "hdc1080.h"
 static const char *HDC_1080 = "i2c-simple-example";
 
-#define I2C_MASTER_SCL_IO           33      /*!< GPIO number used for I2C master clock */
-#define I2C_MASTER_SDA_IO           32      /*!< GPIO number used for I2C master data  */
+#define I2C_MASTER_SCL_IO           41      /*!< GPIO number used for I2C master clock */
+#define I2C_MASTER_SDA_IO           42      /*!< GPIO number used for I2C master data  */
 #define I2C_MASTER_NUM              0                          /*!< I2C master i2c port number, the number of i2c peripheral interfaces available will depend on the chip */
 #define I2C_MASTER_FREQ_HZ          400000                     /*!< I2C master clock frequency */
 #define I2C_MASTER_TX_BUF_DISABLE   0                          /*!< I2C master doesn't need buffer */
@@ -34,9 +34,12 @@ static const char *HDC_1080 = "i2c-simple-example";
 /**
  * @brief i2c master initialization
  */
-static esp_err_t i2c_master_init(int sda,int scl)
+static esp_err_t i2c_master_init(int sda, int scl)
 {
     int i2c_master_port = I2C_MASTER_NUM;
+    
+    // Delete any existing driver first
+    i2c_driver_delete(i2c_master_port);  // It's okay if this fails
 
     i2c_config_t conf = {
         .mode = I2C_MODE_MASTER,
@@ -48,64 +51,136 @@ static esp_err_t i2c_master_init(int sda,int scl)
     };
 
     i2c_param_config(i2c_master_port, &conf);
-
     return i2c_driver_install(i2c_master_port, conf.mode, I2C_MASTER_RX_BUF_DISABLE, I2C_MASTER_TX_BUF_DISABLE, 0);
 }
 
-/// @brief this function is used to initialise the sensor and configuring with required parameters
-/// @param sda Synchrounous data pin for sensor communication
-/// @param scl Synchrounous clock pin for sensor communication
-/// @return 
-//      ESP_OK if all success
-//      ESP_FAIL if pins are not connected properly
 esp_err_t HDC1080_sensor_init_and_config(int sda, int scl)
 {
-  uint8_t data[2];
-  ESP_ERROR_CHECK(i2c_master_init(sda, scl));
-  // ESP_LOGI(HDC_1080, "I2C initialized successfully");
-  uint8_t regaddr[2] = {HDC_1080_SENSOR_CONFIG_REG, HDC_1080_SENSOR_CONFIG_VALUE};
-  ESP_ERROR_CHECK(i2c_master_write_read_device(I2C_MASTER_NUM, HDC_1080_SENSOR_ADDR, &regaddr, 2, data, 2, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
-  if (((data[0] << 8) | data[1]) == (HDC_1080_SENSOR_CONFIG_VALUE<<8))
-  {
-    //  ESP_LOGI(HDC_1080, "I2C configured successfully");
-    return ESP_OK;
-  }
-  return ESP_FAIL;
+    uint8_t data[2];
+    esp_err_t ret;
+
+    // Initialize I2C with retry
+    ret = i2c_master_init(sda, scl);
+    if(ret != ESP_OK) {
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        ret = i2c_master_init(sda, scl);
+        if(ret != ESP_OK) {
+            return ESP_FAIL;
+        }
+    }
+
+    // Configure sensor
+    uint8_t regaddr[2] = {HDC_1080_SENSOR_CONFIG_REG, HDC_1080_SENSOR_CONFIG_VALUE};
+    ret = i2c_master_write_read_device(I2C_MASTER_NUM, HDC_1080_SENSOR_ADDR, 
+                                     &regaddr, 2, data, 2, 
+                                     I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
+    
+    if(ret != ESP_OK) {
+        return ESP_FAIL;
+    }
+
+    if (((data[0] << 8) | data[1]) == (HDC_1080_SENSOR_CONFIG_VALUE<<8))
+    {
+        return ESP_OK;
+    }
+    return ESP_FAIL;
 }
-/// @brief this function gives directly the temperature value of the HDC1080 sensor
-/// @return returns the temperature value in degree celsius (C)
-uint8_t HDC1080_temp_data()
+
+int HDC1080_temp_data()
 {
-    ESP_ERROR_CHECK(HDC1080_sensor_init_and_config(I2C_MASTER_SDA_IO,I2C_MASTER_SCL_IO));
-    uint8_t regaddr = HDC_1080_SENSOR_TEMP_POINTER,data[2];
-    uint32_t temperature=0,temperature1=0;
-    ESP_ERROR_CHECK(i2c_master_write_to_device(I2C_MASTER_NUM, HDC_1080_SENSOR_ADDR, &regaddr, 1, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
+    esp_err_t ret;
+    
+    // Initialize with retry
+    ret = HDC1080_sensor_init_and_config(I2C_MASTER_SDA_IO, I2C_MASTER_SCL_IO);
+    if(ret != ESP_OK) {
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        ret = HDC1080_sensor_init_and_config(I2C_MASTER_SDA_IO, I2C_MASTER_SCL_IO);
+        if(ret != ESP_OK) {
+            return -127; // Error value
+        }
+    }
+
+    uint8_t regaddr = HDC_1080_SENSOR_TEMP_POINTER, data[2];
+    uint32_t temperature = 0, temperature1 = 0;
+
+    ret = i2c_master_write_to_device(I2C_MASTER_NUM, HDC_1080_SENSOR_ADDR, 
+                                   &regaddr, 1, 
+                                   I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
+    if(ret != ESP_OK) {
+        i2c_driver_delete(I2C_MASTER_NUM);
+        return -127;
+    }
+
     vTaskDelay(CONVERSION_TIME / portTICK_PERIOD_MS);
-    ESP_ERROR_CHECK(i2c_master_read_from_device(I2C_MASTER_NUM, HDC_1080_SENSOR_ADDR, data, 2, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
-    ESP_ERROR_CHECK(i2c_driver_delete(I2C_MASTER_NUM));
-    temperature=((data[0] << 8) | data[1]);
-    temperature1=temperature*165; // 2^7 =128
-    temperature=(temperature1/65536);
-    temperature1=(temperature-40);
-    return temperature1;
+
+    ret = i2c_master_read_from_device(I2C_MASTER_NUM, HDC_1080_SENSOR_ADDR, 
+                                    data, 2, 
+                                    I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
+    if(ret != ESP_OK) {
+        i2c_driver_delete(I2C_MASTER_NUM);
+        return -127;
+    }
+
+    // Clean up I2C driver
+    i2c_driver_delete(I2C_MASTER_NUM);
+
+    // Calculate temperature (unchanged)
+    temperature = ((data[0] << 8) | data[1]);
+    temperature1 = temperature * 165;
+    temperature = ((temperature1 * 2) / 65536);
+    temperature1 = (temperature - 80);
+
+    return (temperature1/2);
 }
 /// @brief this function gives directly the Humidity value of the HDC1080 sensor
 /// @return returns the Humidity value in Relative Humidity (% RH)
 uint8_t HDC1080_humid_data()
 {
-    ESP_ERROR_CHECK(HDC1080_sensor_init_and_config(I2C_MASTER_SDA_IO,I2C_MASTER_SCL_IO));
-    uint8_t regaddr = HDC_1080_SENSOR_HUMID_POINTER,data[2];
-    uint32_t humidity=0,humidity1=0;
-    ESP_ERROR_CHECK(i2c_master_write_to_device(I2C_MASTER_NUM, HDC_1080_SENSOR_ADDR, &regaddr, 1, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
-    vTaskDelay((2*CONVERSION_TIME) / portTICK_PERIOD_MS);
-    ESP_ERROR_CHECK(i2c_master_read_from_device(I2C_MASTER_NUM, HDC_1080_SENSOR_ADDR, data, 2, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
-    ESP_ERROR_CHECK(i2c_driver_delete(I2C_MASTER_NUM));
-    humidity=((data[0] << 8) | data[1]);
-    humidity1=humidity*100;
-    humidity=(humidity1/65536);
-  return humidity;
-}
+   esp_err_t ret;
+   
+   // Initialize with retry
+   ret = HDC1080_sensor_init_and_config(I2C_MASTER_SDA_IO, I2C_MASTER_SCL_IO);
+   if(ret != ESP_OK) {
+       vTaskDelay(1000 / portTICK_PERIOD_MS);
+       ret = HDC1080_sensor_init_and_config(I2C_MASTER_SDA_IO, I2C_MASTER_SCL_IO);
+       if(ret != ESP_OK) {
+           return 0; // Error value for humidity
+       }
+   }
 
+   uint8_t regaddr = HDC_1080_SENSOR_HUMID_POINTER, data[2];
+   uint32_t humidity = 0, humidity1 = 0;
+   
+   // Write humid register address
+   ret = i2c_master_write_to_device(I2C_MASTER_NUM, HDC_1080_SENSOR_ADDR, 
+                                  &regaddr, 1, 
+                                  I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
+   if(ret != ESP_OK) {
+       i2c_driver_delete(I2C_MASTER_NUM);
+       return 0;
+   }
+
+   vTaskDelay((2*CONVERSION_TIME) / portTICK_PERIOD_MS);
+
+   // Read humidity data
+   ret = i2c_master_read_from_device(I2C_MASTER_NUM, HDC_1080_SENSOR_ADDR, 
+                                   data, 2, 
+                                   I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
+   if(ret != ESP_OK) {
+       i2c_driver_delete(I2C_MASTER_NUM);
+       return 0;
+   }
+
+   // Clean up I2C driver
+   i2c_driver_delete(I2C_MASTER_NUM);
+
+   // Calculate humidity (unchanged)
+   humidity = ((data[0] << 8) | data[1]);
+   humidity1 = humidity * 100;
+   humidity = (humidity1/65536);
+   
+   return humidity;
+}
 /* example for testing hdc1080 component
 
 void app_main(void)
@@ -118,3 +193,8 @@ void app_main(void)
   
 }
 */
+void func1(void)
+{
+printf("\n msg from hdc component");
+
+}

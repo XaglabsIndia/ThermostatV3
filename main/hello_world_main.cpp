@@ -45,7 +45,6 @@ extern "C"
 
 int x_batt = 720;
 int y_batt = 30;
-
 #define EPD_Switch GPIO_NUM_7
 #define CS GPIO_NUM_1
 #define DC GPIO_NUM_17
@@ -553,6 +552,7 @@ void main_screen_display()
 // Initialize variables with default values
 float room_temp = 0.0f;
 int humidityf = 0;
+int battery_percentage =0;
 float set_temp = 0.0f;
 char date[11] = "NA";  // Default to "NA" for date
 char time[9] = "NA";   // Default to "NA" for time
@@ -574,6 +574,9 @@ if (read_string_from_nvs("date_str", date, sizeof(date)) != ESP_OK) {
 if (read_string_from_nvs("time_str", time, sizeof(time)) != ESP_OK) {
     strcpy(time, "NA");
 }
+if (read_int_from_nvs("battery_percentage", &battery_percentage) != ESP_OK) {
+}
+
   update_display_message();
   display.firstPage();
   do

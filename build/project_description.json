@@ -1300,7 +1300,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/ButtonPress.c", "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/Main.c", "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/LoraComs.c", "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/hello_world_main.cpp", "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/ConnectWIFI.c" ],
+            "sources": [ "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/battery_monitor.c", "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/ButtonPress.c", "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/Main.c", "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/LoraComs.c", "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/hello_world_main.cpp", "C:/Users/ESQ-LINUX/Desktop/ThermostatV3/main/ConnectWIFI.c" ],
             "include_dirs": [ "include" ]
         },
         "mbedtls": {

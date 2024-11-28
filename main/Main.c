@@ -29,6 +29,7 @@
 #include "xag_wifi_component.h"
 #include "hdc1080.h"
 #include "LedTask.h"
+
 #define MAX_FLOAT_STR_LEN 20
 #define FLOAT_PRECISION 2 
 #define QUEUE_LENGTH 10
@@ -75,6 +76,7 @@ char* TAG = "Main";
 int ConfigDevID = 200;
 int OTACN = 0;
 char NEMS_ID[20] = "NEMS";
+int  battery_percentage_para =0;
 /////////Lora RX Continious Mode//////////////// 
 int TimeIntervalRX = 5;
 const int OTARXMessageHub = 31;
@@ -303,7 +305,7 @@ static esp_err_t send_thermostat_message_with_retry(const char* message) {
         stop_leds();
         vTaskDelay(pdMS_TO_TICKS(100));
         set_led_blink_alternate(false,true,true,false,true,false,200);
-        esp_err_t result = send_message_with_ack(ConfigDevID, StoredHubID, message, 35);
+        esp_err_t result = send_message_with_ack(ConfigDevID, StoredHubID, message, 38);
         if (result == ESP_OK) {
             ESP_LOGI(TAG, "Message sent successfully to thermostat %d: %s (attempt %d)", ConfigDevID, message, i + 1);
             return ESP_OK;
@@ -1362,8 +1364,15 @@ void Temperaturedata(void) {
     // Convert integer temperature to float (assuming 2 decimal places precision)
     float temperatureF = HDC1080_temp_data();
     int humidityF = HDC1080_humid_data();
-    // float temperatureF = 20.0;
-    // int humidityF = 50;
+    float battery_voltage = read_battery_voltage();
+    if (battery_voltage >= 0) {
+        float gpio_voltage=(((battery_voltage * 100)/4095)/100);
+        float battery_voltage=((gpio_voltage*((R1+R2)/R2)) + 0.212f);
+        int  battery_percentage_para = calculate_battery_percentage(battery_voltage);
+        ESP_LOGI("Battery", "gpio_pin Voltage: %.3fV,\nBattery Voltage: %.2fV,\n battery_percentage %d%%",gpio_voltage,((gpio_voltage*((R1+R2)/R2)) + 0.212f),battery_percentage_para);
+        //battery_percentage_display(battery_percentage);
+        save_int_to_nvs("battery_percentage",battery_percentage_para);
+    }
     stop_leds();
     vTaskDelay(pdMS_TO_TICKS(100));
     set_led_blink(false,true,true,200);
@@ -1372,13 +1381,11 @@ void Temperaturedata(void) {
     char Temperaturechar[MAX_FLOAT_STR_LEN];
     //char Humidity[MAX_FLOAT_STR_LEN];
     char settemperature[MAX_FLOAT_STR_LEN];
-    const char* Battery = "30";  // Kept as const char*
-
     floatToString(temperatureF, Temperaturechar, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
     char* Humidity = IntStrCoverter(humidityF,3);
     read_float_from_nvs(NVS_KEY, &set_temperature);
     floatToString(set_temperature, settemperature, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
-
+    char* Battery = IntStrCoverter(battery_percentage_para,3);
     size_t message_len = strlen(Temperaturechar) + strlen(Humidity) + 
                          strlen(settemperature) + strlen(Battery) + 10;  // Extra space for separators and null terminator
     char* GenMessageTemp = malloc(message_len);
@@ -1420,8 +1427,15 @@ void TemperaturedataRS(void) {
     // Convert integer temperature to float (assuming 2 decimal places precision)
     float temperatureF = HDC1080_temp_data();
     int humidityF = HDC1080_humid_data();
-    // float temperatureF = 20.0;
-    // int humidityF = 50;
+    float battery_voltage = read_battery_voltage();
+    if (battery_voltage >= 0) {
+        float gpio_voltage=(((battery_voltage * 100)/4095)/100);
+        float battery_voltage=((gpio_voltage*((R1+R2)/R2)) + 0.212f);
+        battery_percentage_para = calculate_battery_percentage(battery_voltage);
+        ESP_LOGI("Battery", "gpio_pin Voltage: %.3fV,\nBattery Voltage: %.2fV,\n battery_percentage %d%%",gpio_voltage,((gpio_voltage*((R1+R2)/R2)) + 0.212f),battery_percentage_para);
+        //battery_percentage_display(battery_percentage);
+        save_int_to_nvs("battery_percentage",battery_percentage_para);
+    }
     stop_leds();
     vTaskDelay(pdMS_TO_TICKS(100));
     set_led_blink(false,true,true,200);
@@ -1430,13 +1444,11 @@ void TemperaturedataRS(void) {
     char Temperaturechar[MAX_FLOAT_STR_LEN];
     //char Humidity[MAX_FLOAT_STR_LEN];
     char settemperature[MAX_FLOAT_STR_LEN];
-    const char* Battery = "30";  // Kept as const char*
-
     floatToString(temperatureF, Temperaturechar, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
     char* Humidity = IntStrCoverter(humidityF,3);
     read_float_from_nvs(NVS_KEY, &set_temperature);
     floatToString(set_temperature, settemperature, MAX_FLOAT_STR_LEN, FLOAT_PRECISION);
-
+    char* Battery = IntStrCoverter(battery_percentage_para,3);
     size_t message_len = strlen(Temperaturechar) + strlen(Humidity) + 
                          strlen(settemperature) + strlen(Battery) + 10;  // Extra space for separators and null terminator
     char* GenMessageTemp = malloc(message_len);

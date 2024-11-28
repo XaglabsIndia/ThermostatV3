@@ -9,6 +9,9 @@ extern char NEMS_ID[20];
 #define NVS_KEY_HUMIDITY "humidity_f"
 #define NVS_KEY_DATE "date_f"
 #define NVS_KEY_TIME "time_f"
+extern float voltage;
+extern float R1; // 205K ohm resistor
+extern float R2; 
 void ConnectWifi();
 void InitTempButton(void);
 void print_wakeup_reason();
@@ -66,6 +69,7 @@ void InitNVS();
 esp_err_t read_float_from_nvs(const char *key, float *value);
 esp_err_t read_string_from_nvs(const char *key, char *value, size_t max_len);
 esp_err_t read_int_from_nvs(const char *key, int *value);
+esp_err_t save_int_to_nvs(const char *key, int value);
 void TemperaturedataRS(void);
 void init_led_control(void);
 void set_led_fade(bool red, bool green, bool blue);
@@ -76,6 +80,9 @@ void set_led_blink_alternate(bool red1, bool green1, bool blue1,
                             int blink_interval_ms);
 void stop_leds(void);
 void ConnectWifi();
+float read_battery_voltage(void);
+int calculate_battery_percentage(float voltage);
+
 #ifdef __cplusplus
 }
 #endif
